@@ -9,6 +9,7 @@ import { CgGenderMale, CgGenderFemale } from "react-icons/cg";
 import { MdOutlineLocationOn } from "react-icons/md";
 import { truncateText } from "../../utils/functions";
 import { TPerson } from "../../models/missing_person.model";
+import { TbGenderBigender } from "react-icons/tb";
 
 type PersonCardProps = {
   person: TPerson;
@@ -16,11 +17,21 @@ type PersonCardProps = {
 
 export default function PersonCard({ person }: PersonCardProps) {
   const genderIcon =
-    person.gender == "Male" ? (
+    person.gender == "M" ? (
       <CgGenderMale color={"#ff4400"} fontSize={25} />
     ) : (
       <CgGenderFemale color={"#ff4400"} fontSize={25} />
     );
+
+  const getGenderIcon = () => {
+    if (person.gender == "M") {
+      return <CgGenderMale color={"#ff4400"} fontSize={25} />;
+    } else if (person.gender == "F") {
+      return <CgGenderFemale color={"#ff4400"} fontSize={25} />;
+    } else {
+      return <TbGenderBigender color={"#ff4400"} fontSize={25} />;
+    }
+  };
 
   function toSentenceCase(str: string) {
     return str.toLowerCase().replace(/(?:^|\s)\w/g, function (c) {
@@ -42,7 +53,7 @@ export default function PersonCard({ person }: PersonCardProps) {
       <div className={styles.hitDetails}>
         <div className={styles.hitName}>{person.fullname}</div>
         <div className={styles.hitExtra}>
-          {genderIcon}
+          {getGenderIcon()}
           <span>{` ${person.age}yrs`}</span>
         </div>
         <div className={styles.hitLocation}>

@@ -1,8 +1,8 @@
 # Missing Person Alert System (MissingLink)
 
-This is a web application that allows users to post missing person alerts and view alerts posted by others. Users can also contact the person who posted the alert if they have any information about the missing person.
+This is a web application that allows users to broadcast missing person alerts and view alerts sent out previously by others. Users can also contact the person who posted the alert if they have any information about the missing person.
 
-Live Demo is available at [https://missing-link.vercel.app/](https://missing-link.vercel.app/)
+Live Demo is available at [https://amber-alerts.vercel.app/](https://amber-alerts.vercel.app/)
 
 ## Technologies Used
 

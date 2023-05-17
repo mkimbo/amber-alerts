@@ -11,10 +11,15 @@ import {
   updateUserSchema,
 } from "@/models/zod_schemas";
 import { revalidatePath } from "next/cache";
-import { TNotificationInput, TUserDevice } from "@/models/missing_person.model";
-//const geofire = require("geofire-common");
-import geofire from "geofire-common";
+import {
+  TNotification,
+  TNotificationInput,
+  TUserDevice,
+} from "@/models/missing_person.model";
+
+//import geofire from "geofire-common";
 import { MulticastMessage } from "firebase-admin/lib/messaging/messaging-api";
+const geofire = require("geofire-common");
 const saveSightingSchema = z.intersection(
   newSightingFormSchema,
   z.object({
@@ -41,38 +46,44 @@ export const saveSighting = zact(saveSightingSchema)(async (input) => {
     sightings: admin.firestore.FieldValue.arrayUnion(input),
   });
   //notify case owner
-  // const caseOwner = await serverDB.collection("users").doc(caseOwnerId).get();
-  // const payload = {
-  //   notification: {
-  //     title: "Sighting Alert",
-  //     body: `A person you reported missing has been sighted around ${input?.sightingLocation}`,
-  //     //icon: data.image,
-  //     click_action: input.personId,
-  //   },
-  // };
-  // const tokenData = [
-  //   {
-  //     token: caseOwner.data()?.notificationToken,
-  //     userId: caseOwnerId,
-  //   },
-  // ];
-  // await sendAlertToUserDevices(tokenData, payload);
-  return { success: true, ownerNotified: true };
+  const caseOwner = await serverDB.collection("users").doc(caseOwnerId).get();
+  const notification = {
+    title: doc.data()?.fullname,
+    body: `has been sighted around ${input?.sightingLocation?.toLowerCase()}`,
+    icon: doc.data()?.images[0],
+    click_action: `https://amber-alerts.vercel.app/cases/${input.personId}`,
+  };
+  const tokenData = [
+    {
+      token: caseOwner.data()?.notificationToken,
+      userId: caseOwnerId,
+    },
+  ];
+  if (!caseOwner.data()?.notificationToken) {
+    console.log("Case owner has no notification token. No notification sent.");
+    return { success: true, ownerNotified: false };
+  }
+  const { successCount, failureCount } = await sendAlertToUserDevices(
+    tokenData,
+    notification
+  );
+  return {
+    success: true,
+    ownerNotified: true,
+    notificationSent: successCount > 0,
+  };
 });
 
 export const saveAlert = zact(saveAlertSchema)(async (data) => {
   const docID = nanoid();
   await serverDB.collection("reported_missing").doc(docID).set(data);
   revalidatePath("/cases");
-  const center: geofire.Geopoint = [
-    Number(data.geoloc.lat),
-    Number(data.geoloc.lng),
-  ];
+  const center = [Number(data.geoloc.lat), Number(data.geoloc.lng)];
   const notification = {
     title: data.fullname,
     body: "has just been reported missing in your area",
     icon: data.images[0],
-    click_action: docID,
+    click_action: `https://amber-alerts.vercel.app/cases/${docID}`,
   };
   const res = await sendNotifications({ center, notification });
 
@@ -102,36 +113,30 @@ export const sendNotifications = async ({
 }> => {
   const radiusInM = radius ? radius * 1000 : 100 * 1000; //100km
   const nearbyUsers = await getUsersWithinRadiusOfCase(radiusInM, center);
-  if (!nearbyUsers.length) {
-    console.log(
-      "Sorry, no users nearby! You can also share posters on social media!"
-    );
+
+  const tokenData: TUserDevice[] = [];
+  nearbyUsers.forEach((user) => {
+    if (user.data().notificationToken) {
+      tokenData.push({
+        token: user.data().notificationToken,
+        userId: user.data().id,
+      });
+    }
+  });
+  if (!tokenData.length) {
+    console.log("No nearby Users found. No notifications sent.");
     return { successCount: 0, failureCount: 0 };
   }
-  const tokenData = nearbyUsers.map((user) => {
-    return {
-      token: user.data().notificationToken,
-      userId: user.data().id,
-    };
-  });
-
-  const payload = {
-    notification: {
-      ...notification,
-      click_action: `https://amber-alerts.vercel.app/cases/${notification.click_action}`, //use notification.click_action for the url
-    },
-  };
-  console.log(tokenData, "tokenData", payload, "payload");
   const { successCount, failureCount } = await sendAlertToUserDevices(
     tokenData,
-    payload
+    notification
   );
   return { successCount, failureCount };
 };
 
 const getUsersWithinRadiusOfCase = async (
   radiusInM: number,
-  caseLocation: geofire.Geopoint
+  caseLocation: number[]
 ) => {
   const bounds = geofire.geohashQueryBounds(caseLocation, radiusInM);
   const promises = [];
@@ -144,7 +149,6 @@ const getUsersWithinRadiusOfCase = async (
 
     promises.push(q.get());
   }
-  //console.log(promises, "query promises");
   return Promise.all(promises).then((snapshots) => {
     const matchingDocs = [];
 
@@ -167,7 +171,7 @@ const getUsersWithinRadiusOfCase = async (
 
 const sendAlertToUserDevices = async (
   userDevices: TUserDevice[],
-  payload: any
+  notification: TNotification
 ) => {
   const tokensToRemove: Promise<any>[] = [];
   const failedTokens: string[] = [];
@@ -175,8 +179,8 @@ const sendAlertToUserDevices = async (
   let failureCount = 0;
 
   const message: MulticastMessage = {
-    notification: {
-      ...payload,
+    webpush: {
+      notification: notification,
     },
     tokens: userDevices.map((device) => device.token),
   };

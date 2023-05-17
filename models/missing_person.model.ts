@@ -69,7 +69,8 @@ export type TNotification = {
   click_action: string;
 };
 export type TNotificationInput = {
-  center: geofire.Geopoint;
+  // center: geofire.Geopoint;
+  center: number[];
   radius?: number;
   notification: TNotification;
 };
