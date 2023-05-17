@@ -76,16 +76,16 @@ export function NewAlertForm() {
       </div>
     );
   };
-
-  if (!tenant) {
-    return null;
-  }
   useEffect(() => {
     if (data?.success) {
       toast.success("Alert created successfully");
       router.push(`/cases/${data.id}`);
     }
   }, [data]);
+
+  if (!tenant) {
+    return null;
+  }
 
   return (
     <FormProvider {...methods}>
