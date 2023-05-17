@@ -1,0 +1,125 @@
+@import "../../styles/variables.module.scss";
+@import "../../styles/_mixins.scss";
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem;
+  width: 100%;
+  height: 100%;
+  @include lg {
+    width: 50%;
+    margin: 0 auto;
+  }
+  .header {
+    width: 100%;
+    // position: sticky;
+    // top: 20;
+    justify-content: center;
+    padding: 5px 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .searchInput {
+      color: $white;
+      width: 100%;
+      height: 35px;
+      @include lg {
+        width: 300px;
+      }
+    }
+    .searchButton {
+      width: 100%;
+      margin-left: 10px;
+      cursor: pointer;
+      // border: 1px solid $primaryColor;
+      width: fit-content;
+    }
+  }
+  .listContainer {
+    padding: 10px 0px;
+    display: grid;
+    width: 100%;
+    justify-content: space-around;
+    gap: 10px;
+    overflow-y: auto;
+    @include lg {
+      display: flex;
+      flex-wrap: wrap;
+      flex-grow: 1;
+      overflow-x: auto;
+      flex-direction: row;
+      justify-content: center;
+      align-items: normal;
+      align-content: flex-start;
+    }
+
+    .noResult {
+      color: $white;
+      font-size: 20px;
+      margin: 0 auto;
+    }
+
+    .searchHit {
+      background-color: $lightGrey;
+      border-radius: 10px;
+      height: fit-content;
+      //margin: auto;
+      width: 300px;
+      //flex: 1 0 300px;
+      @include lg {
+        margin: 0;
+        width: 300px;
+      }
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      // margin-bottom: 10px;
+
+      .hitImage {
+        border-radius: 10px;
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+        margin-right: 5px;
+      }
+
+      .hitDetails {
+        display: flex;
+
+        flex-direction: column;
+
+        height: 120px;
+        width: 100%;
+        padding: 3px;
+        .hitName {
+          color: $primaryColor;
+          font-size: 15px;
+        }
+        .hitExtra {
+          color: $white;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          margin-top: 5px;
+          > span {
+            font-size: 12px;
+          }
+        }
+        .hitLocation {
+          color: $white;
+          display: flex;
+          flex-direction: row;
+          align-items: baseline;
+          margin-top: 1px;
+          .locationIcon {
+            font-size: 20px;
+            min-width: 25px;
+          }
+          > span {
+            align-self: flex-start;
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+}

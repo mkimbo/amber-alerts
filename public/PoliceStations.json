@@ -1,0 +1,913 @@
+[
+  {
+    "name": "Police Control Room: ",
+    "Tel": "020 2724154",
+    "Tel2": "0721 23399",
+    "value": 100
+  },
+  {
+    "name": "Police Headquarters: ",
+    "Tel": "020 240000",
+    "Tel2": "0721 228989",
+    "value": 101
+  },
+  {
+    "name": "C.I.D. Headquarters: ",
+    "Tel": "020 272309",
+    "value": 102
+  },
+  {
+    "name": "Adungosi Police Station ",
+    "Tel": "055-22419",
+    "value": 104
+  },
+  {
+    "name": "Ahero Police Station ",
+    "Tel": "057-821008",
+    "value": 105
+  },
+  { "name": "Amagoro OCPD ", "Tel": "055-54409", "value": 106 },
+  {
+    "name": "Arror Police Station ",
+    "Tel": "053-22286",
+    "value": 107
+  },
+  {
+    "name": "Bahati Police Station ",
+    "Tel": "051-52299",
+    "value": 108
+  },
+  {
+    "name": "Bamburi Police Station ",
+    "Tel": "041-5485316",
+    "value": 109
+  },
+  {
+    "name": "Baricho Police Station ",
+    "Tel": "060-21732",
+    "value": 110
+  },
+  {
+    "name": "Baringo OCPD Office ",
+    "Tel": "053-22227",
+    "value": 111
+  },
+  {
+    "name": "Bondo OCPD’s Office ",
+    "Tel": "057-52009",
+    "value": 112
+  },
+  { "name": "Bungoma Hotline ", "Tel": "055-30555", "value": 113 },
+  {
+    "name": "Bura Police Station ",
+    "Tel": "046-62229",
+    "value": 114
+  },
+  { "name": "Buruburu OCPD ", "Tel": "020-783584", "value": 117 },
+  {
+    "name": "Buruburu Police Station ",
+    "Tel": "020-786878",
+    "Tel2": "020-787404",
+    "Tel3": "020-787038",
+    "value": 118
+  },
+  { "name": "Busia Hotline ", "Tel": "055-22133", "value": 119 },
+  {
+    "name": "Butere OCPD Office ",
+    "Tel": "056-620222",
+    "value": 120
+  },
+  {
+    "name": "Butere Police Station ",
+    "Tel": "056-620004",
+    "value": 121
+  },
+  {
+    "name": "Capital Hill Post ",
+    "Tel": "020-2721692",
+    "value": 122
+  },
+  {
+    "name": "Central PPO Office ",
+    "Tel": "061-2030885",
+    "value": 123
+  },
+  {
+    "name": "Changamwe Police Station ",
+    "Tel": "041-433700",
+    "value": 124
+  },
+  {
+    "name": "Cherangani Police Station ",
+    "Tel": "054-30034",
+    "value": 125
+  },
+  {
+    "name": "Chuka Police Station ",
+    "Tel": "064-630002",
+    "value": 126
+  },
+  {
+    "name": "Diani Police Station ",
+    "Tel": "040-2229",
+    "value": 127
+  },
+  {
+    "name": "Eldoret Police Station ",
+    "Tel": "053-2032900",
+    "value": 128
+  },
+  {
+    "name": "Elementaita Police Post ",
+    "Tel": "050-2030026",
+    "value": 129
+  },
+  { "name": "Embakasi OCPD ", "Tel": "020-823200", "value": 130 },
+  { "name": "Embu Hotline ", "Tel": "068-30100", "value": 131 },
+  {
+    "name": "Funyula Police Station ",
+    "Tel": "055-63209",
+    "value": 132
+  },
+  {
+    "name": "Garbatulla Police Station ",
+    "Tel": "064-20682",
+    "value": 133
+  },
+  { "name": "Garissa Hotline ", "Tel": "046-2000", "value": 134 },
+  {
+    "name": "Gatundu Police Station ",
+    "Tel": "067-74212",
+    "value": 135
+  },
+  {
+    "name": "Gigiri Police Station ",
+    "Tel": "020 521 353",
+    "Tel2": "0721 363999",
+    "value": 136
+  },
+  {
+    "name": "Gilgil Police Station ",
+    "Tel": "050-4228",
+    "value": 137
+  },
+  {
+    "name": "Githunguri Police Station ",
+    "Tel": "066-65009",
+    "value": 138
+  },
+  { "name": "Gucha OCPD Office ", "Tel": "058-30394", "value": 139 },
+  {
+    "name": "Hardy Police Station ",
+    "Tel": "020-891225",
+    "value": 140
+  },
+  {
+    "name": "Hola Police Station ",
+    "Tel": "046-62004",
+    "value": 141
+  },
+  { "name": "Homa Bay Hotline ", "Tel": "059-22444", "value": 142 },
+  {
+    "name": "Homabay OCPD Office ",
+    "Tel": "059-22258",
+    "value": 143
+  },
+  { "name": "Igoji Police Post ", "Tel": "064-22432", "value": 144 },
+  { "name": "Ijara OCPD Office ", "Tel": "046-62006", "value": 145 },
+  { "name": "Ijara Police ", "Tel": "046-62440", "value": 146 },
+  {
+    "name": "Jamhuri Police Post ",
+    "Tel": "020-565621",
+    "value": 147
+  },
+  {
+    "name": "Jogoo Police Station ",
+    "Tel": "020-557766",
+    "value": 148
+  },
+  {
+    "name": "Jogoo Police Station ",
+    "Tel": "020-557632",
+    "value": 149
+  },
+  {
+    "name": "Juja Police Station ",
+    "Tel": "067-52176",
+    "value": 150
+  },
+  {
+    "name": "Kabati Police Station ",
+    "Tel": "060-72223",
+    "value": 151
+  },
+  { "name": "Kabete ", "Tel": "020-632222", "value": 152 },
+  { "name": "Kahawa Sukari ", "Tel": "067-812099", "value": 153 },
+  {
+    "name": "Kakamega OCPD Office ",
+    "Tel": "056-31486",
+    "value": 154
+  },
+  {
+    "name": "Kinangop Police Station ",
+    "Tel": "065-35015",
+    "value": 155
+  },
+  {
+    "name": "Kandara Police Station ",
+    "Tel": "060-44419",
+    "value": 156
+  },
+  {
+    "name": "Kangema Police Station ",
+    "Tel": "060-322002",
+    "value": 157
+  },
+  {
+    "name": "Kangema Police Station ",
+    "Tel": "060-322032",
+    "value": 158
+  },
+  {
+    "name": "Kaptembwa Police Station ",
+    "Tel": "051-213228",
+    "value": 159
+  },
+  {
+    "name": "Kapsowar Police Station ",
+    "Tel": "053-361507",
+    "value": 160
+  },
+  {
+    "name": "Karatina Police Station ",
+    "Tel": "061-72222",
+    "value": 161
+  },
+  {
+    "name": "Karen Police Station ",
+    "Tel": "020-882538",
+    "value": 162
+  },
+  {
+    "name": "Kasarani Police Station ",
+    "Tel": "020-8563222",
+    "value": 163
+  },
+  { "name": "Kasarani DCIO ", "Tel": "020-8564335", "value": 164 },
+  { "name": "Kasarani OCPD ", "Tel": "020-8560756", "value": 165 },
+  { "name": "Keiyo OCPD Office ", "Tel": "053-42088", "value": 166 },
+  {
+    "name": "Kenyatta Police Post ",
+    "Tel": "020-2724614",
+    "value": 167
+  },
+  {
+    "name": "Kericho OCPD Office ",
+    "Tel": "052-30658",
+    "value": 168
+  },
+  {
+    "name": "Kericho POLICE Station ",
+    "Tel": "052-20222",
+    "value": 169
+  },
+  {
+    "name": "Keroka Police Station ",
+    "Tel": "058-520064",
+    "value": 170
+  },
+  { "name": "Kiambu Hotline ", "Tel": "066-22111", "value": 171 },
+  {
+    "name": "Kianyaga Police Station ",
+    "Tel": "060-751002",
+    "value": 172
+  },
+  {
+    "name": "Kibwezi Police Station ",
+    "Tel": "044-350002",
+    "value": 173
+  },
+  {
+    "name": "Kiganjo Police Station ",
+    "Tel": "062-86022",
+    "value": 174
+  },
+  {
+    "name": "Kigumo Police Station ",
+    "Tel": "060-44409",
+    "value": 175
+  },
+  {
+    "name": "Kijabe Police Station ",
+    "Tel": "066-64480",
+    "value": 176
+  },
+  {
+    "name": "Kikuyu Police Station ",
+    "Tel": "066-32022",
+    "value": 177
+  },
+  { "name": "Kileleshwa ", "Tel": "020-560533", "value": 178 },
+  { "name": "Kilgoris ", "Tel": "058-5122009", "value": 179 },
+  {
+    "name": "Kilifi OCPD Office ",
+    "Tel": "041-522368",
+    "value": 180
+  },
+  { "name": "Kilimani D/OCPD ", "Tel": "020-2728885", "value": 181 },
+  { "name": "Kilimani OCPD ", "Tel": "020-2710392", "value": 182 },
+  {
+    "name": "Kilimani Police Station ",
+    "Tel": "020-2721683",
+    "value": 183
+  },
+  {
+    "name": "Kilome Police Station ",
+    "Tel": "044-322280",
+    "value": 184
+  },
+  {
+    "name": "Kilome Police Station ",
+    "Tel": "044-322002",
+    "value": 185
+  },
+  {
+    "name": "Kimende Patrol Base ",
+    "Tel": "066-64014",
+    "value": 186
+  },
+  {
+    "name": "Kimilili Police Station ",
+    "Tel": "055-21018",
+    "value": 187
+  },
+  {
+    "name": "Kiminini Police Station ",
+    "Tel": "055-44044",
+    "value": 188
+  },
+  {
+    "name": "Kipipiri Police Station ",
+    "Tel": "065-72435",
+    "value": 189
+  },
+  { "name": "Kipkabus OCPP ", "Tel": "053-720464", "value": 190 },
+  {
+    "name": "Kiriani Police Post ",
+    "Tel": "060-51096",
+    "value": 191
+  },
+  {
+    "name": "Kirinyaga OCPD Office ",
+    "Tel": "060-21266",
+    "value": 192
+  },
+  {
+    "name": "Kisumu OCPD’s Office ",
+    "Tel": "057-23594",
+    "value": 193
+  },
+  { "name": "Kitale Hotline ", "Tel": "054-30777", "value": 194 },
+  { "name": "Kitui OCPD Office ", "Tel": "044-22055", "value": 195 },
+  { "name": "Kuria OCPD’s ", "Tel": "057-52853", "value": 196 },
+  { "name": "Kwale OCPD Office ", "Tel": "040-4075", "value": 197 },
+  { "name": "Kwhisero OCPP ", "Tel": "056-620227", "value": 198 },
+  { "name": "Lamu OCPD Office ", "Tel": "042-633120", "value": 199 },
+  {
+    "name": "Lanet Police Station ",
+    "Tel": "051-850043",
+    "value": 200
+  },
+  { "name": "Langata OCPD ", "Tel": "020-603694", "value": 201 },
+  {
+    "name": "Lari Police Station ",
+    "Tel": "066-74235",
+    "value": 202
+  },
+  {
+    "name": "Likoni Police Station ",
+    "Tel": "041-451222",
+    "value": 203
+  },
+  {
+    "name": "Lolgorian Police Station ",
+    "Tel": "053-23237",
+    "Tel2": "051-23237",
+    "value": 204
+  },
+  {
+    "name": "Luanda Police Station ",
+    "Tel": "054-251087",
+    "value": 206
+  },
+  { "name": "Lugari OCPD Office ", "Tel": "053-53333", "value": 207 },
+  { "name": "Lugari OCPP ", "Tel": "053-2031015", "value": 208 },
+  { "name": "Lungalunga Lungalunga ", "Tel": "15", "value": 209 },
+  {
+    "name": "Lwala Police Station ",
+    "Tel": "057-520485",
+    "value": 210
+  },
+  {
+    "name": "Madogo Police Station ",
+    "Tel": "046-2372",
+    "value": 211
+  },
+  { "name": "Magumu Police Post ", "Tel": "065-32916", "value": 212 },
+  { "name": "Makongeni ", "Tel": "020-558277", "value": 213 },
+  { "name": "Makueni Hotline ", "Tel": "044-33000", "value": 214 },
+  {
+    "name": "Makupa Police Station ",
+    "Tel": "041-491605",
+    "value": 215
+  },
+  {
+    "name": "Malaba Police Station ",
+    "Tel": "055-54038",
+    "value": 216
+  },
+  {
+    "name": "Malakisi Police Station ",
+    "Tel": "055-30507",
+    "value": 217
+  },
+  { "name": "Malindi Hotline ", "Tel": "042-31555", "value": 218 },
+  {
+    "name": "Malindi OCPD Office ",
+    "Tel": "042-31348",
+    "value": 219
+  },
+  {
+    "name": "Malindi Police Station ",
+    "Tel": "042-20486",
+    "value": 220
+  },
+  {
+    "name": "Mandera OCPD Office ",
+    "Tel": "046-52003",
+    "value": 221
+  },
+  { "name": "Maragua Hotline ", "Tel": "060-313339", "value": 222 },
+  {
+    "name": "Maragua OCPD Office ",
+    "Tel": "060-64026",
+    "value": 223
+  },
+  {
+    "name": "Maragua Police Station ",
+    "Tel": "060-42002",
+    "value": 224
+  },
+  { "name": "Marakwet Hotline ", "Tel": "053-361500", "value": 225 },
+  {
+    "name": "Marakwet OCPD Office ",
+    "Tel": "053-5122086",
+    "value": 226
+  },
+  {
+    "name": "Mariakani Police Station ",
+    "Tel": "041-33004",
+    "value": 227
+  },
+  {
+    "name": "Marigat Police Station ",
+    "Tel": "053-51007",
+    "value": 228
+  },
+  { "name": "Masalani ", "Tel": "046-62013", "value": 229 },
+  { "name": "Mathare ", "Tel": "020-3764118", "value": 230 },
+  { "name": "Mathare ", "Tel": "020-3762698", "value": 231 },
+  {
+    "name": "Matunda Police Station ",
+    "Tel": "053-72172",
+    "value": 232
+  },
+  {
+    "name": "Maua Police Station ",
+    "Tel": "064-21022",
+    "value": 233
+  },
+  { "name": "Mbaraki Depot ", "Tel": "041-316168", "value": 234 },
+  {
+    "name": "Menengai Police Station ",
+    "Tel": "051-343333",
+    "value": 236
+  },
+  {
+    "name": "Meru Central Hotline ",
+    "Tel": "064-31222",
+    "value": 238
+  },
+  {
+    "name": "Meru North OCPD Office ",
+    "Tel": "064-21127",
+    "value": 239
+  },
+  {
+    "name": "Meru South OCPD Office ",
+    "Tel": "064-630017",
+    "value": 240
+  },
+  {
+    "name": "Migwani Police Station ",
+    "Tel": "044-822464",
+    "value": 241
+  },
+  {
+    "name": "Modogashe Police Station ",
+    "Tel": "046-3054",
+    "value": 244
+  },
+  {
+    "name": "Moi’s Bridge Police Station ",
+    "Tel": "054-72006",
+    "value": 245
+  },
+  { "name": "Molo OCPD Office ", "Tel": "051-5122086", "value": 246 },
+  {
+    "name": "Mombasa Central Police Station ",
+    "Tel": "041-225501",
+    "value": 247
+  },
+  {
+    "name": "Mombasa Headquaters ",
+    "Tel": "041-222121",
+    "value": 248
+  },
+  {
+    "name": "Mombasa Urban OCPD Office ",
+    "Tel": "041-230706",
+    "value": 249
+  },
+  {
+    "name": "Moyale Police Station ",
+    "Tel": "069-2014",
+    "value": 250
+  },
+  {
+    "name": "Msambweni Police Station ",
+    "Tel": "040-52002",
+    "value": 251
+  },
+  {
+    "name": "Mt Elgon OCPD Office ",
+    "Tel": "054-21843",
+    "value": 252
+  },
+  {
+    "name": "Mtitu Andei Police Station ",
+    "Tel": "044-30507",
+    "value": 253
+  },
+  {
+    "name": "Mukurwe-Ini Police Station ",
+    "Tel": "061-60028",
+    "value": 254
+  },
+  {
+    "name": "Mumias Police Station ",
+    "Tel": "056-641010",
+    "value": 255
+  },
+  { "name": "Muranga Hotline ", "Tel": "060-31188", "value": 256 },
+  {
+    "name": "Muthaiga Police Station ",
+    "Tel": "020-3762611",
+    "value": 257
+  },
+  {
+    "name": "Mweiga Police Station ",
+    "Tel": "061-55002",
+    "value": 258
+  },
+  {
+    "name": "Mwingi OCPD Office ",
+    "Tel": "044-822196",
+    "value": 259
+  },
+  { "name": "Mwingi Pabx ", "Tel": "044-822032", "value": 260 },
+  {
+    "name": "Mwingi Police Station ",
+    "Tel": "044-822146",
+    "value": 261
+  },
+  {
+    "name": "Nairobi Central OCPD ",
+    "Tel": "020-220117",
+    "value": 262
+  },
+  {
+    "name": "Nairobi Central Police Station ",
+    "Tel": "020-225685",
+    "value": 263
+  },
+  {
+    "name": "Nairobi Industrial Area ",
+    "Tel": "020-557284",
+    "value": 264
+  },
+  { "name": "Naivasha ", "Tel": "050-2030025", "value": 265 },
+  {
+    "name": "Naivasha OCPD Office ",
+    "Tel": "050-2020288",
+    "value": 266
+  },
+  {
+    "name": "Nakuru Hotline ",
+    "Tel": "051-2217417",
+    "Tel2": "051-40000",
+    "Tel3": "051-30666",
+    "value": 267
+  },
+  {
+    "name": "Nakuru Police Station ",
+    "Tel": "051-2216597",
+    "value": 270
+  },
+  { "name": "Narok OCPD Office ", "Tel": "050-22127", "value": 271 },
+  {
+    "name": "Narok Police Station ",
+    "Tel": "050-22201",
+    "value": 272
+  },
+  {
+    "name": "Naromoru Police Station ",
+    "Tel": "061-62003",
+    "value": 273
+  },
+  {
+    "name": "Nchiru Police Station ",
+    "Tel": "064-66409",
+    "value": 274
+  },
+  {
+    "name": "Ndaragwa Police Station ",
+    "Tel": "065-32078",
+    "Tel2": "065-32280",
+    "value": 275
+  },
+  { "name": "Ngomongo ", "Tel": "020-803340", "value": 277 },
+  { "name": "Ngubi Patrol Base ", "Tel": "066-41582", "value": 278 },
+  {
+    "name": "Njabini Police Station ",
+    "Tel": "065-32459",
+    "value": 279
+  },
+  {
+    "name": "Njoro Police Station ",
+    "Tel": "051-61106",
+    "value": 280
+  },
+  {
+    "name": "Nkubu Police Station ",
+    "Tel": "064-51002",
+    "value": 281
+  },
+  {
+    "name": "Ntumu Police Station ",
+    "Tel": "064-22063",
+    "value": 282
+  },
+  {
+    "name": "Nyahururu Police Station ",
+    "Tel": "065-22052",
+    "Tel2": "065-22722",
+    "value": 283
+  },
+  {
+    "name": "Nyali Police Station ",
+    "Tel": "041-477555",
+    "value": 285
+  },
+  { "name": "Nyamira Hotline ", "Tel": "058-6144488", "value": 286 },
+  { "name": "Nyamira OCPD ", "Tel": "058-6144035", "value": 287 },
+  {
+    "name": "Nyamira Police Station ",
+    "Tel": "058-6144029",
+    "value": 288
+  },
+  { "name": "Nyandarua Hotline ", "Tel": "065-32555", "value": 289 },
+  { "name": "Nyando OCPD ", "Tel": "057-821167", "value": 290 },
+  { "name": "Nyeri Hotline ", "Tel": "061-2030555", "value": 291 },
+  {
+    "name": "Ol Joro Orok Police Station ",
+    "Tel": "065-22919",
+    "value": 292
+  },
+  {
+    "name": "Ol Kalou Police Station ",
+    "Tel": "065-72003",
+    "value": 293
+  },
+  {
+    "name": "Othaya Police Station ",
+    "Tel": "061-52004",
+    "value": 294
+  },
+  {
+    "name": "Oyugis Police Station ",
+    "Tel": "059-31035",
+    "value": 295
+  },
+  {
+    "name": "Pangani Police Station ",
+    "Tel": "020-6760142",
+    "value": 296
+  },
+  {
+    "name": "Parklands Police Station ",
+    "Tel": "020-3742238",
+    "value": 297
+  },
+  {
+    "name": "Parkalnds Police Station ",
+    "Tel": "020-3746115",
+    "value": 298
+  },
+  {
+    "name": "Port Victoria Police ",
+    "Tel": "055-63409",
+    "value": 299
+  },
+  { "name": "Rachuonyo Hotline ", "Tel": "059-31200", "value": 300 },
+  {
+    "name": "Rachuonyo OCPD’s Office ",
+    "Tel": "059-31284",
+    "value": 301
+  },
+  {
+    "name": "Rhamu Police Station ",
+    "Tel": "046-52454",
+    "value": 302
+  },
+  {
+    "name": "Riruta Police Station ",
+    "Tel": "020-560921",
+    "value": 303
+  },
+  {
+    "name": "Ruiru Police Station ",
+    "Tel": "067-54260",
+    "value": 304
+  },
+  {
+    "name": "Runyenjes PoliceStation ",
+    "Tel": "068-62002",
+    "value": 305
+  },
+  { "name": "Rweno Police Post ", "Tel": "066-60092", "value": 306 },
+  {
+    "name": "Saba Saba Police Post ",
+    "Tel": "060-42463",
+    "value": 307
+  },
+  {
+    "name": "Sagana Police Station ",
+    "Tel": "060-46002",
+    "value": 308
+  },
+  {
+    "name": "Salama Police Station ",
+    "Tel": "044-322469",
+    "value": 309
+  },
+  {
+    "name": "Serem Police Station ",
+    "Tel": "054-41565",
+    "value": 310
+  },
+  {
+    "name": "Sericho Police Station ",
+    "Tel": "064-3502",
+    "value": 311
+  },
+  {
+    "name": "Shauri Moyo ",
+    "Tel": "020-652124",
+    "Tel2": "020-652125",
+    "value": 312
+  },
+  { "name": "Siaya ", "Tel": "057-321078", "value": 314 },
+  {
+    "name": "Siaya D/OCPD Office ",
+    "Tel": "057-321080",
+    "Tel2": "057-321077",
+    "value": 315
+  },
+  { "name": "Siaya Hotline ", "Tel": "057-321666", "value": 316 },
+  {
+    "name": "Solai Police Station ",
+    "Tel": "051-52492",
+    "value": 318
+  },
+  { "name": "Spring Valley ", "Tel": "020-4181245", "value": 320 },
+  {
+    "name": "Subukia Police Station ",
+    "Tel": "051-52024",
+    "value": 321
+  },
+  {
+    "name": "Sultan Hamud Police Station ",
+    "Tel": "044-52001",
+    "value": 322
+  },
+  {
+    "name": "Taita Taveta OCPD Office ",
+    "Tel": "043-30303",
+    "value": 323
+  },
+  {
+    "name": "Taita Taveta Police Station ",
+    "Tel": "043-5352224",
+    "value": 324
+  },
+  {
+    "name": "Tambach Police Station ",
+    "Tel": "053-42450",
+    "value": 325
+  },
+  { "name": "Tana OCPD Office ", "Tel": "046-62083", "value": 326 },
+  { "name": "Taru ", "Tel": "040-2502", "value": 327 },
+  {
+    "name": "Taveta Police Station ",
+    "Tel": "043-5352222",
+    "value": 328
+  },
+  { "name": "Teso Hotline ", "Tel": "055-54444", "value": 329 },
+  { "name": "Thika Hotline ", "Tel": "067-31000", "value": 330 },
+  {
+    "name": "Thika Police Station ",
+    "Tel": "067-31652",
+    "value": 331
+  },
+  {
+    "name": "Thika Police Station ",
+    "Tel": "067-21074",
+    "value": 332
+  },
+  {
+    "name": "Thindigua Patrol Base ",
+    "Tel": "066-513366",
+    "value": 333
+  },
+  {
+    "name": "Tigania Police Station ",
+    "Tel": "064-66255",
+    "value": 334
+  },
+  {
+    "name": "Tigoni Police Station ",
+    "Tel": "066-73222",
+    "value": 335
+  },
+  {
+    "name": "Timau Police Station ",
+    "Tel": "064-41002",
+    "value": 336
+  },
+  { "name": "Tot Police Station ", "Tel": "053-21069", "value": 337 },
+  { "name": "Trans-Mara OCPD ", "Tel": "053-2345", "value": 338 },
+  {
+    "name": "Turbo Police Station ",
+    "Tel": "053-53007",
+    "value": 339
+  },
+  {
+    "name": "Ukwala Police Station ",
+    "Tel": "057-34409",
+    "value": 340
+  },
+  { "name": "Vihiga OCPD Office ", "Tel": "054-51193", "value": 341 },
+  { "name": "Voi Police Station ", "Tel": "043-31220", "value": 342 },
+  { "name": "Wajir OCPD Office ", "Tel": "046-421505", "value": 343 },
+  {
+    "name": "Wajir Police Station ",
+    "Tel": "046-421196",
+    "value": 344
+  },
+  {
+    "name": "Wanguru PoliceStation ",
+    "Tel": "060-48002",
+    "value": 345
+  },
+  {
+    "name": "Watamu Police Station ",
+    "Tel": "042-32286",
+    "value": 346
+  },
+  {
+    "name": "Webuye Police Station ",
+    "Tel": "055-41044",
+    "value": 347
+  },
+  {
+    "name": "Wundanyi Police Station ",
+    "Tel": "043-42002",
+    "value": 348
+  },
+  {
+    "name": "Yala Police Station ",
+    "Tel": "057-335235",
+    "value": 349
+  }
+]

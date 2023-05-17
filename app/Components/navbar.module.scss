@@ -1,0 +1,104 @@
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;700&display=swap");
+@import "../../styles/variables.module.scss";
+
+.navContainer {
+  position: sticky;
+  z-index: 30;
+  top: 0;
+}
+.navBar {
+  display: flex;
+  padding: 3px 16px;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $black;
+  .logo {
+    height: 30px;
+    width: 30px;
+    font-weight: 700;
+    color: $primaryColor;
+  }
+}
+.navMenuBar {
+  padding: 15px 0px;
+}
+.navItem {
+  display: inline-flex;
+}
+.navIcon {
+  display: inline-flex;
+  margin-right: 5px;
+}
+
+.navMenuList {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 60px;
+  width: 93%;
+  row-gap: 24px;
+  right: -400px;
+  padding: 24px 16px 24px 0;
+  transition: all 0.2s;
+  min-height: calc(100vh - 60px);
+  background-color: $black;
+}
+.navMenuListActive {
+  right: 0;
+}
+
+.navLink {
+  align-self: center;
+  font-size: 18px;
+  position: relative;
+  transition: all 0.2s;
+  &:hover {
+    font-weight: bold;
+  }
+}
+
+.center {
+  min-height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media screen and (min-width: 768px) {
+  .navMenuBar {
+    display: none;
+  }
+  .navIcon {
+    display: none;
+  }
+  .navMenuList {
+    position: unset;
+    flex-direction: row;
+    min-height: fit-content;
+    width: fit-content;
+    column-gap: 24px;
+    align-items: center;
+  }
+  .navLink {
+    &::before {
+      content: "";
+      position: absolute;
+      width: 0%;
+      height: 6px;
+      bottom: -16px;
+      left: 0;
+      background-color: $primaryColor;
+      transition: all 0.2s;
+    }
+    &:hover::before {
+      width: 100%;
+    }
+    &:active::before {
+      width: 100%;
+    }
+  }
+  .navLinkActive {
+    &::before {
+      width: 100%;
+    }
+  }
+}

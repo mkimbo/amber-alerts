@@ -1,0 +1,45 @@
+@import "../styles/variables.module.scss";
+.container {
+  padding: 0 5px;
+  height: calc(100% - 70px);
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  //padding: 10px 0;
+  //flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 40px);
+  //justify-content: center;
+  align-items: center;
+}
+
+.footer {
+  display: flex;
+  background-color: $black;
+  //flex: 0;
+  //padding: 2rem 0;
+  height: 40px;
+  border-top: 1px solid #eaeaea;
+  justify-content: center;
+  align-items: center;
+  position: sticky;
+  z-index: 30;
+  bottom: 0;
+}
+
+.footer a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $primaryColor;
+  //flex-grow: 1;
+}
+
+@media (prefers-color-scheme: dark) {
+  .footer {
+    border-color: #222;
+  }
+}

@@ -1,0 +1,132 @@
+@import "../styles/variables.module.scss";
+@import "../styles/_mixins.scss";
+// text field
+.textFieldWrapper {
+  input {
+    outline: none;
+    // font-size: 0.9rem;
+    color: $white;
+    min-width: 182px;
+    height: 35px;
+    @include lg {
+      width: 300px;
+    }
+    &:focus {
+      transform: scaleX(1);
+      .underline {
+        &::after {
+          transform: scaleX(1);
+        }
+      }
+    }
+  }
+  .errors {
+    color: red;
+  }
+}
+.textArea {
+  width: 100%;
+  @include lg {
+    width: 300px;
+  }
+}
+
+.formSelect {
+  select {
+    height: 35px;
+    // font-size: 0.9rem;
+    min-width: 182px;
+    @include lg {
+      width: 300px;
+    }
+    > option {
+      width: fit-content;
+    }
+  }
+
+  .errors {
+    color: red;
+  }
+}
+
+.uploadPreview {
+  display: flex;
+  flex-direction: row;
+  row-gap: 10px;
+  .uploadView {
+    display: flex;
+    align-items: center;
+    border-width: 1px;
+    border-style: dashed;
+    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+    border-image: initial;
+    border-radius: 0px;
+    background-color: field;
+    width: 100%;
+    height: 35px;
+    padding-left: 3px;
+    @include lg {
+      width: 300px;
+    }
+  }
+}
+.uploaded {
+  width: 100%;
+  @include lg {
+    width: 300px;
+  }
+}
+
+.formDatePicker {
+  height: 35px;
+  width: 100%;
+  @include lg {
+    width: 300px;
+  }
+}
+
+.formLocationInput {
+  height: 35px;
+  @include lg {
+    width: 300px;
+  }
+}
+
+.autoCompleteSelect {
+  > input {
+    width: 100%;
+    height: 35px;
+    @include lg {
+      width: 300px;
+    }
+  }
+  .suggestions {
+    background-color: field;
+    max-height: 100px;
+    overflow-y: scroll;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+
+    .suggestion {
+      padding: 4px;
+      border-bottom: 1px solid;
+      border-color: #656464;
+
+      cursor: pointer;
+      &:hover {
+        background-color: #9b30062d;
+      }
+      .suggestionLabel {
+        display: flex;
+        flex-direction: row;
+
+        align-items: center;
+        font-size: 0.8rem;
+        > svg {
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+}

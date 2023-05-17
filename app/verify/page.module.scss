@@ -1,0 +1,64 @@
+@import "../../styles/variables.module.scss";
+@import "../../styles/_mixins.scss";
+.container {
+  border-radius: 10px;
+  color: $white;
+  border: 1px solid $primaryColor;
+  padding: 1.5rem;
+  text-align: center;
+  @include lg {
+    width: 50%;
+    margin: 0 auto;
+  }
+
+  .title {
+    margin: 0;
+    line-height: 1.15;
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    text-align: center;
+    a {
+      text-decoration: none;
+      color: #0070f3;
+      &:hover,
+      :focus,
+      :active {
+        text-decoration: underline;
+      }
+    }
+  }
+  .description {
+    margin: 4rem 0;
+    line-height: 1.5;
+    font-size: 1.5rem;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .inputField {
+    position: relative;
+    &:first-child {
+      margin-bottom: 1.5rem;
+    }
+    input {
+      outline: none;
+      font-size: 0.9rem;
+      color: $white;
+      width: 50%;
+      height: 35px;
+      &:focus {
+        transform: scaleX(1);
+        .underline {
+          &::after {
+            transform: scaleX(1);
+          }
+        }
+      }
+    }
+  }
+}

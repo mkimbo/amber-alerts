@@ -1,34 +1,30 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Missing Person Alert System (MissingLink)
 
-## Getting Started
+This is a web application that allows users to post missing person alerts and view alerts posted by others. Users can also contact the person who posted the alert if they have any information about the missing person.
 
-First, run the development server:
+Live Demo is available at [https://missing-link.vercel.app/](https://missing-link.vercel.app/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## Technologies Used
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Next.js 13 Server Components
+- Edge Runtime (Some Parts of the App)
+- Firebase Authentication
+- Firestore
+- Firebase Cloud Messaging
+- GeoLocation API
+- Twilio Phone Verification API
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Features (Work In Progress)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. **Posting Alerts:** Logged in users can post missing person alerts including the person's name, age, gender, and last seen location.
+2. **Report Sightings:** Logged in users can report when they see a missing person whose alert has ben broadcasted through the platform.
+3. **Viewing Alerts:** Anyone can view the alerts posted on the app. They can filter the alerts based on location and date.
+4. **Contacting Alert Poster:** If a user has any information about the missing person, they can contact the person who posted the alert through the app.
+5. **Notifications:** Users can receive notifications about new missing person alerts based on their location.
+6. **Location-based Alerts:** Users can post alerts with location details, and the app can notify users within a certain radius of the missing person's last known location.
+7. **Search Functionality:** Users can search for missing person alerts based on keywords and other criteria.
+8. **Admin Dashboard:** Admin can access a dashboard to manage user accounts and remove any inappropriate content.
+9. **Translation:** Translation functionality to enable users to post alerts and view alerts in different languages.
+10. **Analytics:** Use analytics tools to analyze user behavior and improve the app's functionality.
+11. **Integration with Social Media:** Allow users to share alerts on social media platforms.
+12. **PWA Functionality:** Enable PWA functionality to allow users to install the app on their devices so it can function as a native app.
