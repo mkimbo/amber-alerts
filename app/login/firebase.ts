@@ -52,14 +52,12 @@ export const logout = async (auth: Auth): Promise<void> => {
 };
 
 export const getGoogleProvider = async (auth: Auth) => {
-  const { GoogleAuthProvider, useDeviceLanguage } = await import(
-    "firebase/auth"
-  );
+  const { GoogleAuthProvider } = await import("firebase/auth");
 
   const provider = new GoogleAuthProvider();
   provider.addScope("profile");
   provider.addScope("email");
-  useDeviceLanguage(auth);
+  //useDeviceLanguage(auth);
   provider.setCustomParameters({
     display: "popup",
   });

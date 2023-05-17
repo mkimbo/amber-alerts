@@ -30,7 +30,7 @@ export function LoginPage() {
         router.push(redirect);
       }
     }
-  }, []);
+  }, [router, searchParams]);
   const [handleLoginWithGoogle, isLoading] = useLoadingCallback(async () => {
     setHasLogged(false);
     const { GoogleAuthProvider } = await import("firebase/auth");

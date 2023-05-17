@@ -53,7 +53,15 @@ export function UserProfile({ profile }: UserProfileProps) {
       <h3 className={styles.title}>You are logged in as</h3>
       <div className={styles.content}>
         <div className={styles.avatar}>
-          {tenant.photoUrl && <img src={tenant.photoUrl} />}
+          {tenant.photoUrl && (
+            <img alt={`${tenant.email}`} src={tenant.photoUrl} />
+          )}
+          {/* {tenant.photoUrl && <img src={tenant.photoUrl} />    <Image
+              alt={`${tenant.email}`}
+              width={100}
+              height={100}
+              src={tenant.photoUrl}
+            />} */}
         </div>
         <span>{tenant.email}</span>
       </div>

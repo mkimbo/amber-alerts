@@ -41,7 +41,7 @@ export function RegisterForm() {
     if (verified === "true" && redirect) {
       router.push(redirect);
     }
-  }, []);
+  }, [router, searchParams]);
   const redirect = searchParams?.get("redirect") || "/";
   const { handleSubmit, control, formState } = methods;
   const [handleRegister, isRegisterLoading] = useLoadingCallback(

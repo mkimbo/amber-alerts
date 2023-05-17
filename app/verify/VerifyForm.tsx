@@ -38,7 +38,7 @@ export function VerifyForm() {
     if (verified === "true") {
       router.push(redirect);
     }
-  }, []);
+  }, [router, searchParams]);
 
   const { handleSubmit, control, formState } = methods;
   const [handleVerify, isVerifyLoading] = useLoadingCallback(
