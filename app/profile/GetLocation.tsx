@@ -34,7 +34,7 @@ export function SaveLocationButton({ enabledLocation }: TButtonProps) {
 
       if (data?.success) {
         toast.success("Location updated successfully");
-        revalidatePath("/profile");
+        //  revalidatePath("/profile");
         return true;
       } else {
         return false;

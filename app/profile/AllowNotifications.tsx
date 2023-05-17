@@ -48,7 +48,7 @@ export function AllowNotificationsButton({
   }
 
   if (data?.success) {
-    revalidatePath("/profile");
+    // revalidatePath("/profile");
     toast.success("Notifications enabled");
   }
 
