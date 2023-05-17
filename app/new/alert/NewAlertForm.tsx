@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./page.module.scss";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -80,10 +80,13 @@ export function NewAlertForm() {
   if (!tenant) {
     return null;
   }
-  if (data?.success) {
-    toast.success("Alert created successfully");
-    router.push(`/cases/${data.id}`);
-  }
+  useEffect(() => {
+    if (data?.success) {
+      toast.success("Alert created successfully");
+      router.push(`/cases/${data.id}`);
+    }
+  }, [data]);
+
   return (
     <FormProvider {...methods}>
       <div className={styles.stepperWrapper}>

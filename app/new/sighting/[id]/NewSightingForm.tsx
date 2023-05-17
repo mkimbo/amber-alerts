@@ -56,10 +56,13 @@ export function NewSightingForm({ missingPerson }: Props) {
   if (!tenant) {
     return null;
   }
-  if (data?.saved) {
-    toast.success("Sighting saved");
-    router.push(`/cases/${missingPerson.id}`);
-  }
+  React.useEffect(() => {
+    if (data?.success) {
+      toast.success("Alert created successfully");
+      router.push(`/cases/${missingPerson.id}`);
+    }
+  }, [data]);
+
   return (
     <FormProvider {...methods}>
       <form>

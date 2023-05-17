@@ -1,3 +1,4 @@
+import geofire from "geofire-common";
 export type TLocation = {
   lng: number;
   lat: number;
@@ -68,7 +69,7 @@ export type TNotification = {
   click_action: string;
 };
 export type TNotificationInput = {
-  center: number[];
+  center: geofire.Geopoint;
   radius?: number;
   notification: TNotification;
 };

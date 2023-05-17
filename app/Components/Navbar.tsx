@@ -13,8 +13,10 @@ import {
   MdClose,
 } from "react-icons/md";
 import { LogoIcon } from "../../ui/icons";
+import { useRouter } from "next/navigation";
 export function Navbar() {
   const [navActive, setNavActive] = useState(false);
+  const router = useRouter();
   const [activeIdx, setActiveIdx] = useState(3);
   const navMenuListClasses = classNames(styles.navMenuList, {
     [styles.navMenuListActive]: navActive,
@@ -46,7 +48,7 @@ export function Navbar() {
   ];
   const NavItem = (item: TNavLink) => {
     return (
-      <Link className={styles.navItem} href={item.href}>
+      <div className={styles.navItem} onClick={() => router.push(item.href)}>
         <span className={styles.navIcon}>{item.icon}</span>
         <span
           className={classNames(styles.navLink, {
@@ -55,7 +57,7 @@ export function Navbar() {
         >
           {item.text}
         </span>
-      </Link>
+      </div>
     );
   };
 
