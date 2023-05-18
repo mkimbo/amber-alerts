@@ -18,7 +18,7 @@ export default function RootLayout({
           <main className={styles.main}>{children}</main>
           <footer className={styles.footer}>
             <span> Code </span>
-            <a href="https://github.com/mkimbo/missing-link" target="_blank">
+            <a href="https://github.com/mkimbo/amber-alerts" target="_blank">
               @github
             </a>
           </footer>

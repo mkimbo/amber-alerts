@@ -15,8 +15,8 @@ const useFCMToken = (options: FirebaseOptions) => {
   const [error, setError] = useState(false);
   const { mutate, data, isLoading } = useZact(updateUser);
   useEffect(() => {
-    if (typeof window === "undefined" || !tenant) return;
-    const enabledNotifications = window.Notification?.permission === "granted";
+    if (!tenant) return;
+    const enabledNotifications = Notification.permission === "granted";
     console.log("permission check in useFCM", enabledNotifications);
     if (!enabledNotifications) return;
     const fetchToken = async () => {

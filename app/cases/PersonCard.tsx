@@ -40,16 +40,17 @@ export default function PersonCard({ person }: PersonCardProps) {
   }
   return (
     <Link className={styles.searchHit} href={`/cases/${person?.id}`}>
-      <Image
-        className={styles.hitImage}
-        src={person.images!.length! > 0 ? person.images[0]! : sampleMissing}
-        alt={person.fullname}
-        width={120}
-        height={120}
-        placeholder="blur"
-        blurDataURL={placeholderUrl}
-      />
-
+      <div className={styles.hitImage}>
+        <Image
+          className={styles.hitImage}
+          src={person.images!.length! > 0 ? person.images[0]! : sampleMissing}
+          alt={person.fullname}
+          width={120}
+          height={120}
+          placeholder="blur"
+          blurDataURL={placeholderUrl}
+        />
+      </div>
       <div className={styles.hitDetails}>
         <div className={styles.hitName}>{person.fullname}</div>
         <div className={styles.hitExtra}>

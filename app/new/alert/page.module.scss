@@ -75,7 +75,7 @@
     }
     .stepperHeader {
       display: flex;
-      height: 35px;
+      height: 45px;
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
@@ -91,12 +91,6 @@
         display: flex;
         justify-content: space-between;
         width: fit-content;
-      }
-      .stepperSave {
-        margin-bottom: 15px;
-      }
-      .stepperSave {
-        height: 35px;
       }
     }
     .stepperBody {

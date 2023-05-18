@@ -1,4 +1,6 @@
 import geofire from "geofire-common";
+import { z } from "zod";
+import { newSightingFormSchema } from "./zod_schemas";
 export type TLocation = {
   lng: number;
   lat: number;
@@ -47,20 +49,16 @@ export type TPerson = {
   placeId: string;
   county: string;
   constituency: string;
+  sightings?: TSighting[];
 };
 
-export type TPersonSimple = {
-  id: string;
-  fullname: string;
-  age: number;
-  gender: string;
-  images: string[];
-  othername?: string;
-  lastSeenLocation: string;
-  geohash: string;
-  longAddress: string;
-  formattedAddress: string;
-};
+type SightingFormSchema = z.infer<typeof newSightingFormSchema>;
+
+export interface TSighting extends SightingFormSchema {
+  personId: string;
+  sightedBy: string;
+  sightingDate: string;
+}
 
 export type TNotification = {
   title: string;

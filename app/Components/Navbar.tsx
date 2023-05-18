@@ -30,7 +30,7 @@ export function Navbar() {
 
   useEffect(() => {
     if (typeof window === "undefined" || !tenant) return;
-    const enabledNotifications = window.Notification?.permission === "granted";
+    const enabledNotifications = Notification.permission === "granted";
     console.log("permission check in Navbar", enabledNotifications);
     if (!enabledNotifications) return;
     getOnMessage(clientConfig);

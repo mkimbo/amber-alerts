@@ -8,13 +8,14 @@ export default function ToastProvider() {
       position="top-center"
       autoClose={5000}
       hideProgressBar={false}
-      newestOnTop={false}
+      progressStyle={{ background: "#fff", color: "#ff4400" }}
+      newestOnTop={true}
       closeOnClick
       rtl={false}
       pauseOnFocusLoss
       draggable
       pauseOnHover
-      theme="light"
+      theme="dark"
     />
   );
 }

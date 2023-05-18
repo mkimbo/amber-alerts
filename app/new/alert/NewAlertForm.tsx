@@ -78,7 +78,7 @@ export function NewAlertForm() {
   };
   useEffect(() => {
     if (data?.success) {
-      toast.success("Alert created successfully");
+      toast.success(`Alert was sent to ${data?.numUsersNotified} nearby users`);
       router.push(`/cases/${data.id}`);
     }
   }, [data]);

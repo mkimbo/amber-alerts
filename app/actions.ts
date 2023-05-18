@@ -45,6 +45,8 @@ export const saveSighting = zact(saveSightingSchema)(async (input) => {
   await docRef.update({
     sightings: admin.firestore.FieldValue.arrayUnion(input),
   });
+  const url = `/cases/${input.personId}`;
+  revalidatePath(url);
   //notify case owner
   const caseOwner = await serverDB.collection("users").doc(caseOwnerId).get();
   const notification = {
@@ -138,7 +140,7 @@ const getUsersWithinRadiusOfCase = async (
   radiusInM: number,
   caseLocation: number[]
 ) => {
-  const bounds = geofire.geohashQueryBounds(caseLocation, radiusInM);
+  const bounds = await geofire.geohashQueryBounds(caseLocation, radiusInM);
   const promises = [];
   for (const b of bounds) {
     const q = serverDB

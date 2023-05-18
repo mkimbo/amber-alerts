@@ -1,5 +1,8 @@
 import styles from "./page.module.scss";
-import { ServerAuthProvider } from "../../../auth/server-auth-provider";
+import {
+  ServerAuthProvider,
+  getTenantFromCookies,
+} from "../../../auth/server-auth-provider";
 import { serverDB } from "../../../utils/firebase";
 import sampleMissing from "../../../public/missing-person.webp";
 import { placeholderUrl } from "../../../utils/constants";
@@ -7,6 +10,9 @@ import { TPerson } from "../../../models/missing_person.model";
 import Image from "next/image";
 import { format } from "date-fns";
 import NewSightingButton from "./SightingButton";
+import { MdOutlineLocationOn } from "react-icons/md";
+import { FcCalendar } from "react-icons/fc";
+import { cookies } from "next/headers";
 
 async function getMissingPersonData(personId: string): Promise<TPerson | null> {
   const missingPerson = await serverDB
@@ -30,6 +36,7 @@ export default async function MissingPersonProfile({
   }
 
   const data = await getMissingPersonData(params.id);
+  const tenant = await getTenantFromCookies(cookies);
 
   function getGender(val: string): string {
     if (val === "M") {
@@ -84,10 +91,49 @@ export default async function MissingPersonProfile({
             </div>
           </div>
           <div className={styles.description}>{data?.lastSeenDescription}</div>
-          <div
-            className={styles.contacts}
-          >{`If you have any info please contact ${data?.secondaryContact}. You can also report to the nearest police station or directly on this platform by clicking the button below.`}</div>
-          <NewSightingButton personId={params.id!} />
+          <div className={styles.contacts}>
+            <span>{`If you have any info please contact ${data?.secondaryContact}. You can also report to the nearest police station or directly on this platform by clicking the button below.`}</span>
+            <NewSightingButton found={data?.found} personId={params.id!} />
+          </div>
+          {tenant?.id === data?.createdBy && (
+            <>
+              <div className={styles.sightingsSection}>
+                <h3 className={styles.title}>Recent sightings</h3>
+              </div>
+              <div className={styles.sightings}>
+                <div className={styles.listContainer}>
+                  {data?.sightings?.map((sighting) => (
+                    <div className={styles.sighting}>
+                      <div className={styles.sightingInfo}>
+                        <FcCalendar
+                          className={styles.icon}
+                          color={"#ff4400"}
+                          fontSize={20}
+                        />
+                        <span>
+                          {format(
+                            new Date(sighting.sightingDate),
+                            "do MMM yyyy"
+                          )}
+                        </span>
+                      </div>
+                      <div className={styles.sightingInfo}>
+                        <MdOutlineLocationOn
+                          className={styles.icon}
+                          color={"#ff4400"}
+                          fontSize={20}
+                        />
+                        <span>{`${sighting.sightingLocation}, ${sighting.longAddress}`}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                {(!data?.sightings || data?.sightings?.length === 0) && (
+                  <div className={styles.noResult}>None Yet</div>
+                )}
+              </div>
+            </>
+          )}
         </div>
       </ServerAuthProvider>
     </div>

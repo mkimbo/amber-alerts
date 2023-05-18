@@ -1,4 +1,4 @@
-import { LoadingIcon } from "../../../../ui/icons";
+import { LoadingIcon, PageLoader } from "../../../../ui/icons";
 
 export default function Loading() {
   return (
@@ -11,7 +11,7 @@ export default function Loading() {
         width: "100vw",
       }}
     >
-      <LoadingIcon />
+      <PageLoader />
     </div>
   );
 }
