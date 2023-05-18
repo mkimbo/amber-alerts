@@ -12,6 +12,7 @@ import styles from "./login.module.scss";
 import { Button } from "../../ui/button";
 import { LoadingIcon } from "../../ui/icons";
 import { getVerifiedCookie, setVerifiedCookie } from "../../utils/functions";
+import localforage from "localforage";
 
 export function LoginPage() {
   const router = useRouter();
@@ -58,6 +59,11 @@ export function LoginPage() {
 
       if (res?.status == 200) {
         setVerifiedCookie("true");
+        const data = await res.json();
+        console.log(data, "logged in user data");
+        if (data?.notificationToken) {
+          localforage.removeItem("fcm_token");
+        }
       } else {
         console.log("User not verified");
       }

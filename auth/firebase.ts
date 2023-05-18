@@ -2,6 +2,8 @@ import { FirebaseApp, FirebaseOptions, getApp } from "@firebase/app";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { clientConfig } from "../config/client-config";
 import { nanoid } from "nanoid";
+import { toast } from "react-toastify";
+import localforage from "localforage";
 const getFirebaseApp = async (options: FirebaseOptions) => {
   const { getApp, getApps, initializeApp } = await import("firebase/app");
 
@@ -29,7 +31,20 @@ export const getMessaging = async (options: FirebaseOptions) => {
   return getMessaging(app);
 };
 
+export const getOnMessage = async (options: FirebaseOptions) => {
+  const app = await getFirebaseApp(options);
+  const messaging = await getMessaging(options);
+  const { onMessage } = await import("firebase/messaging");
+
+  return onMessage(messaging, (payload) => {
+    toast.info(`${payload.notification?.title} ${payload.notification?.body}}`);
+    console.log("Message received. ", payload);
+  });
+};
+
 export const getFCMToken = async (options: FirebaseOptions) => {
+  const localToken = await localforage.getItem("fcm_token");
+  if (localToken) return localToken.toString();
   const messaging = await getMessaging(options);
   const { getToken } = await import("firebase/messaging");
   return getToken(messaging, {

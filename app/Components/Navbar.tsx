@@ -1,6 +1,6 @@
 "use client";
-
-import React, { useState } from "react";
+/* globals window */
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import styles from "./navbar.module.scss";
 import classNames from "classnames";
@@ -14,10 +14,28 @@ import {
 } from "react-icons/md";
 import { LogoIcon } from "../../ui/icons";
 import { useRouter } from "next/navigation";
+import { getOnMessage } from "@/auth/firebase";
+import { clientConfig } from "@/config/client-config";
+import { useAuth } from "@/auth/hooks";
+import useFCMToken from "../Hooks/useFCMToken";
+// initialise FCM and receive message when app is open
+//import { initFCM } from "./utils/fcm";
+//initFCM();
 export function Navbar() {
   const [navActive, setNavActive] = useState(false);
+  const { tenant } = useAuth();
+  const { token, loading, error } = useFCMToken(clientConfig);
   const router = useRouter();
   const [activeIdx, setActiveIdx] = useState(3);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !tenant) return;
+    const enabledNotifications = window.Notification?.permission === "granted";
+    console.log("permission check in Navbar", enabledNotifications);
+    if (!enabledNotifications) return;
+    getOnMessage(clientConfig);
+  }, [tenant, token]);
+
   const navMenuListClasses = classNames(styles.navMenuList, {
     [styles.navMenuListActive]: navActive,
   });

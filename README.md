@@ -6,7 +6,9 @@ Live Demo is available at [https://amber-alerts.vercel.app/](https://amber-alert
 
 ## Technologies Used
 
-- Next.js 13 Server Components
+**NB:** This is a work in progress. The app is not fully functional yet and uses several experimental technologies. The app uses Next.js 13 Server Components and Server Actions, which are currently in experimental mode. The app also uses the Edge Runtime and [https://github.com/awinogrodzki/next-firebase-auth-edge/](next-firebase-auth-edge), which are also experimental. Will keep updating as they become stable.
+
+- Next.js 13 Server Components and Server Actions
 - Edge Runtime (Some Parts of the App)
 - Firebase Authentication
 - Firestore
@@ -16,7 +18,7 @@ Live Demo is available at [https://amber-alerts.vercel.app/](https://amber-alert
 
 ## Features (Work In Progress)
 
-1. **Posting Alerts:** Logged in users can post missing person alerts including the person's name, age, gender, and last seen location.
+1. **Posting Alerts:** Logged in users can send out missing person alerts to all nearby users.
 2. **Report Sightings:** Logged in users can report when they see a missing person whose alert has ben broadcasted through the platform.
 3. **Viewing Alerts:** Anyone can view the alerts posted on the app. They can filter the alerts based on location and date.
 4. **Contacting Alert Poster:** If a user has any information about the missing person, they can contact the person who posted the alert through the app.

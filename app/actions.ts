@@ -201,7 +201,7 @@ const sendAlertToUserDevices = async (
     tokensToRemove.push(
       serverDB.collection("users").doc(id).update({
         notificationToken: null,
-        enabledNotifications: false,
+        // enabledNotifications: false,
       })
     );
   });

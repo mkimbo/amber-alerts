@@ -25,7 +25,7 @@ export function AllowNotificationsButton({
   const handleSubscribe = async () => {
     const status = await Notification.requestPermission();
     if (!status || status !== "granted") {
-      toast.error("You have denied notifications");
+      toast.error("You have blocked notifications for this site");
     }
     const fcm_token = await getFCMToken(clientConfig);
     if (fcm_token) {
@@ -35,6 +35,7 @@ export function AllowNotificationsButton({
         enabledNotifications: true,
       });
       localforage.setItem("fcm_token", fcm_token);
+      localforage.setItem("enabledNotifications", true);
       //Todo
       //set enabled to true in user object
       //setUser({ ...user, enabledNotifications: true });
