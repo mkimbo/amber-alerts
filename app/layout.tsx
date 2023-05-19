@@ -1,13 +1,25 @@
+import { getTenantFromCookies } from "@/auth/server-auth-provider";
 import { Navbar } from "./Components/Navbar";
 import ToastProvider from "./Components/ToastProvider";
 import "./globals.scss";
 import styles from "./layout.module.scss";
+import { serverDB } from "@/utils/firebase";
+import { cookies } from "next/headers";
+
+// async function getProfileData() {
+//   const tenant = await getTenantFromCookies(cookies);
+//   if (!tenant) {
+//     return null;
+//   }
+//   return tenant;
+// }
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  // const tenant = await getProfileData();
   return (
     <html lang="en">
       <head />

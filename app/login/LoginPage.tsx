@@ -48,7 +48,9 @@ export function LoginPage() {
       },
     });
     setHasLogged(true);
-
+    router.refresh();
+    const redirect = params?.get("redirect");
+    router.replace(redirect ?? "/");
     await getUser(tenant.id);
   });
   const getUser = async (id: string) => {
@@ -58,10 +60,12 @@ export function LoginPage() {
       });
 
       if (res?.status == 200) {
-        setVerifiedCookie("true");
         const data = await res.json();
         console.log(data, "logged in user data");
-        if (data?.notificationToken) {
+        if (data?.phoneNumber?.verified) {
+          setVerifiedCookie("true");
+        }
+        if (!data?.notificationToken) {
           localforage.removeItem("fcm_token");
         }
       } else {

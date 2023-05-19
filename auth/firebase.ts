@@ -37,19 +37,26 @@ export const getOnMessage = async (options: FirebaseOptions) => {
   const { onMessage } = await import("firebase/messaging");
 
   return onMessage(messaging, (payload) => {
-    toast.info(`${payload.notification?.title} ${payload.notification?.body}}`);
+    console.log("Message received. ", payload);
+    const body = JSON.parse(payload.notification?.body!);
+    const title = JSON.parse(payload.notification?.title!);
+    var options = {
+      body,
+    };
+    //new self.registration.showNotification(title,options)
+    new self.Notification(title, options);
+    toast.info(`${title} ${body}}`);
     console.log("Message received. ", payload);
   });
 };
 
 export const getFCMToken = async (options: FirebaseOptions) => {
-  const localToken = await localforage.getItem("fcm_token");
-  if (localToken) return localToken.toString();
   const messaging = await getMessaging(options);
   const { getToken } = await import("firebase/messaging");
-  return getToken(messaging, {
+  const token = await getToken(messaging, {
     vapidKey: process.env.NEXT_PUBLIC_FCM_VAPID_KEY,
   });
+  return token;
 };
 
 export const useFirebaseAuth = (options: FirebaseOptions) => {

@@ -8,6 +8,9 @@ import { useFirebaseAuth } from "./firebase";
 import { clientConfig } from "../config/client-config";
 import { Tenant } from "./types";
 import { AuthContext } from "./context";
+import { setVerifiedCookie } from "@/utils/functions";
+import localforage from "localforage";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const mapFirebaseResponseToTenant = (
   result: IdTokenResult,
@@ -52,7 +55,8 @@ export const AuthProvider: React.FunctionComponent<AuthProviderProps> = ({
   const { getFirebaseAuth } = useFirebaseAuth(clientConfig);
   const firstLoadRef = React.useRef(true);
   const [tenant, setTenant] = React.useState(defaultTenant);
-
+  const router = useRouter();
+  const params = useSearchParams();
   const handleIdTokenChanged = async (firebaseUser: FirebaseUser | null) => {
     if (firebaseUser && tenant && firebaseUser.uid === tenant.id) {
       firstLoadRef.current = false;
@@ -88,6 +92,7 @@ export const AuthProvider: React.FunctionComponent<AuthProviderProps> = ({
 
     firstLoadRef.current = false;
     const tokenResult = await firebaseUser.getIdTokenResult();
+
     startTransition(() => {
       setTenant(mapFirebaseResponseToTenant(tokenResult, firebaseUser));
     });

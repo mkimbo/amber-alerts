@@ -13,6 +13,7 @@ import { SaveLocationButton } from "../GetLocation";
 import { updateUserSchema } from "@/models/zod_schemas";
 import { z } from "zod";
 import { AllowNotificationsButton } from "../AllowNotifications";
+import localforage from "localforage";
 type TUserProfile = z.infer<typeof updateUserSchema>;
 interface UserProfileProps {
   profile: TUserProfile;
@@ -46,6 +47,10 @@ export function UserProfile({ profile }: UserProfileProps) {
 
   if (!tenant) {
     return null;
+  }
+
+  if (!profile.notificationToken) {
+    localforage.removeItem("fcm_token");
   }
 
   return (

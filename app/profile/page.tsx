@@ -33,7 +33,7 @@ export default async function Profile() {
     <div className={styles.container}>
       {/* @ts-expect-error https://github.com/vercel/next.js/issues/43537 */}
       <ServerAuthProvider>
-        <UserProfile profile={data!} />
+        <UserProfile profile={data} />
       </ServerAuthProvider>
     </div>
   );

@@ -5,6 +5,7 @@
   position: sticky;
   z-index: 30;
   top: 0;
+  height: 70px;
 }
 .navBar {
   display: flex;
@@ -19,8 +20,22 @@
     color: $primaryColor;
   }
 }
+.navInfo {
+  padding: 2px 30px;
+  height: 30px;
+  .navInfoText {
+    font-size: 12px;
+    gap: 5px;
+    color: $primaryColor;
+    justify-content: center;
+    // border: 1px solid $primaryColor;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+}
 .navMenuBar {
-  padding: 15px 0px;
+  // padding: 15px 0px;
 }
 .navItem {
   display: inline-flex;

@@ -14,59 +14,19 @@ import {
 } from "react-icons/md";
 import { LogoIcon } from "../../ui/icons";
 import { useRouter } from "next/navigation";
-import { getFCMToken, getOnMessage } from "@/auth/firebase";
+import { getOnMessage } from "@/auth/firebase";
 import { clientConfig } from "@/config/client-config";
 import { useAuth } from "@/auth/hooks";
 import useFCMToken from "../Hooks/useFCMToken";
-import { getMessaging, onMessage } from "firebase/messaging";
+import { AuthProvider } from "@/auth/client-auth-provider";
+import NotificationsHandler from "./NotificationsHandler";
 // initialise FCM and receive message when app is open
 //import { initFCM } from "./utils/fcm";
 //initFCM();
 export function Navbar() {
   const [navActive, setNavActive] = useState(false);
-  const { tenant } = useAuth();
-  const { token, loading, error } = useFCMToken(clientConfig);
   const router = useRouter();
   const [activeIdx, setActiveIdx] = useState(3);
-
-  // useEffect(() => {
-  //   if (!tenant) return;
-  //   const enabledNotifications = Notification.permission === "granted";
-  //   console.log("permission check in Navbar", enabledNotifications);
-  //   if (!enabledNotifications) return;
-  //   getOnMessage(clientConfig);
-  // }, [tenant, token]);
-
-  useEffect(() => {
-    const enabledNotifications = Notification.permission === "granted";
-    if (!enabledNotifications) return;
-    setToken();
-    async function setToken() {
-      try {
-        const token = await getFCMToken(clientConfig);
-        if (token) {
-          getMessage();
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    function getMessage() {
-      const messaging = getMessaging();
-      console.log({ messaging });
-      onMessage(messaging, (payload) => {
-        console.log("Message received. ", payload);
-        const body = JSON.parse(payload.notification?.body!);
-        const title = JSON.parse(payload.notification?.title!);
-        var options = {
-          body,
-        };
-        //new self.registration.showNotification(title,options)
-        new self.Notification(title, options);
-        // ...
-      });
-    }
-  });
 
   const navMenuListClasses = classNames(styles.navMenuList, {
     [styles.navMenuListActive]: navActive,
@@ -149,6 +109,10 @@ export function Navbar() {
           ))}
         </div>
       </nav>
+      {/* @ts-expect-error https://github.com/vercel/next.js/issues/43537 */}
+      <AuthProvider>
+        <NotificationsHandler activeIdx={activeIdx} />
+      </AuthProvider>
     </header>
   );
 }

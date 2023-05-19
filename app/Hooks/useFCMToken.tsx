@@ -7,6 +7,7 @@ import { FirebaseOptions } from "firebase/app";
 import { useState, useEffect } from "react";
 import { updateUser } from "../actions";
 import localforage from "localforage";
+import { toast } from "react-toastify";
 
 const useFCMToken = (options: FirebaseOptions) => {
   const [token, setToken] = useState<string | null>(null);
@@ -15,25 +16,32 @@ const useFCMToken = (options: FirebaseOptions) => {
   const [error, setError] = useState(false);
   const { mutate, data, isLoading } = useZact(updateUser);
   useEffect(() => {
-    if (!tenant) return;
-    const enabledNotifications = Notification.permission === "granted";
-    console.log("permission check in useFCM", enabledNotifications);
-    if (!enabledNotifications) return;
     const fetchToken = async () => {
       try {
-        const response = await getFCMToken(options);
-        console.log("useFCMToken -> response", response);
-        if (!response) {
-          throw new Error("Failed to fetch data");
+        const localToken = await localforage.getItem("fcm_token");
+        console.log("useFCMToken -> localToken", localToken);
+        if (localToken) return setToken(localToken.toString());
+        if (tenant?.id!) {
+          const status = await Notification.requestPermission();
+          if (!status || status !== "granted") {
+            toast.error(
+              "Please allow notifications as they are needed for alerts"
+            );
+          }
+          const token = await getFCMToken(options);
+          console.log("useFCMToken -> response", token);
+          if (!token) {
+            throw new Error("Error getting token");
+          }
+          localforage.setItem("fcm_token", token);
+          localforage.setItem("enabledNotifications", true);
+          await mutate({
+            id: tenant?.id!,
+            notificationToken: token,
+            enabledNotifications: true,
+          });
+          return setToken(token);
         }
-        localforage.setItem("fcm_token", response);
-        localforage.setItem("enabledNotifications", true);
-        setToken(response);
-        await mutate({
-          id: tenant?.id!,
-          notificationToken: response,
-          enabledNotifications: true,
-        });
       } catch (error) {
         setError(!!error);
       } finally {

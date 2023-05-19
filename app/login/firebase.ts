@@ -9,6 +9,7 @@ import { User as FirebaseUser } from "@firebase/auth";
 import { Tenant } from "../../auth/types";
 import { filterStandardClaims } from "next-firebase-auth-edge/lib/auth/tenant";
 import Cookies from "js-cookie";
+import localforage from "localforage";
 
 const CREDENTIAL_ALREADY_IN_USE_ERROR = "auth/credential-already-in-use";
 export const isCredentialAlreadyInUseError = (e: AuthError) =>
@@ -48,6 +49,7 @@ export const mapFirebaseResponseToTenant = async (
 export const logout = async (auth: Auth): Promise<void> => {
   const { signOut } = await import("firebase/auth");
   Cookies.remove("userVerified");
+  localforage.removeItem("fcm_token");
   return signOut(auth);
 };
 
