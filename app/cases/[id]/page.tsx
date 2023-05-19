@@ -103,7 +103,10 @@ export default async function MissingPersonProfile({
               <div className={styles.sightings}>
                 <div className={styles.listContainer}>
                   {data?.sightings?.map((sighting) => (
-                    <div className={styles.sighting}>
+                    <div
+                      key={sighting.sightingDate}
+                      className={styles.sighting}
+                    >
                       <div className={styles.sightingInfo}>
                         <FcCalendar
                           className={styles.icon}
