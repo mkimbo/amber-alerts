@@ -65,9 +65,8 @@ export function LoginPage() {
         if (data?.phoneNumber?.verified) {
           setVerifiedCookie("true");
         }
-        if (!data?.notificationToken) {
-          localforage.removeItem("fcm_token");
-        }
+        localforage.setItem("enabledNotifications", data?.enabledNotifications);
+        localforage.setItem("enabledLocation", data?.enabledLocation);
       } else {
         console.log("User not verified");
       }

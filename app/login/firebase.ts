@@ -49,7 +49,8 @@ export const mapFirebaseResponseToTenant = async (
 export const logout = async (auth: Auth): Promise<void> => {
   const { signOut } = await import("firebase/auth");
   Cookies.remove("userVerified");
-  localforage.removeItem("fcm_token");
+  await localforage.removeItem("enabledNotifications");
+  await localforage.removeItem("enabledLocation");
   return signOut(auth);
 };
 
