@@ -70,37 +70,35 @@ export function RegisterForm() {
   }
   return (
     <FormProvider {...methods}>
-      <form>
-        <h3>Please add your phone number</h3>
-        <p>
-          We need it for all new missing person alerts/sighting reports in case
-          you need to be contacted urgently. It will not be shared with any
-          third parties.
-        </p>
-        <div>
-          <div className={styles.inputField}>
-            <Controller
-              name="phoneNumber"
-              control={control}
-              render={({ field, fieldState: { error } }) => (
-                <input {...field} required />
-              )}
-            />
-          </div>
-          <Button
-            loading={isRegisterLoading}
-            disabled={isRegisterLoading}
-            onClick={() =>
-              handleSubmit((values) => {
-                const phoneNumber = `+254${values.phoneNumber.slice(1)}`;
-                handleRegister(phoneNumber);
-              })()
-            }
-          >
-            Submit
-          </Button>
+      <h3>Please add your phone number</h3>
+      <p>
+        We need it for all new missing person alerts/sighting reports in case
+        you need to be contacted urgently. It will not be shared with any third
+        parties.
+      </p>
+      <div>
+        <div className={styles.inputField}>
+          <Controller
+            name="phoneNumber"
+            control={control}
+            render={({ field, fieldState: { error } }) => (
+              <input {...field} required />
+            )}
+          />
         </div>
-      </form>
+        <Button
+          loading={isRegisterLoading}
+          disabled={isRegisterLoading}
+          onClick={() =>
+            handleSubmit((values) => {
+              const phoneNumber = `+254${values.phoneNumber.slice(1)}`;
+              handleRegister(phoneNumber);
+            })()
+          }
+        >
+          Submit
+        </Button>
+      </div>
     </FormProvider>
   );
 }

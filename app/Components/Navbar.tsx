@@ -14,10 +14,11 @@ import {
 } from "react-icons/md";
 import { LogoIcon } from "../../ui/icons";
 import { useRouter } from "next/navigation";
-import { getOnMessage } from "@/auth/firebase";
+import { getFCMToken, getOnMessage } from "@/auth/firebase";
 import { clientConfig } from "@/config/client-config";
 import { useAuth } from "@/auth/hooks";
 import useFCMToken from "../Hooks/useFCMToken";
+import { getMessaging, onMessage } from "firebase/messaging";
 // initialise FCM and receive message when app is open
 //import { initFCM } from "./utils/fcm";
 //initFCM();
@@ -28,13 +29,44 @@ export function Navbar() {
   const router = useRouter();
   const [activeIdx, setActiveIdx] = useState(3);
 
+  // useEffect(() => {
+  //   if (!tenant) return;
+  //   const enabledNotifications = Notification.permission === "granted";
+  //   console.log("permission check in Navbar", enabledNotifications);
+  //   if (!enabledNotifications) return;
+  //   getOnMessage(clientConfig);
+  // }, [tenant, token]);
+
   useEffect(() => {
-    if (typeof window === "undefined" || !tenant) return;
     const enabledNotifications = Notification.permission === "granted";
-    console.log("permission check in Navbar", enabledNotifications);
     if (!enabledNotifications) return;
-    getOnMessage(clientConfig);
-  }, [tenant, token]);
+    setToken();
+    async function setToken() {
+      try {
+        const token = await getFCMToken(clientConfig);
+        if (token) {
+          getMessage();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    function getMessage() {
+      const messaging = getMessaging();
+      console.log({ messaging });
+      onMessage(messaging, (payload) => {
+        console.log("Message received. ", payload);
+        const body = JSON.parse(payload.notification?.body!);
+        const title = JSON.parse(payload.notification?.title!);
+        var options = {
+          body,
+        };
+        //new self.registration.showNotification(title,options)
+        new self.Notification(title, options);
+        // ...
+      });
+    }
+  });
 
   const navMenuListClasses = classNames(styles.navMenuList, {
     [styles.navMenuListActive]: navActive,
