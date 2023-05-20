@@ -21,9 +21,7 @@ import { TPerson } from "@/models/missing_person.model";
 //   return paths;
 // }
 
-export async function getMissingPersonById(
-  personId: string
-): Promise<TPerson | null> {
+async function getMissingPersonById(personId: string): Promise<TPerson | null> {
   const missingPerson = await serverDB
     .collection("reported_missing")
     .doc(personId)

@@ -4,7 +4,7 @@ import PersonList from "./PersonList";
 import { serverDB } from "@/utils/firebase";
 import { TPerson } from "@/models/missing_person.model";
 
-export async function getMissingPersonList(): Promise<TPerson[]> {
+async function getMissingPersonList(): Promise<TPerson[]> {
   const data: any[] = [];
   const docs = await serverDB.collection("reported_missing").get();
   if (docs.empty) {
