@@ -24,10 +24,12 @@ if (!firebaseAdmin.apps.length) {
     credential: firebaseAdmin.credential.cert(
       serviceAccount as firebaseAdmin.ServiceAccount
     ),
+    databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
   });
 }
 //export const geofire = require("geofire-common");
 export const serverDB = firebaseAdmin.firestore();
+export const serverRTDB = firebaseAdmin.database();
 export const admin = firebaseAdmin;
 
 export const getUser = async (id: string) => {

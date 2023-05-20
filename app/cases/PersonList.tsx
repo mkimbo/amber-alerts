@@ -4,6 +4,8 @@ import styles from "./page.module.scss";
 import { TPerson } from "../../models/missing_person.model";
 import PersonCard from "./PersonCard";
 import Fuse from "fuse.js";
+// import { useLoadingCallback } from "react-loading-hook";
+// import { Button } from "@/ui/button";
 
 type PersonCardProps = {
   personList: TPerson[];
@@ -34,6 +36,15 @@ export default function PersonList({ personList }: PersonCardProps) {
     setFilteredPersonList(results);
   };
 
+  // const [handleFetch, isLoading] = useLoadingCallback(async () => {
+  //   const res = await fetch("api/cases", {
+  //     method: "GET",
+  //   });
+  //   const data = await res.json();
+  //   //setFilteredPersonList(Array.from(data));
+  //   console.log(data, "data");
+  // });
+
   return (
     <>
       <div className={styles.header}>
@@ -50,6 +61,9 @@ export default function PersonList({ personList }: PersonCardProps) {
       </div>
 
       <div id="scrollableDiv" className={styles.listContainer}>
+        {/* <Button loading={isLoading} onClick={handleFetch}>
+          Fetch
+        </Button> */}
         {filteredPersonList.map((item) => (
           <PersonCard person={item} key={item.id} />
         ))}

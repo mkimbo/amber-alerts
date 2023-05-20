@@ -54,8 +54,12 @@ export function AllowNotificationsButton({
   }
 
   return (
-    <Button loading={isLoading} disabled={isLoading} onClick={handleSubscribe}>
-      Enable Notifications
+    <Button
+      loading={isLoading}
+      disabled={isLoading || enabledNotifications}
+      onClick={handleSubscribe}
+    >
+      {enabledNotifications ? "Notifications enabled" : "Enable notifications"}
     </Button>
   );
 }

@@ -60,6 +60,26 @@ export interface TSighting extends SightingFormSchema {
   sightingDate: string;
 }
 
+export type TNotifiedUser = {
+  userId: string;
+  distance: number;
+  redeemed: boolean;
+  seen: boolean;
+  points: number;
+};
+
+export type TSaveNotification = {
+  content: string;
+  ownerId: string;
+  resourceId: string;
+  resourceType: "person" | "vehicle" | "bike" | "sighting";
+  createdAt: number;
+  image: string;
+  lat: number;
+  lng: number;
+  TNotifiedUser: TNotifiedUser[];
+};
+
 export type TNotification = {
   title: string;
   body: string;
@@ -75,4 +95,8 @@ export type TNotificationInput = {
 export type TUserDevice = {
   token: string;
   userId: string;
+  lat?: number;
+  lng?: number;
+  subscriptions?: string[];
+  subscribedDistance?: number;
 };

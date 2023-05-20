@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import React, { useEffect } from "react";
 import { useAuth } from "../../../auth/hooks";
 import styles from "./UserProfile.module.scss";
 import { useFirebaseAuth } from "../../../auth/firebase";
@@ -34,6 +34,11 @@ export function UserProfile({ profile }: UserProfileProps) {
     deleteVerifiedCookie();
     window.location.reload();
   });
+
+  useEffect(() => {
+    localforage.setItem("enabledNotifications", !!profile.notificationToken);
+    localforage.setItem("enabledLocation", profile.enabledLocation);
+  }, [profile]);
 
   if (!tenant && hasLoggedOut) {
     return (
@@ -72,7 +77,7 @@ export function UserProfile({ profile }: UserProfileProps) {
       </div>
       <div className={styles.buttonGroup}>
         <AllowNotificationsButton
-          enabledNotifications={profile.enabledNotifications}
+          enabledNotifications={!!profile.notificationToken}
         />
         <SaveLocationButton enabledLocation={profile.enabledLocation} />
         <Button

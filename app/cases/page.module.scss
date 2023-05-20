@@ -42,6 +42,10 @@
     justify-content: space-around;
     gap: 10px;
     overflow-y: auto;
+    &::-webkit-scrollbar {
+      width: 0px;
+      background: transparent; /* make scrollbar transparent */
+    }
     @include lg {
       display: flex;
       flex-wrap: wrap;

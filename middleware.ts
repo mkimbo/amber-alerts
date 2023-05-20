@@ -70,7 +70,7 @@ export async function middleware(request: NextRequest) {
       const userVerified = request.cookies.get("userVerified");
       if (
         request.nextUrl.pathname === "/new/alert" ||
-        request.nextUrl.pathname.includes("/new/sighting")
+        request.nextUrl.pathname === "/new/sighting"
       ) {
         if (!userVerified) {
           return redirectToVerify(request);

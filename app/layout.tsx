@@ -5,6 +5,7 @@ import "./globals.scss";
 import styles from "./layout.module.scss";
 import { serverDB } from "@/utils/firebase";
 import { cookies } from "next/headers";
+import { Suspense } from "react";
 
 // async function getProfileData() {
 //   const tenant = await getTenantFromCookies(cookies);
@@ -24,8 +25,10 @@ export default function RootLayout({
     <html lang="en">
       <head />
       <body style={{ overflowY: "hidden" }}>
-        <Navbar />
-        <ToastProvider />
+        <Suspense>
+          <Navbar />
+          <ToastProvider />
+        </Suspense>
         <div className={styles.container}>
           <main className={styles.main}>{children}</main>
           <footer className={styles.footer}>

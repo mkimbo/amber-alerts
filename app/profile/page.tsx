@@ -8,6 +8,8 @@ import { serverDB } from "@/utils/firebase";
 import { cookies } from "next/headers";
 import { updateUserSchema } from "@/models/zod_schemas";
 import { z } from "zod";
+import localforage from "localforage";
+import { da } from "date-fns/locale";
 type TUserProfile = z.infer<typeof updateUserSchema>;
 async function getProfileData() {
   const tenant = await getTenantFromCookies(cookies);
@@ -29,6 +31,7 @@ async function getProfileData() {
 
 export default async function Profile() {
   const data = await getProfileData();
+
   return (
     <div className={styles.container}>
       {/* @ts-expect-error https://github.com/vercel/next.js/issues/43537 */}

@@ -3,18 +3,22 @@ import React, { useEffect, useState } from "react";
 import { useZact } from "zact/client";
 import { updateUser } from "../actions";
 import localforage from "localforage";
-import { getFCMToken, getOnMessage } from "@/auth/firebase";
+import { getFCMToken, getOnMessage, useFirebaseRTDB } from "@/auth/firebase";
 import { clientConfig } from "@/config/client-config";
 import { toast } from "react-toastify";
 import { useAuth } from "@/auth/hooks";
 import styles from "./navbar.module.scss";
 import { AiOutlineInfoCircle } from "react-icons/ai";
+import { IoNotificationsCircleOutline } from "react-icons/io5";
 import { getGeoHash } from "@/utils/functions";
+import { ref, onValue, getDatabase } from "firebase/database";
+import { getApp, getApps, initializeApp } from "firebase/app";
 export default function NotificationsHandler({
   activeIdx,
 }: {
   activeIdx: number;
 }) {
+  const [count, setCount] = useState(0);
   const [error, setError] = useState<string | null>("" || null);
   const { mutate, data, isLoading } = useZact(updateUser);
   const { tenant } = useAuth();
@@ -51,6 +55,7 @@ export default function NotificationsHandler({
     };
     const handleGetLocation = async () => {
       if (!tenant || tenant?.isAnonymous) return;
+
       const successCallback = async (geoPosition: GeolocationPosition) => {
         const position = {
           lat: geoPosition?.coords?.latitude,
@@ -114,15 +119,50 @@ export default function NotificationsHandler({
       });
     });
   }, [activeIdx, tenant]);
+  const db = getDatabase(
+    !getApps().length ? initializeApp(clientConfig) : getApp()
+  );
+
+  useEffect(() => {
+    if (!tenant || tenant?.isAnonymous) return;
+    const starCountRef = ref(db, "notifications");
+    onValue(starCountRef, (snapshot) => {
+      let notificationsArray: any[] = [];
+      snapshot.forEach(function (childSnapshot) {
+        const notification = childSnapshot.val();
+        notificationsArray = [
+          ...notificationsArray,
+          ...notification.TNotifiedUser,
+        ];
+      });
+
+      notificationsArray.forEach((notification) => {
+        if (notification.userId === tenant?.id && !notification.seen) {
+          setCount((prev) => prev + 1);
+        }
+      });
+    });
+  }, [tenant, db]);
 
   if (error && !tenant?.isAnonymous) {
     return (
-      <div className={styles.navInfoText}>
-        <AiOutlineInfoCircle fontSize={20} color={"#ff4400"} />
-        <span>You have not allowed notifications!</span>
+      <div className={styles.navInfo}>
+        <div className={styles.navInfoText}>
+          <AiOutlineInfoCircle fontSize={20} color={"#ff4400"} />
+          <span>You have not allowed notifications!</span>
+        </div>
       </div>
     );
   }
 
-  return <></>;
+  if (count === 0) return <></>;
+
+  return (
+    <div className={styles.navInfo}>
+      <div className={styles.navInfoText}>
+        <IoNotificationsCircleOutline fontSize={20} color={"#ff4400"} />
+        <span>{`${count} notifications`}</span>
+      </div>
+    </div>
+  );
 }

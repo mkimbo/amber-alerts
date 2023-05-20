@@ -4,7 +4,7 @@
 import { z } from "zod";
 import { zact } from "zact/server";
 import { nanoid } from "nanoid";
-import { admin, serverDB } from "@/utils/firebase";
+import { admin, serverDB, serverRTDB } from "@/utils/firebase";
 import {
   newAlertFormSchema,
   newSightingFormSchema,
@@ -14,6 +14,7 @@ import { revalidatePath } from "next/cache";
 import {
   TNotification,
   TNotificationInput,
+  TSaveNotification,
   TUserDevice,
 } from "@/models/missing_person.model";
 
@@ -65,14 +66,14 @@ export const saveSighting = zact(saveSightingSchema)(async (input) => {
     console.log("Case owner has no notification token. No notification sent.");
     return { success: true, ownerNotified: false };
   }
-  const { successCount, failureCount } = await sendAlertToUserDevices(
+  const successfullyNotified = await sendAlertToUserDevices(
     tokenData,
     notification
   );
   return {
     success: true,
     ownerNotified: true,
-    notificationSent: successCount > 0,
+    notificationSent: successfullyNotified.length > 0,
   };
 });
 
@@ -87,13 +88,39 @@ export const saveAlert = zact(saveAlertSchema)(async (data) => {
     icon: data.images[0],
     click_action: `https://amber-alerts.vercel.app/cases/${docID}`,
   };
-  const res = await sendNotifications({ center, notification });
+  const successfullyNotified = await sendNotifications({
+    center,
+    notification,
+  });
+  const notifiedList = [];
+  for (const user of successfullyNotified) {
+    const distanceInKm = geofire.distanceBetween(center, [user.lat, user.lng]);
+    notifiedList.push({
+      userId: user.userId,
+      distance: distanceInKm,
+      points: 10, // TODO: calculate points based on distance
+      redeemed: false,
+      seen: false,
+    });
+  }
+
+  await saveNotification({
+    content: `${data.fullname} has just been reported missing in your area`,
+    ownerId: data.createdBy,
+    resourceId: docID,
+    resourceType: "person",
+    createdAt: Date.now(),
+    image: data.images[0],
+    lat: data.geoloc.lat,
+    lng: data.geoloc.lng,
+    TNotifiedUser: notifiedList,
+  });
 
   return {
     success: true,
     id: docID,
-    notificationSent: res.successCount > 0,
-    numUsersNotified: res.successCount,
+    notificationSent: successfullyNotified.length > 0,
+    numUsersNotified: successfullyNotified.length,
   };
 });
 
@@ -109,10 +136,7 @@ export const sendNotifications = async ({
   center,
   radius,
   notification,
-}: TNotificationInput): Promise<{
-  successCount: number;
-  failureCount: number;
-}> => {
+}: TNotificationInput): Promise<TUserDevice[]> => {
   const radiusInM = radius ? radius * 1000 : 100 * 1000; //100km
   const nearbyUsers = await getUsersWithinRadiusOfCase(radiusInM, center);
 
@@ -122,18 +146,20 @@ export const sendNotifications = async ({
       tokenData.push({
         token: user.data().notificationToken,
         userId: user.data().id,
+        lat: user.data().lat,
+        lng: user.data().lng,
       });
     }
   });
   if (!tokenData.length) {
     console.log("No nearby Users found. No notifications sent.");
-    return { successCount: 0, failureCount: 0 };
+    return [];
   }
-  const { successCount, failureCount } = await sendAlertToUserDevices(
+  const successfullyNotified = await sendAlertToUserDevices(
     tokenData,
     notification
   );
-  return { successCount, failureCount };
+  return successfullyNotified;
 };
 
 const getUsersWithinRadiusOfCase = async (
@@ -177,7 +203,8 @@ const sendAlertToUserDevices = async (
 ) => {
   const tokensToRemove: Promise<any>[] = [];
   const failedTokens: string[] = [];
-  let successCount = 0;
+  const successfullyNotified: TUserDevice[] = [];
+  let successCount: TUserDevice[];
   let failureCount = 0;
 
   const message: MulticastMessage = {
@@ -187,8 +214,7 @@ const sendAlertToUserDevices = async (
     tokens: userDevices.map((device) => device.token),
   };
   const response = await admin.messaging().sendEachForMulticast(message);
-  successCount = response.successCount;
-  failureCount = response.failureCount;
+
   response.responses.forEach((resp, idx) => {
     if (!resp.success) {
       if (
@@ -197,6 +223,8 @@ const sendAlertToUserDevices = async (
       ) {
         failedTokens.push(userDevices[idx].userId);
       }
+    } else {
+      successfullyNotified.push(userDevices[idx]);
     }
   });
   failedTokens.forEach((id) => {
@@ -210,5 +238,12 @@ const sendAlertToUserDevices = async (
 
   // Remove devices which are not registered anymore.
   await Promise.all(tokensToRemove);
-  return { successCount, failureCount };
+  return successfullyNotified;
+};
+
+// save notification object to firebase realtime db
+export const saveNotification = async (data: TSaveNotification) => {
+  const docID = nanoid();
+  await serverRTDB.ref("notifications").push({ id: docID, ...data });
+  return { success: true, id: docID };
 };

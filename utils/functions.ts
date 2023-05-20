@@ -18,6 +18,8 @@ export const loadScript = (
   position.appendChild(script);
 };
 
+export const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
 export const getGeoHash = (geoloc: { lat: number; lng: number }) => {
   const hash = geofire?.geohashForLocation([geoloc.lat, geoloc.lng]);
   return hash;

@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "../../auth/hooks";
 import { Button } from "../../ui/button";
 import { getGeoHash } from "../../utils/functions";
@@ -16,6 +16,22 @@ type TButtonProps = {
 export function SaveLocationButton({ enabledLocation }: TButtonProps) {
   const { tenant } = useAuth();
   const { mutate, data, isLoading } = useZact(updateUser);
+  const [disabled, setDisabled] = React.useState(false);
+  const [timeoutId, setTimeoutId] = React.useState<any>();
+
+  // const handleClick = () => {
+  //   setDisabled(true);
+  //   const id = setTimeout(() => {
+  //     setDisabled(false);
+  //   }, 60000);
+  //   setTimeoutId(id);
+  // };
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(timeoutId); // Clear the timer if the component is unmounted before the timeout completes
+    };
+  }, []);
 
   const handleGetLocation = () => {
     const successCallback = async (geoPosition: GeolocationPosition) => {
@@ -35,6 +51,8 @@ export function SaveLocationButton({ enabledLocation }: TButtonProps) {
       if (data?.success) {
         toast.success("Location updated successfully");
         //  revalidatePath("/profile");
+
+        // handleClick();
         return true;
       } else {
         return false;
@@ -72,7 +90,7 @@ export function SaveLocationButton({ enabledLocation }: TButtonProps) {
   return (
     <Button
       loading={isLoading}
-      disabled={isLoading}
+      disabled={isLoading || disabled}
       onClick={handleGetLocation}
     >
       {enabledLocation ? "Update Location" : "Enable Location"}

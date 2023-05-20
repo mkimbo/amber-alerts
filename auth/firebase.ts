@@ -45,7 +45,9 @@ export const getOnMessage = async (options: FirebaseOptions) => {
     };
     //new self.registration.showNotification(title,options)
     new self.Notification(title, options);
-    toast.info(`${title} ${body}}`);
+    toast.info(`${title} ${body}}`, {
+      position: "bottom-left",
+    });
     console.log("Message received. ", payload);
   });
 };
@@ -73,6 +75,21 @@ export const useFirebaseDb = (options: FirebaseOptions) => {
   };
 
   return { getFirebaseDb };
+};
+
+export const getFirebaseRTDB = async (options: FirebaseOptions) => {
+  const app = await getFirebaseApp(options);
+  const { getDatabase } = await import("firebase/database");
+
+  return getDatabase(app);
+};
+
+export const useFirebaseRTDB = (options: FirebaseOptions) => {
+  const getRTDB = async () => {
+    return getFirebaseRTDB(options);
+  };
+
+  return { getRTDB };
 };
 
 export const getStorage = async (options: FirebaseOptions) => {
