@@ -1,7 +1,6 @@
 import { TPerson } from "@/models/missing_person.model";
 import { serverDB } from "@/utils/firebase";
-import getAbsoluteUrl from "@/utils/getAbsoluteUrl";
-import { NextRequest } from "next/server";
+
 export async function getCases(): Promise<TPerson[]> {
   const res = await fetch("http://localhost:3000/api/cases", {
     method: "GET",
