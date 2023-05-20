@@ -1,9 +1,8 @@
 import styles from "./page.module.scss";
 import { ServerAuthProvider } from "../../../../auth/server-auth-provider";
 import { NewSightingForm } from "./NewSightingForm";
-import { serverDB } from "../../../../utils/firebase";
 import { TPerson } from "../../../../models/missing_person.model";
-
+import { serverDB } from "@/utils/firebase";
 async function getMissingPersonData(personId: string): Promise<TPerson | null> {
   const missingPerson = await serverDB
     .collection("reported_missing")

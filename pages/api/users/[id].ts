@@ -1,7 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { serverConfig } from "../../../config/server-config";
-import { serverDB } from "../../../utils/firebase";
-import { getFirebaseAuth } from "next-firebase-auth-edge/lib/auth";
+import { serverDB } from "@/utils/firebase";
 // const {
 //   getCustomIdAndRefreshTokens,
 //   verifyIdToken,

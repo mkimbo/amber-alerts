@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { serverDB } from "../../../utils/firebase";
+import { serverDB } from "@/utils/firebase";
 
 export default async function handler(
   req: NextApiRequest,
