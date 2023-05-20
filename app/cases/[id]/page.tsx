@@ -4,12 +4,12 @@ import { placeholderUrl } from "../../../utils/constants";
 import Image from "next/image";
 import { format } from "date-fns";
 import NewSightingButton from "./SightingButton";
-import { getMissingPersonById, getMissingPersonList } from "../getCases";
-import PersonSightings from "./SightingSection";
 import { getTenantFromCookies } from "@/auth/server-auth-provider";
 import { cookies } from "next/headers";
 import { FcCalendar } from "react-icons/fc";
 import { MdOutlineLocationOn } from "react-icons/md";
+import { serverDB } from "@/utils/firebase";
+import { TPerson } from "@/models/missing_person.model";
 
 // export async function generateStaticParams() {
 //   const data = await getMissingPersonList();
@@ -20,6 +20,20 @@ import { MdOutlineLocationOn } from "react-icons/md";
 //   });
 //   return paths;
 // }
+
+export async function getMissingPersonById(
+  personId: string
+): Promise<TPerson | null> {
+  const missingPerson = await serverDB
+    .collection("reported_missing")
+    .doc(personId)
+    .get();
+  if (!missingPerson.exists) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("No person found with that id");
+  }
+  return missingPerson.data() as TPerson;
+}
 
 export default async function MissingPerson({
   params,
