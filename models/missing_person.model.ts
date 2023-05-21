@@ -77,7 +77,7 @@ export type TSaveNotification = {
   image: string;
   lat: number;
   lng: number;
-  TNotifiedUser: TNotifiedUser[];
+  notifiedUsers: TNotifiedUser[];
 };
 
 export type TNotification = {

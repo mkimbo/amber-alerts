@@ -1,23 +1,31 @@
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;700&display=swap");
 @import "../../styles/variables.module.scss";
+@import "../../styles/_mixins.scss";
 
 .navContainer {
   position: sticky;
   z-index: 30;
   top: 0;
   height: 70px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
 }
 .navBar {
   display: flex;
   padding: 3px 16px;
   justify-content: space-between;
   align-items: center;
+  margin: auto 0px;
   background-color: $black;
   .logo {
     height: 30px;
     width: 30px;
     font-weight: 700;
     color: $primaryColor;
+  }
+  @include lg {
+    height: 40px;
   }
 }
 .navInfo {

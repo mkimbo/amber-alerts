@@ -1,5 +1,13 @@
+@import "../../styles/_mixins.scss";
 .container {
-  padding: 0 2rem;
+  width: 100%;
+  padding: 1.5rem;
+  text-align: center;
+  overflow-y: auto;
+  @include lg {
+    width: 30%;
+    margin: 0 auto;
+  }
 }
 
 .nav {

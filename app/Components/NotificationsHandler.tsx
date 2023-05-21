@@ -13,6 +13,12 @@ import { IoNotificationsCircleOutline } from "react-icons/io5";
 import { getGeoHash } from "@/utils/functions";
 import { ref, onValue, getDatabase } from "firebase/database";
 import { getApp, getApps, initializeApp } from "firebase/app";
+import { set } from "lodash";
+import {
+  TNotifiedUser,
+  TSaveNotification,
+} from "@/models/missing_person.model";
+import Link from "next/link";
 export default function NotificationsHandler({
   activeIdx,
 }: {
@@ -22,6 +28,9 @@ export default function NotificationsHandler({
   const [error, setError] = useState<string | null>("" || null);
   const { mutate, data, isLoading } = useZact(updateUser);
   const { tenant } = useAuth();
+  const db = getDatabase(
+    !getApps().length ? initializeApp(clientConfig) : getApp()
+  );
   useEffect(() => {
     const fetchToken = async () => {
       try {
@@ -119,28 +128,24 @@ export default function NotificationsHandler({
       });
     });
   }, [activeIdx, tenant]);
-  const db = getDatabase(
-    !getApps().length ? initializeApp(clientConfig) : getApp()
-  );
 
   useEffect(() => {
     if (!tenant || tenant?.isAnonymous) return;
-    const starCountRef = ref(db, "notifications");
-    onValue(starCountRef, (snapshot) => {
-      let notificationsArray: any[] = [];
+    const notificationsRef = ref(db, "notifications");
+    onValue(notificationsRef, (snapshot) => {
+      let notificationsArray: TNotifiedUser[] = [];
       snapshot.forEach(function (childSnapshot) {
-        const notification = childSnapshot.val();
+        const notification: TSaveNotification = childSnapshot.val();
         notificationsArray = [
           ...notificationsArray,
-          ...notification.TNotifiedUser,
+          ...notification.notifiedUsers,
         ];
       });
-
-      notificationsArray.forEach((notification) => {
-        if (notification.userId === tenant?.id && !notification.seen) {
-          setCount((prev) => prev + 1);
-        }
-      });
+      const Unseen = notificationsArray.filter(
+        (notification) =>
+          notification.userId === tenant?.id && !notification.seen
+      );
+      setCount(Unseen.length);
     });
   }, [tenant, db]);
 
@@ -155,14 +160,14 @@ export default function NotificationsHandler({
     );
   }
 
-  if (count === 0) return <></>;
+  //if (count === 0) return null;
 
   return (
-    <div className={styles.navInfo}>
+    <Link href={"/notifications"} className={styles.navInfo}>
       <div className={styles.navInfoText}>
         <IoNotificationsCircleOutline fontSize={20} color={"#ff4400"} />
         <span>{`${count} notifications`}</span>
       </div>
-    </div>
+    </Link>
   );
 }

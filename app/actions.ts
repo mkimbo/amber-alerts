@@ -20,6 +20,8 @@ import {
 
 //import geofire from "geofire-common";
 import { MulticastMessage } from "firebase-admin/lib/messaging/messaging-api";
+import { getTenantFromCookies } from "@/auth/server-auth-provider";
+import { cookies } from "next/headers";
 const geofire = require("geofire-common");
 const saveSightingSchema = z.intersection(
   newSightingFormSchema,
@@ -113,7 +115,7 @@ export const saveAlert = zact(saveAlertSchema)(async (data) => {
     image: data.images[0],
     lat: data.geoloc.lat,
     lng: data.geoloc.lng,
-    TNotifiedUser: notifiedList,
+    notifiedUsers: notifiedList,
   });
 
   return {
@@ -139,10 +141,10 @@ export const sendNotifications = async ({
 }: TNotificationInput): Promise<TUserDevice[]> => {
   const radiusInM = radius ? radius * 1000 : 100 * 1000; //100km
   const nearbyUsers = await getUsersWithinRadiusOfCase(radiusInM, center);
-
+  const tenant = await getTenantFromCookies(cookies);
   const tokenData: TUserDevice[] = [];
   nearbyUsers.forEach((user) => {
-    if (user.data().notificationToken) {
+    if (user.data().notificationToken && user.data().id !== tenant?.id) {
       tokenData.push({
         token: user.data().notificationToken,
         userId: user.data().id,
