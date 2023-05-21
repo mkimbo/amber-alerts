@@ -1,16 +1,18 @@
 "use client";
 import React, { useState } from "react";
 import styles from "./page.module.scss";
-import { TPerson } from "../../models/missing_person.model";
+import { TPerson, TSaveNotification } from "../../models/missing_person.model";
 import Fuse from "fuse.js";
 // import { useLoadingCallback } from "react-loading-hook";
 // import { Button } from "@/ui/button";
 
 type PersonCardProps = {
-  personList: TPerson[];
+  notificationsList: TSaveNotification[];
 };
 
-export default function NotificationList() {
+export default function NotificationList({
+  notificationsList,
+}: PersonCardProps) {
   // const [filteredPersonList, setFilteredPersonList] =
   //   useState<TPerson[]>(personList);
 
