@@ -14,6 +14,7 @@ import { revalidatePath } from "next/cache";
 import {
   TNotification,
   TNotificationInput,
+  TNotifiedUser,
   TSaveNotification,
   TUserDevice,
 } from "@/models/missing_person.model";
@@ -107,7 +108,7 @@ export const saveAlert = zact(saveAlertSchema)(async (data) => {
   }
 
   await saveNotification({
-    content: `${data.fullname} has just been reported missing in your area`,
+    content: `${data.fullname} has been reported missing`,
     ownerId: data.createdBy,
     resourceId: docID,
     resourceType: "person",
@@ -245,7 +246,31 @@ const sendAlertToUserDevices = async (
 
 // save notification object to firebase realtime db
 export const saveNotification = async (data: TSaveNotification) => {
-  const docID = nanoid();
-  await serverRTDB.ref("notifications").push({ id: docID, ...data });
-  return { success: true, id: docID };
+  const notificationRef = serverRTDB.ref(`notifications`);
+  const newKey = notificationRef.push().key;
+  await notificationRef.child(newKey!).set({ id: newKey, ...data });
+  // await serverRTDB.ref("notifications").push({ id: docID, ...data });
+  return { success: true, id: newKey };
+};
+
+export const markNotificationAsSeen = async (data: {
+  tenantID: string;
+  list: TSaveNotification[];
+}) => {
+  const updatePromises: Promise<any>[] = [];
+  for (const item of data.list) {
+    const notificationRef = serverRTDB.ref(`notifications/${item.id}`);
+    const notifiedUsers: TNotifiedUser[] = item.notifiedUsers.map((user) => {
+      if (user.userId === data.tenantID) {
+        return { ...user, seen: true };
+      }
+      return user;
+    });
+    updatePromises.push(
+      notificationRef.update({
+        notifiedUsers: notifiedUsers,
+      })
+    );
+  }
+  Promise.all(updatePromises);
 };

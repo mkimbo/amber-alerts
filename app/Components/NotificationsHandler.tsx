@@ -11,7 +11,7 @@ import styles from "./navbar.module.scss";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { IoNotificationsCircleOutline } from "react-icons/io5";
 import { getGeoHash } from "@/utils/functions";
-import { ref, onValue, getDatabase } from "firebase/database";
+import { ref, onValue, getDatabase, onChildChanged } from "firebase/database";
 import { getApp, getApps, initializeApp } from "firebase/app";
 import { set } from "lodash";
 import {
@@ -134,6 +134,7 @@ export default function NotificationsHandler({
   useEffect(() => {
     if (!tenant || tenant?.isAnonymous) return;
     const notificationsRef = ref(db, "notifications");
+
     onValue(notificationsRef, (snapshot) => {
       let notificationsArray: TNotifiedUser[] = [];
       snapshot.forEach(function (childSnapshot) {
@@ -150,6 +151,22 @@ export default function NotificationsHandler({
 
       if (Unseen.length > 0) setCount(Unseen.length);
     });
+    // onChildChanged(notificationsRef, (snapshot) => {
+    //   let notificationsArray: TNotifiedUser[] = [];
+    //   snapshot.forEach(function (childSnapshot) {
+    //     const notification: TSaveNotification = childSnapshot.val();
+    //     notificationsArray = [
+    //       ...notificationsArray,
+    //       ...notification.notifiedUsers,
+    //     ];
+    //   });
+    //   const Unseen = notificationsArray.filter(
+    //     (notification) =>
+    //       notification.userId === tenant?.id && !notification.seen
+    //   );
+
+    //   if (Unseen.length > 0) setCount(Unseen.length);
+    // });
   }, [tenant, db]);
 
   if (error && !tenant?.isAnonymous) {

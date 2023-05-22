@@ -12,34 +12,26 @@
   }
   .header {
     width: 100%;
-    // position: sticky;
-    // top: 20;
-    justify-content: center;
-    padding: 5px 20px;
+    padding: 5px 0px;
     display: flex;
+
     flex-direction: row;
-    align-items: center;
-    .searchInput {
+    // justify-content: stretch;
+    .tabButton {
+      flex-grow: 1;
       color: $white;
-      width: 100%;
-      height: 35px;
-      @include lg {
-        width: 300px;
-      }
-    }
-    .searchButton {
-      width: 100%;
-      margin-left: 10px;
       cursor: pointer;
-      // border: 1px solid $primaryColor;
-      width: fit-content;
+      text-align: center;
+    }
+    .tabButtonActive {
+      background-color: $lightGrey;
+      border-bottom: 1px solid $white;
     }
   }
   .listContainer {
     padding: 10px 0px;
     display: grid;
     width: 100%;
-    justify-content: space-around;
     gap: 10px;
     overflow-y: auto;
     &::-webkit-scrollbar {
@@ -55,6 +47,31 @@
       justify-content: center;
       align-items: normal;
       align-content: flex-start;
+    }
+
+    .notificationCard {
+      width: 100%;
+      background-color: $lightGrey;
+      padding: 8px 10px;
+      // border-radius: 10px;
+      @include lg {
+        width: 300px;
+      }
+      display: flex;
+      flex-direction: column;
+      .notificationCardHeader {
+        font-size: 13px;
+      }
+      .notificationCardBody {
+        font-size: 11px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        .notificationCardBodyRight {
+          color: $primaryColor;
+        }
+      }
     }
 
     .noResult {

@@ -69,6 +69,7 @@ export type TNotifiedUser = {
 };
 
 export type TSaveNotification = {
+  id?: string;
   content: string;
   ownerId: string;
   resourceId: string;
