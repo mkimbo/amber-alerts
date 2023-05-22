@@ -19,6 +19,7 @@ import {
   TSaveNotification,
 } from "@/models/missing_person.model";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 export default function NotificationsHandler({
   activeIdx,
 }: {
@@ -28,6 +29,7 @@ export default function NotificationsHandler({
   const [error, setError] = useState<string | null>("" || null);
   const { mutate, data, isLoading } = useZact(updateUser);
   const { tenant } = useAuth();
+  const router = useRouter();
   const db = getDatabase(
     !getApps().length ? initializeApp(clientConfig) : getApp()
   );
@@ -145,7 +147,8 @@ export default function NotificationsHandler({
         (notification) =>
           notification.userId === tenant?.id && !notification.seen
       );
-      setCount(Unseen.length);
+
+      if (Unseen.length > 0) setCount(Unseen.length);
     });
   }, [tenant, db]);
 
@@ -163,11 +166,16 @@ export default function NotificationsHandler({
   //if (count === 0) return null;
 
   return (
-    <Link href={"/notifications"} className={styles.navInfo}>
-      <div className={styles.navInfoText}>
+    <div className={styles.navInfo}>
+      <div
+        onClick={() => {
+          router.push("/notifications");
+        }}
+        className={styles.navInfoText}
+      >
         <IoNotificationsCircleOutline fontSize={20} color={"#ff4400"} />
         <span>{`${count} notifications`}</span>
       </div>
-    </Link>
+    </div>
   );
 }
