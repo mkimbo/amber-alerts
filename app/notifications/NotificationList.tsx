@@ -1,21 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import styles from "./page.module.scss";
-import {
-  TNotifiedUser,
-  TPerson,
-  TSaveNotification,
-} from "../../models/missing_person.model";
-import { getDatabase, onValue, ref, update } from "firebase/database";
+import { TSaveNotification } from "../../models/missing_person.model";
+import { getDatabase, onValue, ref } from "firebase/database";
 import { getApp, getApps, initializeApp } from "firebase/app";
 import { clientConfig } from "@/config/client-config";
 import { useAuth } from "@/auth/hooks";
 import NotificationCard from "./NotificationCard";
 import classNames from "classnames";
-
-type PersonCardProps = {
-  notificationsList: TSaveNotification[];
-};
+import { markNotificationsAsSeen } from "../actions";
 
 export default function NotificationList() {
   const [activeIdx, setActiveIdx] = useState(0);
@@ -39,9 +32,10 @@ export default function NotificationList() {
   const db = getDatabase(
     !getApps().length ? initializeApp(clientConfig) : getApp()
   );
+  const notificationsRef = ref(db, "notifications");
   useEffect(() => {
     if (!tenant || tenant?.isAnonymous) return;
-    const notificationsRef = ref(db, "notifications");
+
     onValue(notificationsRef, (snapshot) => {
       let notificationsArray: TSaveNotification[] = [];
       snapshot.forEach(function (childSnapshot) {
@@ -55,39 +49,12 @@ export default function NotificationList() {
       });
 
       setNotificationList(notificationsArray);
-
-      // const updatePromises: Promise<any>[] = [];
-
-      // // set all notifications to read
-      // for (const item of notificationsArray) {
-      //   const notificationRef = ref(db, `notifications/${item.id}`);
-      //   const userObj = item.notifiedUsers.find(
-      //     (item) => item.userId === tenant?.id
-      //   );
-      //   const notifiedUsers: TNotifiedUser[] = item.notifiedUsers.map(
-      //     (user) => {
-      //       if (user.userId === tenant?.id) {
-      //         return { ...user, seen: true };
-      //       }
-      //       return user;
-      //     }
-      //   );
-      //   updatePromises.push(
-      //     update(ref(db), {
-      //       [`notifications/${item.id}`]: {
-      //         ...item,
-      //         notifiedUsers,
-      //       },
-      //     })
-      //   );
-      // }
-      // Promise.all(updatePromises);
+      markNotificationsAsSeen({
+        tenantID: tenant?.id,
+        list: notificationsArray,
+      });
     });
   }, [tenant, db]);
-
-  // useEffect(() => {
-
-  // }, []);
 
   return (
     <>

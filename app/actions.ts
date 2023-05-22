@@ -253,7 +253,7 @@ export const saveNotification = async (data: TSaveNotification) => {
   return { success: true, id: newKey };
 };
 
-export const markNotificationAsSeen = async (data: {
+export const markNotificationsAsSeen = async (data: {
   tenantID: string;
   list: TSaveNotification[];
 }) => {

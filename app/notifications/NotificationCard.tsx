@@ -4,6 +4,7 @@ import styles from "./page.module.scss";
 import { TSaveNotification } from "../../models/missing_person.model";
 import { useAuth } from "@/auth/hooks";
 import { format } from "date-fns";
+import Link from "next/link";
 
 type PersonCardProps = {
   notification: TSaveNotification;
@@ -16,7 +17,10 @@ export default function NotificationCard({ notification }: PersonCardProps) {
   );
 
   return (
-    <div className={styles.notificationCard}>
+    <Link
+      href={`/cases/${notification.resourceId}`}
+      className={styles.notificationCard}
+    >
       <div className={styles.notificationCardHeader}>
         {notification.content}
       </div>
@@ -28,6 +32,6 @@ export default function NotificationCard({ notification }: PersonCardProps) {
           className={styles.notificationCardBodyRight}
         >{`${userObj?.distance.toFixed(2)} km away`}</div>
       </div>
-    </div>
+    </Link>
   );
 }

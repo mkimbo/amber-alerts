@@ -15,10 +15,10 @@ export default function FormFileUpload({ name }: Props) {
   const validateImage = (image: File, i = 0) => {
     if (!image) return false;
     if (!["image/jpeg", "image/png", "image/webp"].includes(image.type)) {
-      setErrors([...errors, `File ${i + 1} is not a valid image type`]);
+      setErrors([`File ${i + 1} is not a valid image type`]);
       return false;
     } else if (image.size > 3000000) {
-      setErrors([...errors, `File ${i + 1} is larger than 3MB`]);
+      setErrors([`File ${i + 1} is larger than 3MB`]);
       return false;
     }
     return true;

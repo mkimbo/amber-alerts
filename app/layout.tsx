@@ -1,4 +1,7 @@
-import { getTenantFromCookies } from "@/auth/server-auth-provider";
+import {
+  ServerAuthProvider,
+  getTenantFromCookies,
+} from "@/auth/server-auth-provider";
 import { Navbar } from "./Components/Navbar";
 import ToastProvider from "./Components/ToastProvider";
 import "./globals.scss";
@@ -6,6 +9,7 @@ import styles from "./layout.module.scss";
 import { serverDB } from "@/utils/firebase";
 import { cookies } from "next/headers";
 import { Suspense } from "react";
+import { AuthProvider } from "@/auth/client-auth-provider";
 
 // async function getProfileData() {
 //   const tenant = await getTenantFromCookies(cookies);
@@ -25,10 +29,13 @@ export default function RootLayout({
     <html lang="en">
       <head />
       <body style={{ overflowY: "hidden" }}>
-        <Suspense>
-          <Navbar />
-          <ToastProvider />
-        </Suspense>
+        {/* @ts-expect-error https://github.com/vercel/next.js/issues/43537 */}
+        <AuthProvider>
+          <Suspense>
+            <Navbar />
+            <ToastProvider />
+          </Suspense>
+        </AuthProvider>
         <div className={styles.container}>
           <main className={styles.main}>{children}</main>
           <footer className={styles.footer}>

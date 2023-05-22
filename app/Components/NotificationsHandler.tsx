@@ -130,15 +130,15 @@ export default function NotificationsHandler({
       });
     });
   }, [activeIdx, tenant]);
-
+  const notificationsRef = ref(db, "notifications");
   useEffect(() => {
     if (!tenant || tenant?.isAnonymous) return;
-    const notificationsRef = ref(db, "notifications");
 
     onValue(notificationsRef, (snapshot) => {
       let notificationsArray: TNotifiedUser[] = [];
       snapshot.forEach(function (childSnapshot) {
         const notification: TSaveNotification = childSnapshot.val();
+        if (!notification.notifiedUsers) return;
         notificationsArray = [
           ...notificationsArray,
           ...notification.notifiedUsers,
@@ -149,25 +149,9 @@ export default function NotificationsHandler({
           notification.userId === tenant?.id && !notification.seen
       );
 
-      if (Unseen.length > 0) setCount(Unseen.length);
+      setCount(Unseen.length);
     });
-    // onChildChanged(notificationsRef, (snapshot) => {
-    //   let notificationsArray: TNotifiedUser[] = [];
-    //   snapshot.forEach(function (childSnapshot) {
-    //     const notification: TSaveNotification = childSnapshot.val();
-    //     notificationsArray = [
-    //       ...notificationsArray,
-    //       ...notification.notifiedUsers,
-    //     ];
-    //   });
-    //   const Unseen = notificationsArray.filter(
-    //     (notification) =>
-    //       notification.userId === tenant?.id && !notification.seen
-    //   );
-
-    //   if (Unseen.length > 0) setCount(Unseen.length);
-    // });
-  }, [tenant, db]);
+  }, [tenant, notificationsRef]);
 
   if (error && !tenant?.isAnonymous) {
     return (
@@ -180,7 +164,7 @@ export default function NotificationsHandler({
     );
   }
 
-  //if (count === 0) return null;
+  if (count === 0) return null;
 
   return (
     <div className={styles.navInfo}>

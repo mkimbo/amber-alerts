@@ -16,11 +16,13 @@ import { LogoIcon } from "../../ui/icons";
 import { useRouter } from "next/navigation";
 import { AuthProvider } from "@/auth/client-auth-provider";
 import NotificationsHandler from "./NotificationsHandler";
+import { useAuth } from "@/auth/hooks";
 
 export function Navbar() {
   const [navActive, setNavActive] = useState(false);
   const router = useRouter();
   const [activeIdx, setActiveIdx] = useState(3);
+  const { tenant } = useAuth();
 
   const navMenuListClasses = classNames(styles.navMenuList, {
     [styles.navMenuListActive]: navActive,
@@ -103,10 +105,9 @@ export function Navbar() {
           ))}
         </div>
       </nav>
-      {/* @ts-expect-error https://github.com/vercel/next.js/issues/43537 */}
-      <AuthProvider>
+      {tenant && !tenant.isAnonymous && (
         <NotificationsHandler activeIdx={activeIdx} />
-      </AuthProvider>
+      )}
     </header>
   );
 }
