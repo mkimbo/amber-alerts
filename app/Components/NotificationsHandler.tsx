@@ -11,14 +11,12 @@ import styles from "./navbar.module.scss";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { IoNotificationsCircleOutline } from "react-icons/io5";
 import { getGeoHash } from "@/utils/functions";
-import { ref, onValue, getDatabase, onChildChanged } from "firebase/database";
+import { ref, onValue, getDatabase } from "firebase/database";
 import { getApp, getApps, initializeApp } from "firebase/app";
-import { set } from "lodash";
 import {
   TNotifiedUser,
   TSaveNotification,
 } from "@/models/missing_person.model";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 export default function NotificationsHandler({
   activeIdx,

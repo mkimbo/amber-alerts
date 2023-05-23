@@ -92,6 +92,7 @@ export function SaveLocationButton({ enabledLocation }: TButtonProps) {
       loading={isLoading}
       disabled={isLoading || disabled}
       onClick={handleGetLocation}
+      style={{ width: "100%" }}
     >
       {enabledLocation ? "Update Location" : "Enable Location"}
     </Button>

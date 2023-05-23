@@ -132,6 +132,7 @@ export const updateUser = zact(updateUserSchema)(async (data) => {
     .collection("users")
     .doc(data.id)
     .set(JSON.parse(JSON.stringify(data)), { merge: true });
+  revalidatePath("/profile");
   return { success: true, data: data };
 });
 

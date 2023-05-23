@@ -58,6 +58,7 @@ export function AllowNotificationsButton({
       loading={isLoading}
       disabled={isLoading || enabledNotifications}
       onClick={handleSubscribe}
+      style={{ width: "100%" }}
     >
       {enabledNotifications ? "Notifications enabled" : "Enable notifications"}
     </Button>

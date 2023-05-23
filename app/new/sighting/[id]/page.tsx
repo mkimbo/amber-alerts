@@ -38,6 +38,8 @@ export default async function NewSighting({
   );
 }
 
+// This system supplements, rather than replaces, other communication methods used by emergency responders, both in person and through the use of other media.
+
 // Privacy Policy
 
 // Effective date: January 2, 2023

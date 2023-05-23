@@ -15,6 +15,10 @@ const nextConfig = {
         port: "",
         pathname: "/v0/b/gcp-playground-c1787.appspot.com/**",
       },
+      {
+        protocol: "https",
+        hostname: "*.googleusercontent.com",
+      },
     ],
   },
 };

@@ -73,6 +73,10 @@ export const updateUserSchema = z.object({
     })
     .optional(),
   enabledLocation: z.boolean().optional(),
+  missingPersonAlerts: z.boolean().optional(),
+  missingVehicleAlerts: z.boolean().optional(),
+  missingBikeAlerts: z.boolean().optional(),
+  alertRadius: z.number().optional(),
   enabledNotifications: z.boolean().optional(),
   notificationToken: z.string().optional(),
   photoUrl: z.string().optional(),
