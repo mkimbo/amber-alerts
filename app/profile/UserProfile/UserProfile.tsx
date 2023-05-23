@@ -59,15 +59,6 @@ export function UserProfile({ profile }: UserProfileProps) {
     }
   }, [profile]);
 
-  if (!tenant && hasLoggedOut) {
-    return (
-      <div className={styles.container}>
-        <h3 className={styles.title}>
-          You are being logged out... <LoadingIcon />
-        </h3>
-      </div>
-    );
-  }
   const subscribeFormSchema = z.object({
     distance: z.string().nonempty("Required"),
     person: z.boolean(),
@@ -97,6 +88,16 @@ export function UserProfile({ profile }: UserProfileProps) {
       return name.charAt(0).toUpperCase() + name.slice(1);
     }
     return email;
+  }
+
+  if (!tenant && hasLoggedOut) {
+    return (
+      <div className={styles.container}>
+        <h3 className={styles.title}>
+          You are being logged out... <LoadingIcon />
+        </h3>
+      </div>
+    );
   }
 
   if (!tenant) {
