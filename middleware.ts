@@ -69,8 +69,8 @@ export async function middleware(request: NextRequest) {
       //const cookieStore = cookies();
       const userVerified = request.cookies.get("userVerified");
       if (
-        request.nextUrl.pathname === "/new/alert" ||
-        request.nextUrl.pathname === "/new/sighting"
+        request.nextUrl.pathname.includes("/new/alert") ||
+        request.nextUrl.pathname.includes("/new/sighting")
       ) {
         if (!userVerified) {
           return redirectToVerify(request);

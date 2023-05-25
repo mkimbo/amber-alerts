@@ -9,9 +9,14 @@ import { set } from "lodash";
 type Props = {
   name: string;
   control: Control<any>;
+  placeholder?: string;
 };
 
-export default function FormLocationInput({ name, control }: Props) {
+export default function FormLocationInput({
+  name,
+  control,
+  placeholder,
+}: Props) {
   const [errors, setErrors] = useState<String[]>([]);
   const inputRef = React.useRef<HTMLInputElement>(null);
   const { setValue, setError, clearErrors } = useFormContext();
@@ -23,7 +28,7 @@ export default function FormLocationInput({ name, control }: Props) {
         <div style={{ display: "flex", flexDirection: "column" }}>
           <Autocomplete
             {...field}
-            placeholder="Enter the location the person was last seen"
+            placeholder={placeholder}
             className={styles.formLocationInput}
             onLoad={() => {
               inputRef!.current!.value = "";

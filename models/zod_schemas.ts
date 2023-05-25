@@ -37,6 +37,44 @@ export const newAlertFormSchema = z.object({
   obNumber: z.string().nonempty("Required"),
 });
 
+export const newMotorAlertSchema = z.object({
+  make: z.string().nonempty("Required"),
+  model: z.string().optional(),
+  year: z.string().optional(),
+  color: z.string().nonempty("Required"),
+  motorType: z.enum(["person", "vehicle", "bike", "sighting"]),
+  licencePlate: z.string().nonempty("Required"),
+  lastSeenLocation: z.string().optional(),
+  lastSeenDate: z.string().nonempty("Required"),
+  placeId: z.string().nonempty("Please choose a location from the dropdown"),
+  geoloc: z.object({
+    lat: z.number(),
+    lng: z.number(),
+  }),
+  geohash: z.string(),
+  longAddress: z.string(),
+  formattedAddress: z.string(),
+  county: z.string(),
+  constituency: z.string(),
+  secondaryContact: z.string().nonempty("Required"),
+  lastSeenDescription: z
+    .string()
+    .max(350, "Maximum length")
+    .nonempty("Required"),
+  images: z.array(z.string()).transform((data, ctx) => {
+    if (!Array.isArray(data) || data.length < 1) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Please add at least one recent photo",
+      });
+      return z.NEVER;
+    }
+    return data.map((item) => item.trim());
+  }),
+  policeStation: z.string().nonempty("Required"),
+  obNumber: z.string().nonempty("Required"),
+});
+
 export const newSightingFormSchema = z.object({
   // sightingDate: z
   //   .date({

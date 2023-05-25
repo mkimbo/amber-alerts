@@ -38,7 +38,7 @@ export function Navbar() {
   const navLinks: TNavLink[] = [
     {
       text: "New Alert",
-      href: "/new/alert",
+      href: "/alerts",
       icon: <MdAddAlert color={"#ff4400"} fontSize={26} />,
     },
     {

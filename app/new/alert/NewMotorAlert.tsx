@@ -5,22 +5,19 @@ import styles from "./page.module.scss";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useRouter, useSearchParams } from "next/navigation";
-import {
-  MdKeyboardArrowLeft,
-  MdKeyboardArrowRight,
-  MdSave,
-} from "react-icons/md";
+import { useRouter } from "next/navigation";
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import { useAuth } from "../../../auth/hooks";
-import { Step1 } from "./Step1";
-import { Step2 } from "./Step2";
-import { Step3 } from "./Step3";
 import { uploadFileToCloud } from "../../../auth/firebase";
 import { toast } from "react-toastify";
-import { newAlertFormSchema } from "@/models/zod_schemas";
+import { newMotorAlertSchema } from "@/models/zod_schemas";
 import { useZact } from "zact/client";
-import { saveAlert } from "@/app/actions";
+import { saveAlert, saveMotorAlert } from "@/app/actions";
 import { Button } from "@/ui/button";
+//import { getFileObjectFromBlobUrl } from "@/utils/functions";
+import { MotorStep1 } from "./MotorStep1";
+import { MotorStep2 } from "./MotorStep2";
+import { MotorStep3 } from "./MotorStep3";
 
 export function getFileObjectFromBlobUrl(blobUrl: string) {
   return new Promise((resolve, reject) => {
@@ -41,32 +38,34 @@ export function getFileObjectFromBlobUrl(blobUrl: string) {
   });
 }
 
-export type TFormSchema = z.infer<typeof newAlertFormSchema>;
-export function NewAlertForm() {
+export type TFormSchema = z.infer<typeof newMotorAlertSchema>;
+export function NewMotorAlert() {
   const { tenant } = useAuth();
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
   const [savingFiles, setSavingFiles] = useState(false);
+
   const methods = useForm<TFormSchema>({
-    resolver: zodResolver(newAlertFormSchema),
+    resolver: zodResolver(newMotorAlertSchema),
     reValidateMode: "onChange",
     defaultValues: {
-      fullname: "Test User",
+      motorType: "vehicle",
+      make: "BMW",
       images: [],
-      othername: "",
-      age: 12,
-      complexion: "Dark",
-      gender: "F",
+      model: "X5",
+      year: "2019",
+      color: "Black",
+      licencePlate: "KCA 123A",
       secondaryContact: "0722222222",
       lastSeenDate: new Date().toISOString(),
       lastSeenDescription:
-        "They were last seen wearing clothes and shoes. They had a bag with them. They were last seen at the bus stop.",
+        "My car is gone man. Plaese help me find it. I was at the mall and when I came back it was gone.",
       obNumber: "7857454885485",
     },
   });
 
   const { handleSubmit, formState, trigger } = methods;
-  const { mutate, data, isLoading } = useZact(saveAlert);
+  const { mutate, data, isLoading } = useZact(saveMotorAlert);
 
   const getProgressBar = (progressBar: string) => {
     return (
@@ -78,7 +77,7 @@ export function NewAlertForm() {
   useEffect(() => {
     if (data?.success) {
       toast.success(`Alert was sent to ${data?.numUsersNotified} nearby users`);
-      router.push(`/cases/${data.id}`);
+      // router.push(`/vehicels/${data.id}`);
     }
   }, [data]);
 
@@ -102,22 +101,24 @@ export function NewAlertForm() {
               onClick={async () => {
                 if (currentStep == 1) {
                   const result = await trigger([
-                    "fullname",
-                    "othername",
-                    "age",
-                    "gender",
-                    "complexion",
+                    "motorType",
+                    "make",
+                    "model",
+                    "year",
+                    "color",
+                    "licencePlate",
                     "images",
                   ]);
                   if (result) setCurrentStep(currentStep + 1);
                 }
                 if (currentStep == 2) {
                   const result = await trigger([
-                    "fullname",
-                    "othername",
-                    "age",
-                    "gender",
-                    "complexion",
+                    "motorType",
+                    "make",
+                    "model",
+                    "year",
+                    "color",
+                    "licencePlate",
                     "images",
                     "lastSeenDescription",
                     "lastSeenDate",
@@ -173,9 +174,9 @@ export function NewAlertForm() {
         </div>
         {getProgressBar(`${Math.round((currentStep / 3) * 100).toString()}%`)}
         <div className={styles.stepperBody}>
-          {currentStep === 1 && <Step1 />}
-          {currentStep === 2 && <Step2 />}
-          {currentStep === 3 && <Step3 />}
+          {currentStep === 1 && <MotorStep1 />}
+          {currentStep === 2 && <MotorStep2 />}
+          {currentStep === 3 && <MotorStep3 />}
         </div>
       </div>
     </FormProvider>

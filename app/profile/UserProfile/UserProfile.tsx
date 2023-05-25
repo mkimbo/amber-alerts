@@ -25,6 +25,7 @@ import FormRadioGroup from "@/ui/form_radio_buttons";
 import FormCheckboxGroup from "@/ui/form_checkbox";
 import { useZact } from "zact/client";
 import { updateUser } from "@/app/actions";
+import { toast } from "react-toastify";
 type TUserProfile = z.infer<typeof updateUserSchema>;
 interface UserProfileProps {
   profile: TUserProfile;
@@ -106,6 +107,10 @@ export function UserProfile({ profile }: UserProfileProps) {
 
   if (!profile.notificationToken) {
     localforage.removeItem("fcm_token");
+  }
+
+  if (data) {
+    toast.success("Profile updated successfully");
   }
 
   return (

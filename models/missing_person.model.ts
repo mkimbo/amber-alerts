@@ -73,7 +73,7 @@ export type TSaveNotification = {
   content: string;
   ownerId: string;
   resourceId: string;
-  resourceType: "person" | "vehicle" | "bike" | "sighting";
+  resourceType: TAlertType;
   createdAt: number;
   image: string;
   lat: number;
@@ -81,11 +81,14 @@ export type TSaveNotification = {
   notifiedUsers: TNotifiedUser[];
 };
 
+export type TAlertType = "person" | "vehicle" | "bike" | "sighting";
+
 export type TNotification = {
   title: string;
   body: string;
   icon: string;
   click_action: string;
+  type: TAlertType;
 };
 export type TNotificationInput = {
   // center: geofire.Geopoint;

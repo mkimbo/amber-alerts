@@ -7,11 +7,13 @@ import { nanoid } from "nanoid";
 import { admin, serverDB, serverRTDB } from "@/utils/firebase";
 import {
   newAlertFormSchema,
+  newMotorAlertSchema,
   newSightingFormSchema,
   updateUserSchema,
 } from "@/models/zod_schemas";
 import { revalidatePath } from "next/cache";
 import {
+  TAlertType,
   TNotification,
   TNotificationInput,
   TNotifiedUser,
@@ -41,6 +43,14 @@ const saveAlertSchema = z.intersection(
   })
 );
 
+const saveMotorAlertSchema = z.intersection(
+  newMotorAlertSchema,
+  z.object({
+    found: z.boolean(),
+    createdBy: z.string().nonempty("Required"),
+  })
+);
+
 export const saveSighting = zact(saveSightingSchema)(async (input) => {
   const docRef = serverDB.collection("reported_missing").doc(input.personId);
   const doc = await docRef.get();
@@ -58,6 +68,7 @@ export const saveSighting = zact(saveSightingSchema)(async (input) => {
     body: `has been sighted around ${input?.sightingLocation?.toLowerCase()}`,
     icon: doc.data()?.images[0],
     click_action: `https://amber-alerts.vercel.app/cases/${input.personId}`,
+    type: "sighting" as TAlertType,
   };
   const tokenData = [
     {
@@ -90,6 +101,7 @@ export const saveAlert = zact(saveAlertSchema)(async (data) => {
     body: "has just been reported missing in your area",
     icon: data.images[0],
     click_action: `https://amber-alerts.vercel.app/cases/${docID}`,
+    type: "person" as TAlertType,
   };
   const successfullyNotified = await sendNotifications({
     center,
@@ -127,6 +139,53 @@ export const saveAlert = zact(saveAlertSchema)(async (data) => {
   };
 });
 
+export const saveMotorAlert = zact(saveMotorAlertSchema)(async (data) => {
+  const docID = nanoid();
+  await serverDB.collection("missing_motors").doc(docID).set(data);
+  //revalidatePath("/cases");
+  const center = [Number(data.geoloc.lat), Number(data.geoloc.lng)];
+  const notification = {
+    title: data.licencePlate,
+    body: "has just been reported missing in your area",
+    icon: data.images[0],
+    click_action: `https://amber-alerts.vercel.app/cases/${docID}`,
+    type: data.motorType,
+  };
+  const successfullyNotified = await sendNotifications({
+    center,
+    notification,
+  });
+  const notifiedList = [];
+  for (const user of successfullyNotified) {
+    notifiedList.push({
+      userId: user.userId,
+      distance: user.subscribedDistance!,
+      points: 10, // TODO: calculate points based on distance
+      redeemed: false,
+      seen: false,
+    });
+  }
+
+  await saveNotification({
+    content: `${data.licencePlate} has been reported missing`,
+    ownerId: data.createdBy,
+    resourceId: docID,
+    resourceType: data.motorType,
+    createdAt: Date.now(),
+    image: data.images[0],
+    lat: data.geoloc.lat,
+    lng: data.geoloc.lng,
+    notifiedUsers: notifiedList,
+  });
+
+  return {
+    success: true,
+    id: docID,
+    notificationSent: successfullyNotified.length > 0,
+    numUsersNotified: successfullyNotified.length,
+  };
+});
+
 export const updateUser = zact(updateUserSchema)(async (data) => {
   await serverDB
     .collection("users")
@@ -141,10 +200,11 @@ export const sendNotifications = async ({
   radius,
   notification,
 }: TNotificationInput): Promise<TUserDevice[]> => {
-  const radiusInM = radius ? radius * 1000 : 100 * 1000; //100km
+  const radiusInM = radius ? radius * 1000 : 100 * 1000; //100km - should come from user input in future - default should be 5km
   const nearbyUsers = await getUsersWithinRadiusOfCase(radiusInM, center);
   const tenant = await getTenantFromCookies(cookies);
   const tokenData: TUserDevice[] = [];
+  const validUsers: TUserDevice[] = [];
   nearbyUsers.forEach((user) => {
     if (user.data().notificationToken && user.data().id !== tenant?.id) {
       tokenData.push({
@@ -152,15 +212,40 @@ export const sendNotifications = async ({
         userId: user.data().id,
         lat: user.data().lat,
         lng: user.data().lng,
+        subscriptions: [
+          "person",
+          "sighting",
+          user.data().missingVehicleAlerts ?? "vehicle",
+          user.data().missingBikeAlerts ?? "bike",
+        ],
+        subscribedDistance: user.data().alertRadius ?? 5,
       });
     }
   });
-  if (!tokenData.length) {
+
+  for (const device of tokenData) {
+    const distanceInKm = geofire.distanceBetween(center, [
+      device.lat,
+      device.lng,
+    ]);
+    if (
+      distanceInKm <= device.subscribedDistance! //&&
+      //device.subscriptions!.includes(notification.type!)
+    ) {
+      validUsers.push({
+        ...device,
+        subscribedDistance: distanceInKm,
+      });
+    }
+  }
+
+  if (!validUsers.length) {
     console.log("No nearby Users found. No notifications sent.");
     return [];
   }
+
   const successfullyNotified = await sendAlertToUserDevices(
-    tokenData,
+    validUsers,
     notification
   );
   return successfullyNotified;
@@ -213,7 +298,12 @@ const sendAlertToUserDevices = async (
 
   const message: MulticastMessage = {
     webpush: {
-      notification: notification,
+      notification: {
+        title: notification.title,
+        body: notification.body,
+        icon: notification.icon,
+        click_action: notification.click_action,
+      },
     },
     tokens: userDevices.map((device) => device.token),
   };
@@ -250,7 +340,6 @@ export const saveNotification = async (data: TSaveNotification) => {
   const notificationRef = serverRTDB.ref(`notifications`);
   const newKey = notificationRef.push().key;
   await notificationRef.child(newKey!).set({ id: newKey, ...data });
-  // await serverRTDB.ref("notifications").push({ id: docID, ...data });
   return { success: true, id: newKey };
 };
 

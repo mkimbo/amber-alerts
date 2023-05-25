@@ -8,7 +8,7 @@ import FormLocationInput from "../../../ui/form_location_input";
 import FormTextField from "../../../ui/form_text_field";
 import FormTextArea from "../../../ui/form_text_area";
 
-export function Step2() {
+export function MotorStep2() {
   const { control } = useFormContext();
   const now = new Date().getTime();
   const minDate = new Date(now - 72 * 60 * 60 * 1000);
@@ -29,7 +29,7 @@ export function Step2() {
         <FormLocationInput
           name="lastSeenLocation"
           control={control}
-          placeholder="Enter the location the person was last seen"
+          placeholder="Enter the location the car/bike was last seen"
         />
       </div>
       <div className={styles.additionalInfoField}>
@@ -37,7 +37,7 @@ export function Step2() {
         <FormTextArea rows={5} name="lastSeenDescription" control={control} />
       </div>
       <div className={styles.additionalInfoField}>
-        <div className={styles.label}> Guardian contact: </div>
+        <div className={styles.label}> Owner Contacts: </div>
         <FormTextField
           name="secondaryContact"
           placeholder="Phone number/email"
