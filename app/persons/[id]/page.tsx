@@ -10,7 +10,6 @@ import { MdOutlineLocationOn } from "react-icons/md";
 import { serverDB } from "@/utils/firebase";
 import { TPerson } from "@/models/missing_person.model";
 import NewSightingButton from "@/app/Components/SightingButton";
-import { getGender } from "@/utils/functions";
 
 // export async function generateStaticParams() {
 //   const data = await getMissingPersonList();
@@ -45,6 +44,16 @@ export default async function MissingPerson({
 
   const data = await getMissingPersonById(params.id);
   const tenant = await getTenantFromCookies(cookies);
+
+  function getGender(val: string): string {
+    if (val === "M") {
+      return "Male";
+    }
+    if (val === "F") {
+      return "Female";
+    }
+    return "Other";
+  }
 
   return (
     <div className={styles.container}>
