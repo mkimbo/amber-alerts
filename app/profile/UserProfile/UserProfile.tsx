@@ -60,6 +60,12 @@ export function UserProfile({ profile }: UserProfileProps) {
     }
   }, [profile]);
 
+  useEffect(() => {
+    if (data?.success) {
+      toast.success("Profile updated successfully");
+    }
+  }, [data]);
+
   const subscribeFormSchema = z.object({
     distance: z.string().nonempty("Required"),
     person: z.boolean(),
@@ -107,10 +113,6 @@ export function UserProfile({ profile }: UserProfileProps) {
 
   if (!profile.notificationToken) {
     localforage.removeItem("fcm_token");
-  }
-
-  if (data) {
-    toast.success("Profile updated successfully");
   }
 
   return (

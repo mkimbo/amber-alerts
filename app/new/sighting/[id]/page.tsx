@@ -3,6 +3,7 @@ import { ServerAuthProvider } from "../../../../auth/server-auth-provider";
 import { NewSightingForm } from "./NewSightingForm";
 import { TPerson } from "../../../../models/missing_person.model";
 import { serverDB } from "@/utils/firebase";
+import { TMotor } from "@/models/misssing_motor.model";
 async function getMissingPersonData(personId: string): Promise<TPerson | null> {
   const missingPerson = await serverDB
     .collection("reported_missing")
@@ -16,22 +17,53 @@ async function getMissingPersonData(personId: string): Promise<TPerson | null> {
   return missingPerson.data() as TPerson;
 }
 
+async function getMissingMotorData(motorId: string): Promise<TMotor | null> {
+  const missingMotor = await serverDB
+    .collection("missing_motors")
+    .doc(motorId)
+    .get();
+  if (!missingMotor.exists) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("No missing vehicle/bike found with that id");
+  }
+
+  return missingMotor.data() as TMotor;
+}
+
 export default async function NewSighting({
   params,
+  searchParams,
 }: {
   params: { id: string };
+  searchParams: { type: string };
 }) {
   if (!params.id) {
     throw new Error("No personId provided");
   }
+  const alertType = searchParams.type;
+  if (!alertType) {
+    throw new Error("No sighting type provided");
+  }
 
-  const data = await getMissingPersonData(params.id);
+  let data: TPerson | TMotor | null = null;
+  if (alertType === "person") {
+    data = await getMissingPersonData(params.id);
+  }
+  if (alertType === "motor") {
+    data = await getMissingMotorData(params.id);
+  }
+
+  if (!data) {
+    throw new Error("No missing person/vehicle/bike found with that id");
+  }
+
   return (
     <div className={styles.container}>
       {/* @ts-expect-error https://github.com/vercel/next.js/issues/43537 */}
       <ServerAuthProvider>
         <NewSightingForm
-          missingPerson={{ ...data, id: params.id } as TPerson}
+          missingItem={{ ...data, id: params.id } as TPerson | TMotor}
+          type={alertType === "person" ? "person" : "motor"}
         />
       </ServerAuthProvider>
     </div>

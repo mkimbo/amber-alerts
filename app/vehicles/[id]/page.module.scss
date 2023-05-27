@@ -1,0 +1,206 @@
+@import "../../../styles/variables.module.scss";
+@import "../../../styles/_mixins.scss";
+.container {
+  padding: 0 1rem;
+  width: 100%;
+  @include lg {
+    width: 50%;
+    margin: 0 auto;
+  }
+  .header {
+    height: 40px;
+    background-color: $primaryColor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @include lg {
+      height: 60px;
+    }
+    .title {
+      margin: 0;
+      line-height: 1.15;
+      font-size: 1.2rem;
+      font-style: normal;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+    }
+  }
+  .content {
+    padding-top: 1rem;
+    .personalInfo {
+      display: flex;
+      flex-direction: row;
+      //  row-gap: 5px;
+      justify-content: flex-start;
+      .image {
+        height: 180px;
+        width: 180px;
+        border-radius: 10px;
+        // border: 1px solid $primaryColor;
+        @include lg {
+          height: 300px;
+          width: 300px;
+        }
+      }
+      .info {
+        display: flex;
+        flex-direction: column;
+        padding-top: 8px;
+        padding-left: 8px;
+        @include lg {
+          padding-top: 15px;
+          padding-left: 15px;
+        }
+        .name {
+          font-size: 0.8rem;
+          font-weight: 600;
+          margin: 0;
+          color: $primaryColor;
+          @include lg {
+            font-size: 1.5rem;
+          }
+        }
+        .infoLabel {
+          font-size: 0.7rem;
+          font-weight: 500;
+          margin: 0;
+          > span {
+            color: $primaryColor;
+          }
+          @include lg {
+            font-size: 1rem;
+          }
+        }
+        .locationLabel {
+          font-size: 0.7rem;
+          font-weight: 500;
+          color: $primaryColor;
+          margin-top: 12px;
+
+          @include lg {
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+    .description {
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      line-height: 1.5;
+      text-align: center;
+      @include lg {
+        font-size: 1rem;
+        width: 60%;
+        margin: 1rem auto 0 auto;
+      }
+    }
+    .contacts {
+      padding: 5px;
+      border: 3px solid $primaryColor;
+      border-radius: 10px;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      width: 100%;
+
+      text-align: center;
+      @include lg {
+        width: 60%;
+        margin: 1rem auto 0 auto;
+      }
+      > span {
+        font-size: 0.8rem;
+        font-weight: 500;
+        line-height: 1.5;
+        @include lg {
+          font-size: 1rem;
+        }
+      }
+    }
+
+    .sightingsSection {
+      height: 20px;
+      background-color: $primaryColor;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 1rem auto 0;
+      @include lg {
+        width: 60%;
+      }
+
+      .title {
+        margin: 0;
+        line-height: 1.15;
+        font-size: 0.8rem;
+        font-style: normal;
+        font-weight: 600;
+        letter-spacing: -0.025em;
+      }
+    }
+
+    .sightings {
+      margin-top: 10px;
+      .title {
+        font-size: 1rem;
+        font-weight: 600;
+        margin: 0;
+        color: $primaryColor;
+        @include lg {
+          font-size: 1.5rem;
+        }
+      }
+      .noResult {
+        color: $white;
+        font-size: 12px;
+        text-align: center;
+        margin: 0 auto;
+      }
+      .listContainer {
+        //padding: 10px 0px;
+        display: grid;
+        width: 100%;
+        // justify-content: space-around;
+        gap: 10px;
+        overflow-y: auto;
+        @include lg {
+          display: flex;
+          flex-wrap: wrap;
+          flex-grow: 1;
+          overflow-x: auto;
+          margin: 0px auto;
+          width: 50%;
+          flex-direction: row;
+          justify-content: center;
+          align-items: normal;
+          align-content: flex-start;
+        }
+
+        .sighting {
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          background-color: $lightGrey;
+          border-radius: 10px;
+          padding: 8px;
+          margin-top: 5px;
+          .sightingInfo {
+            display: flex;
+            flex-direction: row;
+            align-items: baseline;
+            margin: 2px 0px;
+            width: 100%;
+            .icon {
+              font-size: 20px;
+              min-width: 25px;
+            }
+            > span {
+              align-self: flex-start;
+              font-size: 12px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

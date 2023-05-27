@@ -9,6 +9,8 @@ import {
   newAlertFormSchema,
   newMotorAlertSchema,
   newSightingFormSchema,
+  saveMotorAlertSchema,
+  savePersonAlertSchema,
   updateUserSchema,
 } from "@/models/zod_schemas";
 import { revalidatePath } from "next/cache";
@@ -29,37 +31,48 @@ const geofire = require("geofire-common");
 const saveSightingSchema = z.intersection(
   newSightingFormSchema,
   z.object({
-    personId: z.string().nonempty("Missing person ID is required"),
+    itemId: z.string().nonempty("Missing person ID is required"),
     sightedBy: z.string().nonempty("Required"),
     sightingDate: z.string().nonempty("Required"),
   })
 );
 
-const saveAlertSchema = z.intersection(
-  newAlertFormSchema,
-  z.object({
-    found: z.boolean(),
-    createdBy: z.string().nonempty("Required"),
-  })
-);
+const saveBannerUrl = z.object({
+  bannerUrl: z.string().nonempty("Required"),
+  itemId: z.string().nonempty("Required"),
+});
 
-const saveMotorAlertSchema = z.intersection(
-  newMotorAlertSchema,
-  z.object({
-    found: z.boolean(),
-    createdBy: z.string().nonempty("Required"),
-  })
-);
+export const savePersonBanner = zact(saveBannerUrl)(async (input) => {
+  const docRef = serverDB.collection("reported_missing").doc(input.itemId);
+  const doc = await docRef.get();
 
-export const saveSighting = zact(saveSightingSchema)(async (input) => {
-  const docRef = serverDB.collection("reported_missing").doc(input.personId);
+  await docRef.update({
+    bannerUrl: input.bannerUrl,
+  });
+  const url = `/share/${input.itemId}/type=person`;
+  revalidatePath(url);
+});
+
+export const saveMotorBanner = zact(saveBannerUrl)(async (input) => {
+  const docRef = serverDB.collection("missing_motors").doc(input.itemId);
+  const doc = await docRef.get();
+
+  await docRef.update({
+    bannerUrl: input.bannerUrl,
+  });
+  const url = `/share/${input.itemId}/type=motor`;
+  revalidatePath(url);
+});
+
+export const savePersonSighting = zact(saveSightingSchema)(async (input) => {
+  const docRef = serverDB.collection("reported_missing").doc(input.itemId);
   const doc = await docRef.get();
   const caseOwnerId = doc.data()?.createdBy;
 
   await docRef.update({
     sightings: admin.firestore.FieldValue.arrayUnion(input),
   });
-  const url = `/cases/${input.personId}`;
+  const url = `/persons/${input.itemId}`;
   revalidatePath(url);
   //notify case owner
   const caseOwner = await serverDB.collection("users").doc(caseOwnerId).get();
@@ -67,7 +80,7 @@ export const saveSighting = zact(saveSightingSchema)(async (input) => {
     title: doc.data()?.fullname,
     body: `has been sighted around ${input?.sightingLocation?.toLowerCase()}`,
     icon: doc.data()?.images[0],
-    click_action: `https://amber-alerts.vercel.app/cases/${input.personId}`,
+    click_action: `https://amber-alerts.vercel.app/persons/${input.itemId}`,
     type: "sighting" as TAlertType,
   };
   const tokenData = [
@@ -91,16 +104,56 @@ export const saveSighting = zact(saveSightingSchema)(async (input) => {
   };
 });
 
-export const saveAlert = zact(saveAlertSchema)(async (data) => {
+export const saveMotorSighting = zact(saveSightingSchema)(async (input) => {
+  const docRef = serverDB.collection("missing_motors").doc(input.itemId);
+  const doc = await docRef.get();
+  const caseOwnerId = doc.data()?.createdBy;
+
+  await docRef.update({
+    sightings: admin.firestore.FieldValue.arrayUnion(input),
+  });
+  const url = `/vehicles/${input.itemId}`;
+  revalidatePath(url);
+  //notify case owner
+  const caseOwner = await serverDB.collection("users").doc(caseOwnerId).get();
+  const notification = {
+    title: doc.data()?.licencePlate,
+    body: `has been sighted around ${input?.sightingLocation?.toLowerCase()}`,
+    icon: doc.data()?.images[0],
+    click_action: `https://amber-alerts.vercel.app/vehicles/${input.itemId}`,
+    type: "sighting" as TAlertType,
+  };
+  const tokenData = [
+    {
+      token: caseOwner.data()?.notificationToken,
+      userId: caseOwnerId,
+    },
+  ];
+  if (!caseOwner.data()?.notificationToken) {
+    console.log("Case owner has no notification token. No notification sent.");
+    return { success: true, ownerNotified: false };
+  }
+  const successfullyNotified = await sendAlertToUserDevices(
+    tokenData,
+    notification
+  );
+  return {
+    success: true,
+    ownerNotified: true,
+    notificationSent: successfullyNotified.length > 0,
+  };
+});
+
+export const saveAlert = zact(savePersonAlertSchema)(async (data) => {
   const docID = nanoid();
   await serverDB.collection("reported_missing").doc(docID).set(data);
-  revalidatePath("/cases");
+  revalidatePath("/persons");
   const center = [Number(data.geoloc.lat), Number(data.geoloc.lng)];
   const notification = {
     title: data.fullname,
     body: "has just been reported missing in your area",
     icon: data.images[0],
-    click_action: `https://amber-alerts.vercel.app/cases/${docID}`,
+    click_action: `https://amber-alerts.vercel.app/persons/${docID}`,
     type: "person" as TAlertType,
   };
   const successfullyNotified = await sendNotifications({
@@ -142,13 +195,21 @@ export const saveAlert = zact(saveAlertSchema)(async (data) => {
 export const saveMotorAlert = zact(saveMotorAlertSchema)(async (data) => {
   const docID = nanoid();
   await serverDB.collection("missing_motors").doc(docID).set(data);
-  //revalidatePath("/cases");
+  let action = "";
+  if (data.motorType === "vehicle") {
+    revalidatePath("/vehicles");
+    action = `https://amber-alerts.vercel.app/vehicles/${docID}`;
+  }
+  if (data.motorType === "bike") {
+    revalidatePath("/bikes");
+    action = `https://amber-alerts.vercel.app/bikes/${docID}`;
+  }
   const center = [Number(data.geoloc.lat), Number(data.geoloc.lng)];
   const notification = {
     title: data.licencePlate,
     body: "has just been reported missing in your area",
     icon: data.images[0],
-    click_action: `https://amber-alerts.vercel.app/cases/${docID}`,
+    click_action: action,
     type: data.motorType,
   };
   const successfullyNotified = await sendNotifications({

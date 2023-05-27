@@ -106,3 +106,32 @@ export const processPlaceDetails: (
   console.log("detailedLocation", detailedLocation);
   return detailedLocation;
 };
+
+export function getFileObjectFromBlobUrl(blobUrl: string) {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", blobUrl);
+    xhr.responseType = "blob";
+    xhr.onload = () => {
+      if (xhr.status === 200) {
+        resolve(xhr.response);
+      } else {
+        reject(`Failed to retrieve file from ${blobUrl}.`);
+      }
+    };
+    xhr.onerror = () => {
+      reject(`Failed to retrieve file from ${blobUrl}.`);
+    };
+    xhr.send();
+  });
+}
+
+export function getGender(val: string): string {
+  if (val === "M") {
+    return "Male";
+  }
+  if (val === "F") {
+    return "Female";
+  }
+  return "Other";
+}

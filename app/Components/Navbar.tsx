@@ -12,9 +12,10 @@ import {
   MdMenu,
   MdClose,
 } from "react-icons/md";
+import { RiMotorbikeFill } from "react-icons/ri";
+import { AiFillCar } from "react-icons/ai";
 import { LogoIcon } from "../../ui/icons";
 import { useRouter } from "next/navigation";
-import { AuthProvider } from "@/auth/client-auth-provider";
 import NotificationsHandler from "./NotificationsHandler";
 import { useAuth } from "@/auth/hooks";
 
@@ -42,9 +43,19 @@ export function Navbar() {
       icon: <MdAddAlert color={"#ff4400"} fontSize={26} />,
     },
     {
-      text: "Active Cases",
-      href: "/cases",
+      text: "Persons",
+      href: "/persons",
       icon: <MdPersonSearch color={"#ff4400"} fontSize={26} />,
+    },
+    {
+      text: "Vehicles",
+      href: "/vehicles",
+      icon: <AiFillCar color={"#ff4400"} fontSize={26} />,
+    },
+    {
+      text: "Bikes",
+      href: "/bikes",
+      icon: <RiMotorbikeFill color={"#ff4400"} fontSize={26} />,
     },
     {
       text: "Profile",

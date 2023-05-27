@@ -47,18 +47,20 @@ export default function PersonList({ personList }: PersonCardProps) {
 
   return (
     <>
-      <div className={styles.header}>
-        <input
-          id={"searchString"}
-          autoComplete={"off"}
-          name={"searchString"}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            handleSearch(e.target.value);
-          }}
-          className={styles.searchInput}
-          placeholder={"Search by person name or location"}
-        />
-      </div>
+      {filteredPersonList.length > 0 && (
+        <div className={styles.header}>
+          <input
+            id={"searchString"}
+            autoComplete={"off"}
+            name={"searchString"}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              handleSearch(e.target.value);
+            }}
+            className={styles.searchInput}
+            placeholder={"Search by person name or location"}
+          />
+        </div>
+      )}
 
       <div id="scrollableDiv" className={styles.listContainer}>
         {/* <Button loading={isLoading} onClick={handleFetch}>

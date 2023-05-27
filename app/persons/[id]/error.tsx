@@ -23,10 +23,10 @@ export default function Error({
       <Button
         onClick={
           // Attempt to recover by trying to re-render the segment
-          () => router.push("/cases")
+          () => router.push("/persons")
         }
       >
-        Back to Cases
+        Back to persons list
       </Button>
     </div>
   );

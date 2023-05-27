@@ -21,25 +21,7 @@ import { newAlertFormSchema } from "@/models/zod_schemas";
 import { useZact } from "zact/client";
 import { saveAlert } from "@/app/actions";
 import { Button } from "@/ui/button";
-
-export function getFileObjectFromBlobUrl(blobUrl: string) {
-  return new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", blobUrl);
-    xhr.responseType = "blob";
-    xhr.onload = () => {
-      if (xhr.status === 200) {
-        resolve(xhr.response);
-      } else {
-        reject(`Failed to retrieve file from ${blobUrl}.`);
-      }
-    };
-    xhr.onerror = () => {
-      reject(`Failed to retrieve file from ${blobUrl}.`);
-    };
-    xhr.send();
-  });
-}
+import { getFileObjectFromBlobUrl } from "@/utils/functions";
 
 export type TFormSchema = z.infer<typeof newAlertFormSchema>;
 export function NewPersonAlert() {
@@ -78,7 +60,7 @@ export function NewPersonAlert() {
   useEffect(() => {
     if (data?.success) {
       toast.success(`Alert was sent to ${data?.numUsersNotified} nearby users`);
-      router.push(`/cases/${data.id}`);
+      router.push(`/share/${data.id}?type=person`);
     }
   }, [data]);
 

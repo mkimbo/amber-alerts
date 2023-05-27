@@ -1,0 +1,17 @@
+@import "../../styles/variables.module.scss";
+.btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: fit-content;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 5px;
+  background-color: $lightGrey;
+  border-radius: 10px;
+  color: $white;
+  margin: 1rem auto;
+  .report {
+    padding-bottom: 5px;
+  }
+}

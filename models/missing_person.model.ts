@@ -25,6 +25,7 @@ export type TDetailedLocation = {
 
 export type TPerson = {
   id?: string;
+  bannerUrl?: string;
   fullname: string;
   age: number;
   complexion: string;

@@ -15,15 +15,17 @@ import FormLocationInput from "../../../../ui/form_location_input";
 import FormTextArea from "../../../../ui/form_text_area";
 import FormTextField from "../../../../ui/form_text_field";
 import { useZact } from "zact/client";
-import { saveSighting } from "@/app/actions";
+import { savePersonSighting, saveMotorSighting } from "@/app/actions";
 import { Button } from "@/ui/button";
 import { toast } from "react-toastify";
 import { newSightingFormSchema } from "@/models/zod_schemas";
+import { TMotor } from "@/models/misssing_motor.model";
 type Props = {
-  missingPerson: TPerson;
+  missingItem: TPerson | TMotor;
+  type: "person" | "motor";
 };
 
-export function NewSightingForm({ missingPerson }: Props) {
+export function NewSightingForm({ missingItem, type }: Props) {
   const { tenant } = useAuth();
   const router = useRouter();
 
@@ -43,7 +45,12 @@ export function NewSightingForm({ missingPerson }: Props) {
   });
 
   const { handleSubmit, control, formState } = methods;
-  const { mutate, data, isLoading } = useZact(saveSighting);
+  const { mutate, data, isLoading } = useZact(saveMotorSighting);
+  const {
+    mutate: sendit,
+    data: response,
+    isLoading: isRunning,
+  } = useZact(savePersonSighting);
 
   const getProgressBar = (progressBar: string) => {
     return (
@@ -54,11 +61,11 @@ export function NewSightingForm({ missingPerson }: Props) {
   };
 
   React.useEffect(() => {
-    if (data?.success) {
-      toast.success("Alert created successfully");
-      router.push(`/cases/${missingPerson.id}`);
+    if (data?.success || response?.success) {
+      toast.success("Thank you, the user has been notified!");
+      router.back();
     }
-  }, [data]);
+  }, [data, response]);
 
   if (!tenant) {
     return null;
@@ -71,15 +78,24 @@ export function NewSightingForm({ missingPerson }: Props) {
           <div className={styles.stepperHeader}>
             <div className={styles.stepperBack}></div>
             <Button
-              loading={isLoading}
-              disabled={isLoading}
+              loading={isLoading || isRunning}
+              disabled={isLoading || isRunning}
               onClick={async () => {
                 handleSubmit((values) => {
-                  mutate({
-                    ...values,
-                    sightedBy: tenant.id,
-                    personId: missingPerson.id!,
-                  });
+                  if (type == "motor") {
+                    mutate({
+                      ...values,
+                      sightedBy: tenant.id,
+                      itemId: missingItem.id!,
+                    });
+                  }
+                  if (type == "person") {
+                    sendit({
+                      ...values,
+                      sightedBy: tenant.id,
+                      itemId: missingItem.id!,
+                    });
+                  }
                 })();
               }}
             >
@@ -91,11 +107,11 @@ export function NewSightingForm({ missingPerson }: Props) {
             <div className={styles.additionalInfo}>
               <div
                 className={styles.additionalInfoTitle}
-              >{` Have you seen ${missingPerson.fullname}?`}</div>
+              >{`Please provide info on where/when the sighting happened`}</div>
               <div className={styles.additionalInfoField}>
                 <div className={styles.label}> Sighting date: </div>
                 <FormDatePicker
-                  minDate={new Date(missingPerson.lastSeenDate)}
+                  minDate={new Date(missingItem.lastSeenDate)}
                   maxDate={new Date()}
                   name="sightingDate"
                   control={control}

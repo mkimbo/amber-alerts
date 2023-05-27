@@ -3,14 +3,13 @@ import Link from "next/link";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { TiTick } from "react-icons/ti";
 type Props = {
-  personId: string;
+  itemId: string;
   found?: boolean;
+  type: "person" | "motor";
 };
-import styles from "./page.module.scss";
-import { useAuth } from "@/auth/hooks";
+import styles from "./sightingButton.module.scss";
 
-export default function NewSightingButton({ personId, found }: Props) {
-  const { tenant } = useAuth();
+export default function NewSightingButton({ itemId, found, type }: Props) {
   return (
     <>
       {found ? (
@@ -19,7 +18,10 @@ export default function NewSightingButton({ personId, found }: Props) {
           <TiTick fontSize={20} color={"#ff4400"} />
         </div>
       ) : (
-        <Link href={`/new/sighting/${personId}`} className={styles.btn}>
+        <Link
+          href={`/new/sighting/${itemId}?type=${type}`}
+          className={styles.btn}
+        >
           <span className={styles.report}>Report Sighting</span>{" "}
           <MdKeyboardArrowRight fontSize={25} />
         </Link>

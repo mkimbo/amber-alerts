@@ -16,9 +16,22 @@ export default function NotificationCard({ notification }: PersonCardProps) {
     (item) => item.userId === tenant?.id
   );
 
+  const getLink = (type: string) => {
+    switch (type) {
+      case "person":
+        return `/persons/${notification.resourceId}`;
+      case "vehicle":
+        return `/vehicles/${notification.resourceId}`;
+      case "bike":
+        return `/bikes/${notification.resourceId}`;
+      default:
+        return `/persons/${notification.resourceId}`;
+    }
+  };
+
   return (
     <Link
-      href={`/cases/${notification.resourceId}`}
+      href={getLink(notification.resourceType)}
       className={styles.notificationCard}
     >
       <div className={styles.notificationCardHeader}>

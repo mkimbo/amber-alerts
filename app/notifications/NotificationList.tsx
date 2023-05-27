@@ -25,9 +25,13 @@ export default function NotificationList() {
   const tabButtonClasses3 = classNames(styles.tabButton, {
     [styles.tabButtonActive]: activeIdx === 3,
   });
-  const [NotificationList, setNotificationList] = useState<TSaveNotification[]>(
+  const [notificationList, setNotificationList] = useState<TSaveNotification[]>(
     []
   );
+  const [personList, setPersonList] = useState<TSaveNotification[]>([]);
+  const [motorsList, setMotorsList] = useState<TSaveNotification[]>([]);
+
+  const [sightingsList, setSightingsList] = useState<TSaveNotification[]>([]);
   const { tenant } = useAuth();
   const db = getDatabase(
     !getApps().length ? initializeApp(clientConfig) : getApp()
@@ -47,7 +51,21 @@ export default function NotificationList() {
           }
         });
       });
-
+      // group notifications by resource type
+      const persons = notificationsArray.filter(
+        (notification) => notification.resourceType === "person"
+      );
+      const motors = notificationsArray.filter(
+        (notification) =>
+          notification.resourceType === "vehicle" ||
+          notification.resourceType === "bike"
+      );
+      const sightings = notificationsArray.filter(
+        (notification) => notification.resourceType === "sighting"
+      );
+      setPersonList(persons);
+      setMotorsList(motors);
+      setSightingsList(sightings);
       setNotificationList(notificationsArray);
       markNotificationsAsSeen({
         tenantID: tenant?.id,
@@ -66,22 +84,56 @@ export default function NotificationList() {
           Persons
         </span>
         <span onClick={() => setActiveIdx(2)} className={tabButtonClasses2}>
-          Sightings
+          Vehicles/Bikes
         </span>
         <span onClick={() => setActiveIdx(3)} className={tabButtonClasses3}>
-          Property
+          Sightings
         </span>
       </div>
       <div id="scrollableDiv" className={styles.listContainer}>
-        {NotificationList.length > 0 &&
-          NotificationList.map((notification) => (
-            <NotificationCard
-              notification={notification}
-              key={notification.id}
-            />
-          ))}
+        {notificationList.length > 0 && (
+          <>
+            {activeIdx === 0 &&
+              notificationList.map((notification) => {
+                return (
+                  <NotificationCard
+                    key={notification.id}
+                    notification={notification}
+                  />
+                );
+              })}
 
-        {NotificationList.length === 0 && (
+            {activeIdx === 1 &&
+              personList.map((notification) => {
+                return (
+                  <NotificationCard
+                    key={notification.id}
+                    notification={notification}
+                  />
+                );
+              })}
+            {activeIdx === 2 &&
+              motorsList.map((notification) => {
+                return (
+                  <NotificationCard
+                    key={notification.id}
+                    notification={notification}
+                  />
+                );
+              })}
+            {activeIdx === 3 &&
+              sightingsList.map((notification) => {
+                return (
+                  <NotificationCard
+                    key={notification.id}
+                    notification={notification}
+                  />
+                );
+              })}
+          </>
+        )}
+
+        {notificationList.length === 0 && (
           <div id="scrollableDiv" className={styles.listContainer}>
             <div className={styles.noResult}>
               <p>No results found</p>

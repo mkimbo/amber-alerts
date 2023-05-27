@@ -75,17 +75,23 @@ export const newMotorAlertSchema = z.object({
   obNumber: z.string().nonempty("Required"),
 });
 
+export const savePersonAlertSchema = z.intersection(
+  newAlertFormSchema,
+  z.object({
+    found: z.boolean(),
+    createdBy: z.string().nonempty("Required"),
+  })
+);
+
+export const saveMotorAlertSchema = z.intersection(
+  newMotorAlertSchema,
+  z.object({
+    found: z.boolean(),
+    createdBy: z.string().nonempty("Required"),
+  })
+);
+
 export const newSightingFormSchema = z.object({
-  // sightingDate: z
-  //   .date({
-  //     required_error: "Required",
-  //     invalid_type_error: "Required",
-  //   })
-  //   .min(
-  //     new Date(missingPerson.lastSeenDate),
-  //     "Date cannot be earlier that last seen date"
-  //   )
-  //   .max(new Date(), "Date cannot be later than today"),
   sightingLocation: z.string().optional(),
   placeId: z.string().nonempty("Please choose a location from the dropdown"),
   geoloc: z.object({
