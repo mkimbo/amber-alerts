@@ -37,7 +37,7 @@ export default function VehicleList({ vehicleList }: VehicleListProps) {
 
   return (
     <>
-      {filteredVehicleList.length > 0 && (
+      {vehicleList.length > 0 && (
         <div className={styles.header}>
           <input
             id={"searchString"}

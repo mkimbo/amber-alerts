@@ -47,7 +47,7 @@ export default function PersonList({ personList }: PersonCardProps) {
 
   return (
     <>
-      {filteredPersonList.length > 0 && (
+      {personList.length > 0 && (
         <div className={styles.header}>
           <input
             id={"searchString"}

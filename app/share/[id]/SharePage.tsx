@@ -56,10 +56,7 @@ export function SharePage({
   const searchParams = useSearchParams();
   const [image, setImage] = useState<string>();
 
-  const canvas = document.getElementById("imageCanvas") as HTMLCanvasElement;
-  canvas.width = 300;
-  canvas.height = 300;
-  const ctx = canvas.getContext("2d");
+
 
   const { mutate, data, isLoading } = useZact(saveMotorBanner);
   const {
@@ -69,6 +66,10 @@ export function SharePage({
   } = useZact(savePersonBanner);
 
   useEffect(() => {
+    const canvas = document.getElementById("imageCanvas") as HTMLCanvasElement;
+    canvas.width = 300;
+    canvas.height = 300;
+    const ctx = canvas.getContext("2d", {preserveDrawingBuffer: true}) as CanvasRenderingContext2D;
     generateImage().then(() => {
       const link = canvas.toDataURL("image/png");
       console.log(link, "link");
@@ -105,6 +106,7 @@ export function SharePage({
       ctx.fillText(text, x, y);
     }
     async function generateImage() {
+      
       const font = "bold 12px Arial";
       const textColor = "black";
       const bgColor = "white";
@@ -205,7 +207,7 @@ export function SharePage({
         }
       }
     }
-  }, [type, name, age, licencePlates, color, gender, email, phoneNumber]);
+  }, [type, name, age, licencePlates, color, gender, email, phoneNumber, imageUrl]);
 
   useEffect(() => {
     saveImage();

@@ -37,7 +37,7 @@ export default function BikeList({ bikeList }: BikeListProps) {
 
   return (
     <>
-      {filteredBikeList.length > 0 && (
+      {bikeList.length > 0 && (
         <div className={styles.header}>
           <input
             id={"searchString"}
