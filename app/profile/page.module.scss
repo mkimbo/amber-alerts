@@ -4,6 +4,10 @@
   padding: 1.5rem;
   text-align: center;
   overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+  }
   @include lg {
     width: 30%;
     margin: 0 auto;
@@ -14,11 +18,7 @@
     color: $white;
     padding: 5px;
     text-align: center;
-    overflow-y: auto;
-    &::-webkit-scrollbar {
-      width: 0px;
-      background: transparent; /* make scrollbar transparent */
-    }
+
     .profileCard {
       display: flex;
       border-radius: 10px;
