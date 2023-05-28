@@ -14,6 +14,11 @@
     color: $white;
     padding: 5px;
     text-align: center;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      width: 0px;
+      background: transparent; /* make scrollbar transparent */
+    }
     .profileCard {
       display: flex;
       border-radius: 10px;

@@ -3,6 +3,11 @@
 .container {
   padding: 0 1rem;
   width: 100%;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+  }
   @include lg {
     width: 50%;
     margin: 0 auto;

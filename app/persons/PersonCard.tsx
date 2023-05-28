@@ -39,7 +39,7 @@ export default function PersonCard({ person }: PersonCardProps) {
     });
   }
   return (
-    <Link className={styles.searchHit} href={`/cases/${person?.id}`}>
+    <Link className={styles.searchHit} href={`/persons/${person?.id}`}>
       <div className={styles.hitImage}>
         <Image
           className={styles.hitImage}
