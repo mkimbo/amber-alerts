@@ -59,7 +59,7 @@ export async function generateMetadata({
       description: lastSeenDescription,
       type: "article",
       publishedTime: lastSeenDate,
-      url: `https://amber-alerts.vercel.app/persons/${id}`,
+      url: `https://amber-alerts.vercel.app/persons/${params.id}`,
       images: [
         {
           url: ogImage,

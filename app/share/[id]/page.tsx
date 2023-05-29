@@ -4,7 +4,7 @@ import { SharePage } from "./SharePage";
 import { TPerson } from "@/models/missing_person.model";
 import { serverDB } from "@/utils/firebase";
 import { TMotor } from "@/models/misssing_motor.model";
-import { createCanvas, loadImage } from "canvas";
+//import { createCanvas, loadImage } from "canvas";
 async function getMissingPersonData(personId: string): Promise<TPerson | null> {
   const missingPerson = await serverDB
     .collection("reported_missing")
@@ -31,15 +31,15 @@ async function getMissingMotorData(motorId: string): Promise<TMotor | null> {
   return missingMotor.data() as TMotor;
 }
 
-async function editImageOnServer(imageUrl: string): Promise<string> {
-  // Load the image from Firebase Cloud Storage
-  const image = await loadImage(imageUrl);
-  const canvas = createCanvas(image.width, image.height);
-  const context = canvas.getContext("2d");
-  context.drawImage(image, 0, 0);
-  const editedImageDataUrl = canvas.toDataURL();
-  return editedImageDataUrl;
-}
+// async function editImageOnServer(imageUrl: string): Promise<string> {
+//   // Load the image from Firebase Cloud Storage
+//   const image = await loadImage(imageUrl);
+//   const canvas = createCanvas(image.width, image.height);
+//   const context = canvas.getContext("2d");
+//   context.drawImage(image, 0, 0);
+//   const editedImageDataUrl = canvas.toDataURL();
+//   return editedImageDataUrl;
+// }
 
 export default async function Share({
   params,
@@ -56,27 +56,27 @@ export default async function Share({
     throw new Error("No sighting type provided");
   }
 
-  let personData: TPerson | null = null;
-  let motorData: TMotor | null = null;
-  if (alertType === "person") {
-    personData = await getMissingPersonData(params.id);
-  }
-  if (alertType === "motor") {
-    motorData = await getMissingMotorData(params.id);
-  }
+  // let personData: TPerson | null = null;
+  // let motorData: TMotor | null = null;
+  // if (alertType === "person") {
+  //   personData = await getMissingPersonData(params.id);
+  // }
+  // if (alertType === "motor") {
+  //   motorData = await getMissingMotorData(params.id);
+  // }
 
-  if (!personData && !motorData) {
-    throw new Error("No missing person/vehicle/bike found with that id");
-  }
+  // if (!personData && !motorData) {
+  //   throw new Error("No missing person/vehicle/bike found with that id");
+  // }
 
-  const imageUrl = personData?.images[0] || motorData?.images[0] || "";
-  const editedImageUrl = await editImageOnServer(imageUrl);
+  // const imageUrl = personData?.images[0] || motorData?.images[0] || "";
+  // const editedImageUrl = await editImageOnServer(imageUrl);
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Share</h2>
       {/* @ts-expect-error https://github.com/vercel/next.js/issues/43537 */}
       <ServerAuthProvider>
-        <SharePage
+        {/* <SharePage
           id={params.id}
           name={
             personData?.fullname ||
@@ -92,7 +92,7 @@ export default async function Share({
           imageUrl={editedImageUrl}
           type={alertType === "person" ? "person" : "motor"}
           bannerUrl={personData?.bannerUrl || motorData?.bannerUrl}
-        />
+        /> */}
       </ServerAuthProvider>
     </div>
   );
