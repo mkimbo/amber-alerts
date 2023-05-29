@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use, useEffect, useState } from "react";
+import React, { use, useEffect, useState, useRef } from "react";
 import { useAuth } from "../../../auth/hooks";
 import styles from "./page.module.scss";
 import { useForm, FormProvider, Controller } from "react-hook-form";
@@ -56,7 +56,7 @@ export function SharePage({
   const searchParams = useSearchParams();
   const [image, setImage] = useState<string>();
 
-
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const { mutate, data, isLoading } = useZact(saveMotorBanner);
   const {
@@ -66,20 +66,14 @@ export function SharePage({
   } = useZact(savePersonBanner);
 
   useEffect(() => {
-    const canvas = document.getElementById("imageCanvas") as HTMLCanvasElement;
-    canvas.width = 300;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    canvas!.width = 300;
     canvas.height = 300;
-    const ctx = canvas.getContext("2d", {preserveDrawingBuffer: true}) as CanvasRenderingContext2D;
-    generateImage().then(() => {
-      const link = canvas.toDataURL("image/png");
-      console.log(link, "link");
-      canvas.toBlob(function (blob) {
-        if (blob) {
-          const url = URL.createObjectURL(blob);
-          setImage(url);
-        }
-      });
-    });
+    const ctx = canvas.getContext("2d", {
+      preserveDrawingBuffer: true,
+    }) as CanvasRenderingContext2D;
+    generateImage();
     function addTextWithBackground(
       text: string,
       x: number,
@@ -105,8 +99,7 @@ export function SharePage({
       ctx.fillStyle = textColor;
       ctx.fillText(text, x, y);
     }
-    async function generateImage() {
-      
+    function generateImage() {
       const font = "bold 12px Arial";
       const textColor = "black";
       const bgColor = "white";
@@ -114,6 +107,7 @@ export function SharePage({
         try {
           const userImage = new Image();
           userImage.onload = function () {
+            if (!canvas) return;
             ctx.drawImage(userImage, 0, 0, canvas.width, canvas.height);
 
             // Add missing person details
@@ -207,29 +201,56 @@ export function SharePage({
         }
       }
     }
-  }, [type, name, age, licencePlates, color, gender, email, phoneNumber, imageUrl]);
+  }, [
+    type,
+    name,
+    age,
+    licencePlates,
+    color,
+    gender,
+    email,
+    phoneNumber,
+    imageUrl,
+  ]);
 
-  useEffect(() => {
-    saveImage();
-    async function saveImage() {
-      if (image && !bannerUrl) {
-        const file = await getFileObjectFromBlobUrl(image);
-        const url = await uploadFileToCloud(file);
-        if (type == "motor" && url) {
-          mutate({
-            bannerUrl: url,
-            itemId: id,
+  // useEffect(() => {
+  //   saveImage();
+  //   async function saveImage() {
+  //     if (image && !bannerUrl) {
+  //       const file = await getFileObjectFromBlobUrl(image);
+  //       const url = await uploadFileToCloud(file);
+  //       if (type == "motor" && url) {
+  //         mutate({
+  //           bannerUrl: url,
+  //           itemId: id,
+  //         });
+  //       }
+  //       if (type == "person" && url) {
+  //         sendit({
+  //           bannerUrl: url,
+  //           itemId: id,
+  //         });
+  //       }
+  //     }
+  //   }
+  // }, [image]);
+
+  function getFile() {
+    const canvas = canvasRef.current;
+    if (canvas) {
+      canvas.toBlob((blob) => {
+        if (blob) {
+          // Create a new File object from the Blob
+          const file = new File([blob], "edited_image.png", {
+            type: "image/png",
           });
+          const url = URL.createObjectURL(blob);
+          console.log(canvas.toDataURL("image/png"), "link", file);
+          setImage(url);
         }
-        if (type == "person" && url) {
-          sendit({
-            bannerUrl: url,
-            itemId: id,
-          });
-        }
-      }
+      });
     }
-  }, [image]);
+  }
 
   const redirect = searchParams?.get("redirect") || "/";
 
@@ -241,16 +262,11 @@ export function SharePage({
       <h3>Share poster</h3>
       <p>To social media</p>
       <div>
-        <canvas id="imageCanvas"></canvas>
+        <canvas ref={canvasRef} />
         <Button
-        // loading={isRegisterLoading}
-        // disabled={isRegisterLoading}
-        // onClick={() =>
-        //   handleSubmit((values) => {
-        //     const phoneNumber = `+254${values.phoneNumber.slice(1)}`;
-        //     handleRegister(phoneNumber);
-        //   })()
-        // }
+          // loading={isRegisterLoading}
+          // disabled={isRegisterLoading}
+          onClick={() => getFile()}
         >
           Submit
         </Button>

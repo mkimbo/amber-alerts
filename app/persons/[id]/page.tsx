@@ -10,6 +10,7 @@ import { MdOutlineLocationOn } from "react-icons/md";
 import { serverDB } from "@/utils/firebase";
 import { TPerson } from "@/models/missing_person.model";
 import NewSightingButton from "@/app/Components/SightingButton";
+import { Metadata } from "next";
 
 // export async function generateStaticParams() {
 //   const data = await getMissingPersonList();
@@ -31,6 +32,47 @@ async function getMissingPersonById(personId: string): Promise<TPerson | null> {
     throw new Error("No person found with that id");
   }
   return missingPerson.data() as TPerson;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata | undefined> {
+  if (!params.id) {
+    throw new Error("No personId provided");
+  }
+
+  const data = await getMissingPersonById(params.id);
+  if (!data) {
+    return;
+  }
+
+  const { fullname, lastSeenDescription, lastSeenDate, images, id } = data;
+  const ogImage = images[0];
+
+  return {
+    title: fullname,
+    description: lastSeenDescription,
+    openGraph: {
+      title: fullname,
+      description: lastSeenDescription,
+      type: "article",
+      publishedTime: lastSeenDate,
+      url: `https://amber-alerts.vercel.app/persons/${id}`,
+      images: [
+        {
+          url: ogImage,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: fullname,
+      description: lastSeenDescription,
+      images: [ogImage],
+    },
+  };
 }
 
 export default async function MissingPerson({
