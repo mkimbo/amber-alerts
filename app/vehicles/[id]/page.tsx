@@ -10,6 +10,7 @@ import { FcCalendar } from "react-icons/fc";
 import { MdOutlineLocationOn } from "react-icons/md";
 import { serverDB } from "@/utils/firebase";
 import { TMotor } from "@/models/misssing_motor.model";
+import { Metadata } from "next";
 
 async function getMissingVehicleById(
   vehicleId: string
@@ -23,6 +24,50 @@ async function getMissingVehicleById(
     throw new Error("No vehicle found with that id");
   }
   return missingVehicle.data() as TMotor;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata | undefined> {
+  if (!params.id) {
+    throw new Error("No vehicle Id provided");
+  }
+
+  const data = await getMissingVehicleById(params.id);
+  if (!data) {
+    return;
+  }
+
+  const { model, lastSeenDescription, lastSeenDate, images, make, year } = data;
+  const ogImage = images[0];
+
+  return {
+    title: model + " " + make,
+    description: lastSeenDescription,
+    alternates: {
+      canonical: `/vehicles/${params.id}`,
+    },
+    openGraph: {
+      title: model + " " + make,
+      description: lastSeenDescription,
+      type: "article",
+      publishedTime: lastSeenDate,
+      url: `https://amber-alerts.vercel.app/vehicles/${params.id}`,
+      images: [
+        {
+          url: ogImage,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: model + " " + make,
+      description: lastSeenDescription,
+      images: [ogImage],
+    },
+  };
 }
 
 export default async function MissingVehicle({

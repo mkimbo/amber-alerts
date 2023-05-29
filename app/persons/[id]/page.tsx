@@ -54,8 +54,11 @@ export async function generateMetadata({
   return {
     title: fullname,
     description: lastSeenDescription,
+    alternates: {
+      canonical: `/persons/${params.id}`,
+    },
     openGraph: {
-      title: fullname,
+      title: fullname + " is missing",
       description: lastSeenDescription,
       type: "article",
       publishedTime: lastSeenDate,
@@ -68,7 +71,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: fullname,
+      title: fullname + " is missing",
       description: lastSeenDescription,
       images: [ogImage],
     },

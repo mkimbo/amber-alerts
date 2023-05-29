@@ -15,6 +15,7 @@ import { Metadata } from "next";
 // add next js 13 meta data
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://amber-alerts.vercel.app/"),
   title: {
     default: "Missing Link",
     template: "%s | Missing Link",
