@@ -11,6 +11,8 @@ import { MdOutlineLocationOn } from "react-icons/md";
 import { serverDB } from "@/utils/firebase";
 import { TMotor } from "@/models/misssing_motor.model";
 import { Metadata } from "next";
+import { Button } from "@/ui/button";
+import SocialShareButtons from "@/app/Components/SocialShare";
 
 async function getMissingBikeById(bikeId: string): Promise<TMotor | null> {
   const missingBike = await serverDB
@@ -122,14 +124,39 @@ export default async function MissingBike({
           </div>
         </div>
         <div className={styles.description}>{bike.lastSeenDescription}</div>
-        <div className={styles.contacts}>
-          <span>{`If you have any info please contact ${bike.secondaryContact}. You can also report to the nearest police station or directly on this platform by clicking the button below.`}</span>
-          <NewSightingButton
-            found={bike.found}
-            itemId={params.id!}
-            type="motor"
-          />
-        </div>
+
+        {tenant?.id != bike?.createdBy && (
+          <div className={styles.contacts}>
+            <span>{`If you have any info please contact ${
+              bike?.secondaryContact
+            }${
+              tenant?.email && ` or ${tenant?.email}`
+            }. You can also report to the nearest police station or directly on this platform by clicking the button below.`}</span>
+            <NewSightingButton
+              found={bike.found}
+              itemId={params.id!}
+              type="motor"
+            />
+          </div>
+        )}
+        {tenant?.id === bike?.createdBy && (
+          <>
+            <SocialShareButtons
+              url={"https://amber-alerts.vercel.app/"}
+              title={`${bike.make} ${bike.model}`}
+              description={bike?.lastSeenDescription!}
+            />
+            <div className={styles.buttonGroup}>
+              <Button
+              //loading={isLogoutLoading}
+              //disabled={isLogoutLoading}
+              //onClick={handleLogout}
+              >
+                Mark as Found
+              </Button>
+            </div>
+          </>
+        )}
         {tenant?.id === bike.createdBy && (
           <>
             <div className={styles.sightingsSection}>

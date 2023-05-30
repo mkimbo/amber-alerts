@@ -11,6 +11,8 @@ import { MdOutlineLocationOn } from "react-icons/md";
 import { serverDB } from "@/utils/firebase";
 import { TMotor } from "@/models/misssing_motor.model";
 import { Metadata } from "next";
+import { Button } from "@/ui/button";
+import SocialShareButtons from "@/app/Components/SocialShare";
 
 async function getMissingVehicleById(
   vehicleId: string
@@ -44,13 +46,13 @@ export async function generateMetadata({
   const ogImage = images[0];
 
   return {
-    title: model + " " + make,
+    title: make + " " + model,
     description: lastSeenDescription,
     alternates: {
       canonical: `/vehicles/${params.id}`,
     },
     openGraph: {
-      title: model + " " + make,
+      title: make + " " + model,
       description: lastSeenDescription,
       type: "article",
       publishedTime: lastSeenDate,
@@ -62,8 +64,8 @@ export async function generateMetadata({
       ],
     },
     twitter: {
+      title: make + " " + model,
       card: "summary_large_image",
-      title: model + " " + make,
       description: lastSeenDescription,
       images: [ogImage],
     },
@@ -127,14 +129,39 @@ export default async function MissingVehicle({
           </div>
         </div>
         <div className={styles.description}>{vehicle.lastSeenDescription}</div>
-        <div className={styles.contacts}>
-          <span>{`If you have any info please contact ${vehicle.secondaryContact}. You can also report to the nearest police station or directly on this platform by clicking the button below.`}</span>
-          <NewSightingButton
-            found={vehicle.found}
-            itemId={params.id!}
-            type="motor"
-          />
-        </div>
+
+        {tenant?.id != vehicle?.createdBy && (
+          <div className={styles.contacts}>
+            <span>{`If you have any info please contact ${
+              vehicle?.secondaryContact
+            }${
+              tenant?.email && ` or ${tenant?.email}`
+            }. You can also report to the nearest police station or directly on this platform by clicking the button below.`}</span>
+            <NewSightingButton
+              found={vehicle.found}
+              itemId={params.id!}
+              type="motor"
+            />
+          </div>
+        )}
+        {tenant?.id === vehicle?.createdBy && (
+          <>
+            <SocialShareButtons
+              url={"https://amber-alerts.vercel.app/"}
+              title={`${vehicle.make} ${vehicle.model}`}
+              description={vehicle?.lastSeenDescription!}
+            />
+            <div className={styles.buttonGroup}>
+              <Button
+              //loading={isLogoutLoading}
+              //disabled={isLogoutLoading}
+              //onClick={handleLogout}
+              >
+                Mark as Found
+              </Button>
+            </div>
+          </>
+        )}
         {tenant?.id === vehicle.createdBy && (
           <>
             <div className={styles.sightingsSection}>

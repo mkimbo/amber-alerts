@@ -140,6 +140,12 @@
       }
     }
 
+    .buttonGroup {
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+    }
+
     .sightingsSection {
       height: 20px;
       background-color: $primaryColor;
@@ -173,10 +179,15 @@
         }
       }
       .noResult {
+        display: flex;
+        flex-direction: column;
         color: $white;
         font-size: 12px;
         text-align: center;
         margin: 0 auto;
+        > span {
+          font-weight: 600;
+        }
       }
       .listContainer {
         //padding: 10px 0px;

@@ -11,6 +11,8 @@ import { serverDB } from "@/utils/firebase";
 import { TPerson } from "@/models/missing_person.model";
 import NewSightingButton from "@/app/Components/SightingButton";
 import { Metadata } from "next";
+import SocialShareButtons from "@/app/Components/SocialShare";
+import { Button } from "@/ui/button";
 
 // export async function generateStaticParams() {
 //   const data = await getMissingPersonList();
@@ -141,14 +143,39 @@ export default async function MissingPerson({
           </div>
         </div>
         <div className={styles.description}>{data?.lastSeenDescription}</div>
-        <div className={styles.contacts}>
-          <span>{`If you have any info please contact ${data?.secondaryContact}. You can also report to the nearest police station or directly on this platform by clicking the button below.`}</span>
-          <NewSightingButton
-            type="person"
-            found={data?.found}
-            itemId={params.id!}
-          />
-        </div>
+        {tenant?.id != data?.createdBy && (
+          <div className={styles.contacts}>
+            <span>{`If you have any info please contact ${
+              data?.secondaryContact
+            }${
+              tenant?.email && ` or ${tenant?.email}`
+            }. You can also report to the nearest police station or directly on this platform by clicking the button below.`}</span>
+            <NewSightingButton
+              type="person"
+              found={data?.found}
+              itemId={params.id!}
+            />
+          </div>
+        )}
+        {tenant?.id === data?.createdBy && (
+          <>
+            <SocialShareButtons
+              url={"https://amber-alerts.vercel.app/"}
+              title={data?.fullname!}
+              description={data?.lastSeenDescription!}
+            />
+            <div className={styles.buttonGroup}>
+              <Button
+              //loading={isLogoutLoading}
+              //disabled={isLogoutLoading}
+              //onClick={handleLogout}
+              >
+                Mark as Found
+              </Button>
+            </div>
+          </>
+        )}
+
         {tenant?.id === data?.createdBy && (
           <>
             <div className={styles.sightingsSection}>
@@ -180,7 +207,11 @@ export default async function MissingPerson({
                 ))}
               </div>
               {(!data?.sightings || data?.sightings?.length === 0) && (
-                <div className={styles.noResult}>None Yet</div>
+                <div className={styles.noResult}>
+                  <span> None Yet</span>
+                  If someone reports sighting your loved one, you will receive a
+                  notification and from here you can see where and when.
+                </div>
               )}
             </div>
           </>

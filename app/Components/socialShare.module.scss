@@ -1,0 +1,22 @@
+@import "../../styles/variables.module.scss";
+
+.socialShareButtons {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  margin: 10px 0;
+  // border: 2px solid $primaryColor;
+  border-radius: 10px;
+  padding: 5px;
+  .buttonsRow {
+    //margin-top: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    > button {
+      margin: 5px;
+    }
+  }
+}
