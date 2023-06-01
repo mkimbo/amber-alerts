@@ -16,12 +16,12 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://amber-alerts.vercel.app/"),
-  title: {
-    default: "Missing Link",
-    template: "%s | Missing Link",
-  },
-  description:
-    "Proximity-based community alerts system for missing persons and vehicles",
+  // title: {
+  //   default: "Missing Link",
+  //   template: "%s | Missing Link",
+  // },
+  // description:
+  //   "Proximity-based community alerts system for missing persons and vehicles",
   openGraph: {
     title: "Missing Link",
     description:

@@ -242,6 +242,7 @@ export const saveMotorAlert = zact(saveMotorAlertSchema)(async (data) => {
   return {
     success: true,
     id: docID,
+    motorType: data.motorType,
     notificationSent: successfullyNotified.length > 0,
     numUsersNotified: successfullyNotified.length,
   };

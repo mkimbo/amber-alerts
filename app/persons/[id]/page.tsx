@@ -160,7 +160,7 @@ export default async function MissingPerson({
         {tenant?.id === data?.createdBy && (
           <>
             <SocialShareButtons
-              url={"https://amber-alerts.vercel.app/"}
+              url={`https://amber-alerts.vercel.app/persons/${params.id}`}
               title={data?.fullname!}
               description={data?.lastSeenDescription!}
             />

@@ -147,7 +147,7 @@ export default async function MissingVehicle({
         {tenant?.id === vehicle?.createdBy && (
           <>
             <SocialShareButtons
-              url={"https://amber-alerts.vercel.app/"}
+              url={`https://amber-alerts.vercel.app/vehicles/${params.id}`}
               title={`${vehicle.make} ${vehicle.model}`}
               description={vehicle?.lastSeenDescription!}
             />

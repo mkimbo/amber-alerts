@@ -142,7 +142,7 @@ export default async function MissingBike({
         {tenant?.id === bike?.createdBy && (
           <>
             <SocialShareButtons
-              url={"https://amber-alerts.vercel.app/"}
+              url={`https://amber-alerts.vercel.app/bikes/${params.id}`}
               title={`${bike.make} ${bike.model}`}
               description={bike?.lastSeenDescription!}
             />

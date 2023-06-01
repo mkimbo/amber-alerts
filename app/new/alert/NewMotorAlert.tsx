@@ -77,7 +77,12 @@ export function NewMotorAlert() {
   useEffect(() => {
     if (data?.success) {
       toast.success(`Alert was sent to ${data?.numUsersNotified} nearby users`);
-      // router.push(`/vehicels/${data.id}`);
+      if (data?.motorType === "vehicle") {
+        router.push(`/vehicels/${data.id}`);
+      }
+      if (data?.motorType === "bike") {
+        router.push(`/bikes/${data.id}`);
+      }
     }
   }, [data]);
 

@@ -3,6 +3,16 @@ import { ServerAuthProvider } from "../../auth/server-auth-provider";
 import PersonList from "./PersonList";
 import { serverDB } from "@/utils/firebase";
 import { TPerson } from "@/models/missing_person.model";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://amber-alerts.vercel.app/"),
+  title: {
+    default: "Missing Persons",
+    template: "%s | Missing Person",
+  },
+  description: "Missing Persons near you",
+};
 
 async function getMissingPersonList(): Promise<TPerson[]> {
   const data: any[] = [];
