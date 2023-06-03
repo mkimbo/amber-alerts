@@ -54,11 +54,11 @@ export async function generateMetadata({
   const ogImage = images[0];
 
   return {
-    title: found ? fullname : fullname + " | Missing Person",
+    title: found ? fullname : fullname + " | Missing",
     description: lastSeenDescription,
-    metadataBase: new URL("https://amber-alerts.vercel.app"),
+    // metadataBase: new URL("https://amber-alerts.vercel.app"),
     alternates: {
-      canonical: `/persons/${params.id}`,
+      canonical: `https://amber-alerts.vercel.app/persons/${params.id}`,
     },
     openGraph: {
       title: fullname + " is missing",

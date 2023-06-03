@@ -47,9 +47,7 @@ export async function generateMetadata({
   const ogImage = images[0];
 
   return {
-    title: found
-      ? make + " " + model
-      : make + " " + model + " | Missing Vehicle",
+    title: found ? make + " " + model : make + " " + model + " | Missing",
     description: lastSeenDescription,
 
     alternates: {
