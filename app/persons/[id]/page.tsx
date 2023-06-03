@@ -93,7 +93,7 @@ export async function generateMetadata({
     verification: {
       google: "VaD1qjKK95G1B1wsA3ZydoAdSg2r3aCm6D7ZJw2bw",
     },
-  };
+  } as Metadata;
 }
 
 export default async function MissingPerson({
