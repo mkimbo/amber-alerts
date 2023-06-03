@@ -11,8 +11,8 @@ import { MdOutlineLocationOn } from "react-icons/md";
 import { serverDB } from "@/utils/firebase";
 import { TMotor } from "@/models/misssing_motor.model";
 import { Metadata } from "next";
-import { Button } from "@/ui/button";
 import SocialShareButtons from "@/app/Components/SocialShare";
+import MarkAsFoundButton from "@/app/Components/MarkAsFoundButton";
 
 async function getMissingVehicleById(
   vehicleId: string
@@ -52,7 +52,7 @@ export async function generateMetadata({
       canonical: `/vehicles/${params.id}`,
     },
     openGraph: {
-      title: make + " " + model,
+      title: "A" + model + " " + make + "was stolen",
       description: lastSeenDescription,
       type: "article",
       publishedTime: lastSeenDate,
@@ -64,7 +64,7 @@ export async function generateMetadata({
       ],
     },
     twitter: {
-      title: make + " " + model,
+      title: "A" + model + " " + make + "was stolen",
       card: "summary_large_image",
       description: lastSeenDescription,
       images: [ogImage],
@@ -152,13 +152,11 @@ export default async function MissingVehicle({
               description={vehicle?.lastSeenDescription!}
             />
             <div className={styles.buttonGroup}>
-              <Button
-              //loading={isLogoutLoading}
-              //disabled={isLogoutLoading}
-              //onClick={handleLogout}
-              >
-                Mark as Found
-              </Button>
+              <MarkAsFoundButton
+                found={vehicle.found}
+                itemId={params.id!}
+                type="vehicle"
+              />
             </div>
           </>
         )}

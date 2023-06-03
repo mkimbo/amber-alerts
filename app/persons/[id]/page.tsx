@@ -12,7 +12,7 @@ import { TPerson } from "@/models/missing_person.model";
 import NewSightingButton from "@/app/Components/SightingButton";
 import { Metadata } from "next";
 import SocialShareButtons from "@/app/Components/SocialShare";
-import { Button } from "@/ui/button";
+import MarkAsFoundButton from "@/app/Components/MarkAsFoundButton";
 
 // export async function generateStaticParams() {
 //   const data = await getMissingPersonList();
@@ -50,11 +50,11 @@ export async function generateMetadata({
     return;
   }
 
-  const { fullname, lastSeenDescription, lastSeenDate, images, id } = data;
+  const { fullname, lastSeenDescription, lastSeenDate, images, found } = data;
   const ogImage = images[0];
 
   return {
-    title: fullname,
+    title: found ? fullname : fullname + "| Missing Person",
     description: lastSeenDescription,
     alternates: {
       canonical: `/persons/${params.id}`,
@@ -165,13 +165,11 @@ export default async function MissingPerson({
               description={data?.lastSeenDescription!}
             />
             <div className={styles.buttonGroup}>
-              <Button
-              //loading={isLogoutLoading}
-              //disabled={isLogoutLoading}
-              //onClick={handleLogout}
-              >
-                Mark as Found
-              </Button>
+              <MarkAsFoundButton
+                type="person"
+                found={data?.found}
+                itemId={params.id!}
+              />
             </div>
           </>
         )}

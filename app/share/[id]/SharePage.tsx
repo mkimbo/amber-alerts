@@ -22,7 +22,7 @@ import { TPerson } from "@/models/missing_person.model";
 import { TMotor } from "@/models/misssing_motor.model";
 import { uploadFileToCloud } from "@/auth/firebase";
 import { useZact } from "zact/client";
-import { saveMotorBanner, savePersonBanner } from "@/app/actions";
+//import { saveMotorBanner, savePersonBanner } from "@/app/actions";
 
 type TShareProps = {
   id: string; //u802HmUVqfdjVTTraHZdc
@@ -58,12 +58,12 @@ export function SharePage({
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const { mutate, data, isLoading } = useZact(saveMotorBanner);
-  const {
-    mutate: sendit,
-    data: response,
-    isLoading: isRunning,
-  } = useZact(savePersonBanner);
+  // const { mutate, data, isLoading } = useZact(saveMotorBanner);
+  // const {
+  //   mutate: sendit,
+  //   data: response,
+  //   isLoading: isRunning,
+  // } = useZact(savePersonBanner);
 
   useEffect(() => {
     const canvas = canvasRef.current;

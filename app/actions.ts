@@ -37,31 +37,39 @@ const saveSightingSchema = z.intersection(
   })
 );
 
-const saveBannerUrl = z.object({
-  bannerUrl: z.string().nonempty("Required"),
+const markAsFound = z.object({
   itemId: z.string().nonempty("Required"),
+  type: z.string().nonempty("Required"),
 });
 
-export const savePersonBanner = zact(saveBannerUrl)(async (input) => {
+export const markPersonFound = zact(markAsFound)(async (input) => {
   const docRef = serverDB.collection("reported_missing").doc(input.itemId);
-  const doc = await docRef.get();
 
   await docRef.update({
-    bannerUrl: input.bannerUrl,
+    found: true,
   });
-  const url = `/share/${input.itemId}/type=person`;
+  const url = `/persons/${input.itemId}`;
   revalidatePath(url);
+  return {
+    success: true,
+  };
 });
 
-export const saveMotorBanner = zact(saveBannerUrl)(async (input) => {
+export const markMotorFound = zact(markAsFound)(async (input) => {
   const docRef = serverDB.collection("missing_motors").doc(input.itemId);
-  const doc = await docRef.get();
 
   await docRef.update({
-    bannerUrl: input.bannerUrl,
+    found: true,
   });
-  const url = `/share/${input.itemId}/type=motor`;
-  revalidatePath(url);
+  if (input.type === "vehicle") {
+    revalidatePath(`/vehicles${input.itemId}`);
+  }
+  if (input.type === "bike") {
+    revalidatePath(`/bikes${input.itemId}`);
+  }
+  return {
+    success: true,
+  };
 });
 
 export const savePersonSighting = zact(saveSightingSchema)(async (input) => {
