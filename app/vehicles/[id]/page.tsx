@@ -51,9 +51,9 @@ export async function generateMetadata({
       ? make + " " + model
       : make + " " + model + " | Missing Vehicle",
     description: lastSeenDescription,
-    metadataBase: new URL("https://amber-alerts.vercel.app/"),
+
     alternates: {
-      canonical: `/vehicles/${params.id}`,
+      canonical: `https://amber-alerts.vercel.app/bikes/${params.id}`,
     },
     openGraph: {
       title: "A " + make + " " + model + " was stolen",

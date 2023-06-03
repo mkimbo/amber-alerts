@@ -1,3 +1,4 @@
+//import type { Metadata } from "next";
 import { Navbar } from "./Components/Navbar";
 import ToastProvider from "./Components/ToastProvider";
 import "./globals.scss";
@@ -7,6 +8,28 @@ import { Suspense } from "react";
 // add next js 13 meta data
 
 // export const metadata: Metadata = {
+// title: "Missing Link",
+// openGraph: {
+//   title: 'Next.js',
+//   description: 'The React Framework for the Web',
+//   url: 'https://nextjs.org',
+//   siteName: 'Next.js',
+//   images: [
+//     {
+//       url: 'https://nextjs.org/og.png',
+//       width: 800,
+//       height: 600,
+//     },
+//     {
+//       url: 'https://nextjs.org/og-alt.png',
+//       width: 1800,
+//       height: 1600,
+//       alt: 'My custom alt',
+//     },
+//   ],
+//   locale: 'en_US',
+//   type: 'website',
+// },
 //   robots: {
 //     index: true,
 //     follow: true,
@@ -31,7 +54,6 @@ export default function RootLayout({
   // const tenant = await getProfileData();
   return (
     <html lang="en">
-      <head />
       <body style={{ overflowY: "hidden" }}>
         <Suspense>
           <Navbar />
