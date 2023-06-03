@@ -23,6 +23,7 @@ import MarkAsFoundButton from "@/app/Components/MarkAsFoundButton";
 //   });
 //   return paths;
 // }
+export const revalidate = 0;
 
 async function getMissingPersonById(personId: string): Promise<TPerson | null> {
   const missingPerson = await serverDB
@@ -78,17 +79,17 @@ export async function generateMetadata({
       description: lastSeenDescription,
       images: [ogImage],
     },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        "max-video-preview": -1,
-        "max-image-preview": "large",
-        "max-snippet": -1,
-      },
-    },
+    // robots: {
+    //   index: true,
+    //   follow: true,
+    //   googleBot: {
+    //     index: true,
+    //     follow: true,
+    //     "max-video-preview": -1,
+    //     "max-image-preview": "large",
+    //     "max-snippet": -1,
+    //   },
+    // },
     verification: {
       google: "VaD1qjKK95G1B1wsA3ZydoAdSg2r3aCm6D7ZJw2bw",
     },

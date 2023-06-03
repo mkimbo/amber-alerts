@@ -5,24 +5,10 @@ import { serverDB } from "@/utils/firebase";
 import { TPerson } from "@/models/missing_person.model";
 import { Metadata } from "next";
 
-// export async function generateMetadata(): Promise<Metadata> {
-//   return {
-//     title: "Missing Persons",
-//     description: "Missing Persons near you",
-//     openGraph: {
-//       title: "Missing Persons",
-//       description: "Missing Persons near you",
-//       type: "website",
-
-//       url: `https://amber-alerts.vercel.app/persons`,
-//     },
-//     twitter: {
-//       card: "summary_large_image",
-//       title: "Missing Persons",
-//       description: "Missing Persons near you",
-//     },
-//   };
-// }
+export const metadata: Metadata = {
+  title: "Missing Persons",
+  description: "Missing Persons List ",
+};
 
 async function getMissingPersonList(): Promise<TPerson[]> {
   const data: any[] = [];

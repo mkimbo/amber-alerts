@@ -72,17 +72,17 @@ export async function generateMetadata({
       images: [ogImage],
     },
 
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        "max-video-preview": -1,
-        "max-image-preview": "large",
-        "max-snippet": -1,
-      },
-    },
+    // robots: {
+    //   index: true,
+    //   follow: true,
+    //   googleBot: {
+    //     index: true,
+    //     follow: true,
+    //     "max-video-preview": -1,
+    //     "max-image-preview": "large",
+    //     "max-snippet": -1,
+    //   },
+    // },
     verification: {
       google: "VaD1qjKK95G1B1wsA3ZydoAdSg2r3aCm6D7ZJw2bw",
     },
