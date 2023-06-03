@@ -3,7 +3,6 @@ import ToastProvider from "./Components/ToastProvider";
 import "./globals.scss";
 import styles from "./layout.module.scss";
 import { Suspense } from "react";
-import { AuthProvider } from "@/auth/client-auth-provider";
 import { Metadata } from "next";
 
 // add next js 13 meta data
@@ -35,13 +34,10 @@ export default function RootLayout({
     <html lang="en">
       <head />
       <body style={{ overflowY: "hidden" }}>
-        {/* @ts-expect-error https://github.com/vercel/next.js/issues/43537 */}
-        <AuthProvider>
-          <Suspense>
-            <Navbar />
-            <ToastProvider />
-          </Suspense>
-        </AuthProvider>
+        <Suspense>
+          <Navbar />
+          <ToastProvider />
+        </Suspense>
         <div className={styles.container}>
           <main className={styles.main}>{children}</main>
           <footer className={styles.footer}>

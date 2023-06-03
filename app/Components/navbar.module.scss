@@ -31,6 +31,7 @@
 .navInfo {
   padding: 2px 30px;
   height: 30px;
+
   .navInfoText {
     font-size: 12px;
     gap: 5px;
@@ -40,6 +41,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    cursor: pointer;
   }
 }
 .navMenuBar {

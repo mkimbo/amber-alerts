@@ -18,6 +18,7 @@ import { LogoIcon } from "../../ui/icons";
 import { useRouter } from "next/navigation";
 import NotificationsHandler from "./NotificationsHandler";
 import { useAuth } from "@/auth/hooks";
+import { AuthProvider } from "@/auth/client-auth-provider";
 
 export function Navbar() {
   const [navActive, setNavActive] = useState(false);
@@ -117,7 +118,9 @@ export function Navbar() {
         </div>
       </nav>
       {tenant && !tenant.isAnonymous && (
-        <NotificationsHandler activeIdx={activeIdx} />
+        <AuthProvider defaultTenant={tenant}>
+          <NotificationsHandler activeIdx={activeIdx} />
+        </AuthProvider>
       )}
     </header>
   );
