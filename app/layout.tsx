@@ -9,7 +9,6 @@ import { Metadata } from "next";
 // add next js 13 meta data
 
 // export const metadata: Metadata = {
-//   metadataBase: new URL("https://amber-alerts.vercel.app/"),
 //   robots: {
 //     index: true,
 //     follow: true,
@@ -20,6 +19,9 @@ import { Metadata } from "next";
 //       "max-image-preview": "large",
 //       "max-snippet": -1,
 //     },
+//   },
+//   verification: {
+//     google: "VaD1qjKK95G1B1wsA3ZydoAdSg2r3aCm6D7ZJw2bw",
 //   },
 // };
 

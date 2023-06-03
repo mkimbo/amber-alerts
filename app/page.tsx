@@ -43,10 +43,9 @@ export const metadata: Metadata = {
   // icons: {
   //   shortcut: "/favicon.ico",
   // },
-  // verification: {
-  //   google: 'eZSdmzAXlLkKhNJzfgwDqWORghxnJ8qR9_CHdAh5-xw',
-  //   yandex: '14d2e73487fa6c71',
-  // },
+  verification: {
+    google: "VaD1qjKK95G1B1wsA3ZydoAdSg2r3aCm6D7ZJw2bw",
+  },
 };
 
 export default function Home() {
