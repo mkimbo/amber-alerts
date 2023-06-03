@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import styles from "./page.module.scss";
 import { VscBroadcast } from "react-icons/vsc";
 export async function generateStaticParams() {

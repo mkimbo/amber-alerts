@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import styles from "./page.module.scss";
 import sampleMissing from "../../../public/missing-person.webp";
 import { placeholderUrl } from "../../../utils/constants";
@@ -10,7 +11,6 @@ import { MdOutlineLocationOn } from "react-icons/md";
 import { serverDB } from "@/utils/firebase";
 import { TPerson } from "@/models/missing_person.model";
 import NewSightingButton from "@/app/Components/SightingButton";
-import { Metadata } from "next";
 import SocialShareButtons from "@/app/Components/SocialShare";
 import MarkAsFoundButton from "@/app/Components/MarkAsFoundButton";
 
@@ -40,14 +40,14 @@ export async function generateMetadata({
   params,
 }: {
   params: { id: string };
-}): Promise<Metadata | undefined> {
+}): Promise<Metadata> {
   if (!params.id) {
     throw new Error("No personId provided");
   }
 
   const data = await getMissingPersonById(params.id);
   if (!data) {
-    return;
+    throw new Error("No person found with that id");
   }
 
   const { fullname, lastSeenDescription, lastSeenDate, images, found } = data;

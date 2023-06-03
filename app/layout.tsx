@@ -3,7 +3,6 @@ import ToastProvider from "./Components/ToastProvider";
 import "./globals.scss";
 import styles from "./layout.module.scss";
 import { Suspense } from "react";
-import { Metadata } from "next";
 
 // add next js 13 meta data
 

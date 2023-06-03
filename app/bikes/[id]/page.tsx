@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import styles from "./page.module.scss";
 import sampleMissing from "../../../public/missing-person.webp";
 import { placeholderUrl } from "../../../utils/constants";
@@ -10,7 +11,6 @@ import { FcCalendar } from "react-icons/fc";
 import { MdOutlineLocationOn } from "react-icons/md";
 import { serverDB } from "@/utils/firebase";
 import { TMotor } from "@/models/misssing_motor.model";
-import { Metadata } from "next";
 import SocialShareButtons from "@/app/Components/SocialShare";
 import MarkAsFoundButton from "@/app/Components/MarkAsFoundButton";
 
@@ -30,14 +30,14 @@ export async function generateMetadata({
   params,
 }: {
   params: { id: string };
-}): Promise<Metadata | undefined> {
+}): Promise<Metadata> {
   if (!params.id) {
     throw new Error("No bike Id provided");
   }
 
   const data = await getMissingBikeById(params.id);
   if (!data) {
-    return;
+    throw new Error("No bike Id provided");
   }
 
   const { model, lastSeenDescription, lastSeenDate, images, make, found } =
