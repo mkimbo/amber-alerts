@@ -42,17 +42,21 @@ export async function generateMetadata({
     return;
   }
 
-  const { model, lastSeenDescription, lastSeenDate, images, make, year } = data;
+  const { model, lastSeenDescription, lastSeenDate, images, make, found } =
+    data;
   const ogImage = images[0];
 
   return {
-    title: make + " " + model,
+    title: found
+      ? make + " " + model
+      : make + " " + model + " | Missing Vehicle",
     description: lastSeenDescription,
+    metadataBase: new URL("https://amber-alerts.vercel.app/"),
     alternates: {
       canonical: `/vehicles/${params.id}`,
     },
     openGraph: {
-      title: "A" + model + " " + make + "was stolen",
+      title: "A " + make + " " + model + " was stolen",
       description: lastSeenDescription,
       type: "article",
       publishedTime: lastSeenDate,
@@ -64,10 +68,22 @@ export async function generateMetadata({
       ],
     },
     twitter: {
-      title: "A" + model + " " + make + "was stolen",
+      title: "A " + make + " " + model + " was stolen",
       card: "summary_large_image",
       description: lastSeenDescription,
       images: [ogImage],
+    },
+
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
     },
   };
 }

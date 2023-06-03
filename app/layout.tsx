@@ -8,20 +8,20 @@ import { Metadata } from "next";
 
 // add next js 13 meta data
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://amber-alerts.vercel.app/"),
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-};
+// export const metadata: Metadata = {
+//   metadataBase: new URL("https://amber-alerts.vercel.app/"),
+//   robots: {
+//     index: true,
+//     follow: true,
+//     googleBot: {
+//       index: true,
+//       follow: true,
+//       "max-video-preview": -1,
+//       "max-image-preview": "large",
+//       "max-snippet": -1,
+//     },
+//   },
+// };
 
 export default function RootLayout({
   children,

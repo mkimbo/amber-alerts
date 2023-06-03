@@ -6,44 +6,40 @@ export async function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://amber-alerts.vercel.app/"),
-  title: {
-    default: "Missing Link",
-    template: "%s | Missing Link",
-  },
+  title: "Missing Link",
   description:
     "Proximity-based community alerts system for missing persons and vehicles",
-  // openGraph: {
-  //   title: "Missing Link",
-  //   description:
-  //     "Proximity-based community alerts system for missing persons and vehicles",
-  //   url: "https://amber-alerts.vercel.app/",
-  //   siteName: "Missing Link",
-  //   images: [
-  //     {
-  //       url: "https://leerob.io/og.jpg", // Replace this with your own image
-  //       width: 1920,
-  //       height: 1080,
-  //     },
-  //   ],
-  //   locale: "en-US",
-  //   type: "website",
-  // },
-  // robots: {
-  //   index: true,
-  //   follow: true,
-  //   googleBot: {
-  //     index: true,
-  //     follow: true,
-  //     "max-video-preview": -1,
-  //     "max-image-preview": "large",
-  //     "max-snippet": -1,
-  //   },
-  // },
-  // twitter: {
-  //   title: "Missing Link",
-  //   card: "summary_large_image",
-  // },
+  openGraph: {
+    title: "Missing Link",
+    description:
+      "Proximity-based community alerts system for missing persons and vehicles",
+    url: "https://amber-alerts.vercel.app/",
+    siteName: "Missing Link",
+    images: [
+      {
+        url: "https://leerob.io/og.jpg", // Replace this with your own image
+        width: 1920,
+        height: 1080,
+      },
+    ],
+    locale: "en-US",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  twitter: {
+    title: "Missing Link",
+    card: "summary_large_image",
+  },
   // icons: {
   //   shortcut: "/favicon.ico",
   // },

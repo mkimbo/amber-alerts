@@ -54,8 +54,9 @@ export async function generateMetadata({
   const ogImage = images[0];
 
   return {
-    title: found ? fullname : fullname + "| Missing Person",
+    title: found ? fullname : fullname + " | Missing Person",
     description: lastSeenDescription,
+    metadataBase: new URL("https://amber-alerts.vercel.app"),
     alternates: {
       canonical: `/persons/${params.id}`,
     },
@@ -76,6 +77,17 @@ export async function generateMetadata({
       title: fullname + " is missing",
       description: lastSeenDescription,
       images: [ogImage],
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
     },
   };
 }
