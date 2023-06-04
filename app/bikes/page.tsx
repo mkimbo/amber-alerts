@@ -3,6 +3,7 @@ import { ServerAuthProvider } from "../../auth/server-auth-provider";
 import { serverDB } from "@/utils/firebase";
 import { TMotor } from "@/models/misssing_motor.model";
 import BikeList from "./BikeList";
+import { Metadata } from "next";
 
 async function getMissingBikesList(): Promise<TMotor[]> {
   const data: any[] = [];
@@ -23,6 +24,11 @@ async function getMissingBikesList(): Promise<TMotor[]> {
   });
   return data as TMotor[];
 }
+
+export const metadata: Metadata = {
+  title: "Missing Bikes",
+  description: "Missing Bikes List ",
+};
 
 export default async function MissingBikessList() {
   const data = await getMissingBikesList();

@@ -6,7 +6,11 @@ import styles from "./layout.module.scss";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
-  title: "Missing Link",
+  metadataBase: new URL("https://amber-alerts.vercel.app"),
+  title: {
+    default: "Missing Link",
+    template: "%s | Missing Link",
+  },
   description:
     "Proximity-based community alerts system for missing persons and vehicles",
   openGraph: {
@@ -57,10 +61,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body style={{ overflowY: "hidden" }}>
-        <Suspense>
-          <Navbar />
-          <ToastProvider />
-        </Suspense>
+        <Navbar />
+        <ToastProvider />
         <div className={styles.container}>
           <main className={styles.main}>{children}</main>
           <footer className={styles.footer}>

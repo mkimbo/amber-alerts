@@ -1,9 +1,12 @@
+import { Metadata } from "next";
 import styles from "./page.module.scss";
 import { VscBroadcast } from "react-icons/vsc";
-export async function generateStaticParams() {
-  return [{}];
-}
-
+// export async function generateStaticParams() {
+//   return [{}];
+// }
+export const metadata: Metadata = {
+  title: "Home",
+};
 export default function Home() {
   return (
     <div className={styles.container}>

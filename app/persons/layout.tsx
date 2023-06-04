@@ -2,11 +2,11 @@ import { Metadata } from "next";
 import { ServerAuthProvider } from "../../auth/server-auth-provider";
 
 export const metadata: Metadata = {
-  title: "Login",
-  description: "Login to your account",
+  title: "Missing Persons",
+  description: "Missing Persons List",
 };
 
-export default function LoginLayout({
+export default function PersonsLayout({
   children,
 }: {
   children: React.ReactNode;

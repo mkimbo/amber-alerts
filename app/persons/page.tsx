@@ -5,10 +5,6 @@ import { serverDB } from "@/utils/firebase";
 import { TPerson } from "@/models/missing_person.model";
 import { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Missing Persons",
-  description: "Missing Persons List ",
-};
 
 async function getMissingPersonList(): Promise<TPerson[]> {
   const data: any[] = [];

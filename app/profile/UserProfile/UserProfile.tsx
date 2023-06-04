@@ -186,9 +186,9 @@ export function UserProfile({ profile }: UserProfileProps) {
                 <FormCheckboxGroup
                   name="person"
                   label="Missing Person"
-                  checked={profile.missingPersonAlerts}
+                  checked={true}
                   disabled={profile.missingPersonAlerts}
-                  defaultChecked={profile.missingPersonAlerts}
+                  // defaultChecked={profile.missingPersonAlerts}
                 />
                 <FormCheckboxGroup
                   name="vehicle"

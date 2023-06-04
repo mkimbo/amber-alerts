@@ -33,7 +33,6 @@ export function Navbar() {
   type TNavLink = {
     text: string;
     href: string;
-    active?: boolean;
     icon: React.ReactElement;
   };
 
@@ -64,32 +63,47 @@ export function Navbar() {
       icon: <MdAccountCircle color={"#ff4400"} fontSize={26} />,
     },
   ];
-  const NavItem = (item: TNavLink) => {
+  const NavItem = ({
+    item,
+    idx,
+    active,
+  }: {
+    item: TNavLink;
+    idx: number;
+    active: boolean;
+  }) => {
     return (
-      <div className={styles.navItem} onClick={() => router.push(item.href)}>
+      <Link
+        onClick={() => {
+          setActiveIdx(idx);
+          setNavActive(false);
+        }}
+        className={styles.navItem}
+        href={item.href}
+      >
         <span className={styles.navIcon}>{item.icon}</span>
         <span
           className={classNames(styles.navLink, {
-            [styles.navLinkActive]: item.active,
+            [styles.navLinkActive]: active,
           })}
         >
           {item.text}
         </span>
-      </div>
+      </Link>
     );
   };
 
   return (
     <header className={styles.navContainer}>
       <nav className={styles.navBar}>
-        <Link href={"/"}>
-          <div
-            className={styles.logo}
-            onClick={() => {
-              setActiveIdx(3);
-              setNavActive(false);
-            }}
-          >
+        <Link
+          href={"/"}
+          onClick={() => {
+            setActiveIdx(3);
+            setNavActive(false);
+          }}
+        >
+          <div className={styles.logo}>
             <LogoIcon />
           </div>
         </Link>
@@ -105,15 +119,12 @@ export function Navbar() {
         </div>
         <div className={navMenuListClasses}>
           {navLinks.map((menu, idx) => (
-            <div
-              onClick={() => {
-                setActiveIdx(idx);
-                setNavActive(false);
-              }}
+            <NavItem
               key={menu.text}
-            >
-              <NavItem active={activeIdx === idx} {...menu} />
-            </div>
+              active={activeIdx === idx}
+              idx={idx}
+              item={menu}
+            />
           ))}
         </div>
       </nav>
