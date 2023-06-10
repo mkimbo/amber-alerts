@@ -21,7 +21,7 @@ import { useRouter } from "next/navigation";
 export default function NotificationsHandler({
   activeIdx,
 }: {
-  activeIdx: number;
+  activeIdx: string;
 }) {
   const [count, setCount] = useState(0);
   const [error, setError] = useState<string | null>("" || null);

@@ -13,6 +13,8 @@ import { Button } from "../../ui/button";
 import { LoadingIcon } from "../../ui/icons";
 import { getVerifiedCookie, setVerifiedCookie } from "../../utils/functions";
 import localforage from "localforage";
+import { VscBroadcast } from "react-icons/vsc";
+import LandingInfo from "../Components/LandingInfo";
 
 export function LoginPage() {
   const router = useRouter();
@@ -81,7 +83,20 @@ export function LoginPage() {
 
   return (
     <div className={styles.page}>
-      <h2>Let your community help locate missing loved ones</h2>
+      <LandingInfo />
+
+      {!hasLogged && (
+        <>
+          <div className={styles.card}></div>
+          <Button
+            loading={isLoading}
+            disabled={isLoading || !tenant}
+            onClick={handleLoginWithGoogle}
+          >
+            Log in with Google
+          </Button>
+        </>
+      )}
       {!tenant && !isLoading && !hasLogged && (
         <div className={styles.info}>
           <p>
@@ -89,22 +104,14 @@ export function LoginPage() {
           </p>
         </div>
       )}
-      {!hasLogged && (
-        <Button
-          loading={isLoading}
-          disabled={isLoading || !tenant}
-          onClick={handleLoginWithGoogle}
-        >
-          Log in with Google
-        </Button>
-      )}
       {hasLogged && (
-        <div className={styles.info}>
-          <p>
-            Redirecting to <strong>{params?.get("redirect") || "/"}</strong>{" "}
-            <LoadingIcon />
-          </p>
-        </div>
+        <p className={styles.info}>
+          <span>
+            Redirecting to{" "}
+            <strong>{params?.get("redirect") || "home page"}</strong>{" "}
+          </span>
+          <LoadingIcon />
+        </p>
       )}
     </div>
   );

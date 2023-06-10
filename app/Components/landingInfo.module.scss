@@ -1,23 +1,5 @@
 @import "../../styles/variables.module.scss";
 @import "../../styles/_mixins.scss";
-.page {
-  height: 100%;
-  flex-direction: column;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 2rem;
-  text-align: center;
-}
-
-.info {
-  display: flex;
-  margin-bottom: 1.5rem;
-  justify-content: center;
-  align-items: center;
-  margin-top: 15px;
-}
-
 .title {
   margin: 0;
   line-height: 1.15;

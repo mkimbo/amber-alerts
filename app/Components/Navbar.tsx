@@ -23,7 +23,7 @@ import { AuthProvider } from "@/auth/client-auth-provider";
 export function Navbar() {
   const [navActive, setNavActive] = useState(false);
   const router = useRouter();
-  const [activeIdx, setActiveIdx] = useState(3);
+  const [activeIdx, setActiveIdx] = useState("");
   const { tenant } = useAuth();
 
   const navMenuListClasses = classNames(styles.navMenuList, {
@@ -75,7 +75,7 @@ export function Navbar() {
     return (
       <Link
         onClick={() => {
-          setActiveIdx(idx);
+          setActiveIdx(item.href);
           setNavActive(false);
         }}
         className={styles.navItem}
@@ -99,7 +99,7 @@ export function Navbar() {
         <Link
           href={"/"}
           onClick={() => {
-            setActiveIdx(3);
+            setActiveIdx("");
             setNavActive(false);
           }}
         >
@@ -121,7 +121,7 @@ export function Navbar() {
           {navLinks.map((menu, idx) => (
             <NavItem
               key={menu.text}
-              active={activeIdx === idx}
+              active={activeIdx.includes(menu.href)}
               idx={idx}
               item={menu}
             />

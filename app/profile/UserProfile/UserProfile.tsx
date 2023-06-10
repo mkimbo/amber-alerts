@@ -26,6 +26,8 @@ import FormCheckboxGroup from "@/ui/form_checkbox";
 import { useZact } from "zact/client";
 import { updateUser } from "@/app/actions";
 import { toast } from "react-toastify";
+import LandingInfo from "@/app/Components/LandingInfo";
+import { VscBroadcast } from "react-icons/vsc";
 type TUserProfile = z.infer<typeof updateUserSchema>;
 interface UserProfileProps {
   profile: TUserProfile;
@@ -100,6 +102,8 @@ export function UserProfile({ profile }: UserProfileProps) {
   if (!tenant && hasLoggedOut) {
     return (
       <div className={styles.container}>
+        <VscBroadcast className={styles.icon} color={"#ff4400"} fontSize={80} />
+
         <h3 className={styles.title}>
           You are being logged out... <LoadingIcon />
         </h3>
