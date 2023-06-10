@@ -12,6 +12,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className={styles.container}>
+      {/* @ts-expect-error https://github.com/vercel/next.js/issues/43537 */}
       <ServerAuthProvider>
         <HomeComponent />
       </ServerAuthProvider>
