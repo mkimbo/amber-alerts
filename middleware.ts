@@ -59,7 +59,7 @@ const commonOptions = {
 //   commonOptions.apiKey
 // );
 
-export async function middleware(request: NextRequest) {
+export default async function middleware(request: NextRequest) {
   return authentication(request, {
     loginPath: "/api/login",
     logoutPath: "/api/logout",
@@ -101,5 +101,8 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/((?!_next/static|favicon.ico|logo.svg).*)"],
+  matcher: [
+    "/",
+    "/((?!_next/static|_next/image|favicon.ico|logo.svg|persons|vehicles|bikes).*)",
+  ],
 };
