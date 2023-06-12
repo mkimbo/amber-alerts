@@ -5,11 +5,16 @@
   padding: 1.5rem;
   text-align: center;
   overflow-y: auto;
-  border: 1px solid $primaryColor;
-  border-radius: 10px;
+
   @include lg {
     width: 50%;
     margin: 0 auto;
+  }
+
+  .content {
+    border: 1px solid $primaryColor;
+    border-radius: 10px;
+    padding: 5px 10px;
   }
 
   .title {

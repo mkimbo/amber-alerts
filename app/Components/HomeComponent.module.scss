@@ -10,13 +10,20 @@
   border-radius: 10px;
   margin: 10px 0;
   .cardRight {
-    margin-left: 10px;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    .description {
-      font-size: smaller;
-      color: $grey;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    .info {
+      margin-left: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      .description {
+        font-size: smaller;
+        color: $grey;
+      }
     }
   }
 }

@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { VscBroadcast } from "react-icons/vsc";
 import styles from "./landingInfo.module.scss";
+import Link from "next/link";
 
 // import { useLoadingCallback } from "react-loading-hook";
 // import { Button } from "@/ui/button";
@@ -16,7 +17,10 @@ export default function LandingInfo() {
       <div className={styles.description}>A Community Alerts Service</div>
       <div className={styles.about}>
         Enhancing public safety by facilitating rapid and reliable communication
-        within the community.
+        within the community.{" "}
+        <Link href="/about" className={styles.linkText}>
+          Learn more
+        </Link>
       </div>
     </>
   );

@@ -2,9 +2,11 @@
 import React, { useState } from "react";
 import { VscBroadcast } from "react-icons/vsc";
 import styles from "./HomeComponent.module.scss";
-import { MdPersonSearch } from "react-icons/md";
+import { MdKeyboardArrowRight, MdPersonSearch } from "react-icons/md";
 import { AiFillCar } from "react-icons/ai";
 import { RiMotorbikeFill } from "react-icons/ri";
+import { BsInfoCircle } from "react-icons/bs";
+import Link from "next/link";
 
 // import { useLoadingCallback } from "react-loading-hook";
 // import { Button } from "@/ui/button";
@@ -12,42 +14,64 @@ import { RiMotorbikeFill } from "react-icons/ri";
 export default function HomeComponent() {
   return (
     <>
-      <div className={styles.card}>
+      <Link href="/alerts" className={styles.card}>
         <VscBroadcast className={styles.icon} color={"#ff4400"} fontSize={40} />
         <div className={styles.cardRight}>
-          <span className={styles.title}>New Alert</span>
-          <div className={styles.description}>pgjdfhjfgdhjfglhjgflhfl</div>
+          <div className={styles.info}>
+            <span className={styles.title}>New Alert</span>
+            <div className={styles.description}>pgjdfhjfgdhjfglhjgflhfl</div>
+          </div>
+          <MdKeyboardArrowRight fontSize={35} />
         </div>
-      </div>
-      <div className={styles.card}>
+      </Link>
+      <Link href="/persons" className={styles.card}>
         <MdPersonSearch
           className={styles.icon}
           color={"#ff4400"}
           fontSize={40}
         />
         <div className={styles.cardRight}>
-          <span className={styles.title}>Missing Persons</span>
-          <div className={styles.description}>pgjdfhjfgdhjfglhjgflhfl</div>
+          <div className={styles.info}>
+            <span className={styles.title}>Missing Persons</span>
+            <div className={styles.description}>pgjdfhjfgdhjfglhjgflhfl</div>
+          </div>
+          <MdKeyboardArrowRight fontSize={35} />
         </div>
-      </div>
-      <div className={styles.card}>
+      </Link>
+      <Link href="/vehicles" className={styles.card}>
         <AiFillCar className={styles.icon} color={"#ff4400"} fontSize={40} />
         <div className={styles.cardRight}>
-          <span className={styles.title}>Missing Vehicles</span>
-          <div className={styles.description}>pgjdfhjfgdhjfglhjgflhfl</div>
+          <div className={styles.info}>
+            <span className={styles.title}>Missing Vehicles</span>
+            <div className={styles.description}>pgjdfhjfgdhjfglhjgflhfl</div>
+          </div>
+          <MdKeyboardArrowRight fontSize={35} />
         </div>
-      </div>
-      <div className={styles.card}>
+      </Link>
+      <Link href="/bikes" className={styles.card}>
         <RiMotorbikeFill
           className={styles.icon}
           color={"#ff4400"}
           fontSize={40}
         />
         <div className={styles.cardRight}>
-          <span className={styles.title}>Missing Bikes</span>
-          <div className={styles.description}>pgjdfhjfgdhjfglhjgflhfl</div>
+          <div className={styles.info}>
+            <span className={styles.title}>Missing Bikes</span>
+            <div className={styles.description}>pgjdfhjfgdhjfglhjgflhfl</div>
+          </div>
+          <MdKeyboardArrowRight fontSize={35} />
         </div>
-      </div>
+      </Link>
+      <Link href="/about" className={styles.card}>
+        <BsInfoCircle className={styles.icon} color={"#ff4400"} fontSize={40} />
+        <div className={styles.cardRight}>
+          <div className={styles.info}>
+            <span className={styles.title}>About</span>
+            <div className={styles.description}>pgjdfhjfgdhjfglhjgflhfl</div>
+          </div>
+          <MdKeyboardArrowRight fontSize={35} />
+        </div>
+      </Link>
     </>
   );
 }
