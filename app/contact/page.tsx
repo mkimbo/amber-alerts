@@ -10,7 +10,7 @@ export default function Contact() {
         <ServerAuthProvider>
           <div className={styles.text}>
             Notifications, although essential, can sometimes be seen as a
-            nuisance. That's why we are looking to intergrate a reward system,
+            nuisance. Thats why we are looking to intergrate a reward system,
             designed to incentivize and encourage active participation from
             community members. The system will be built on the principle of
             mutual benefit and will leverage the synergy between a willing
