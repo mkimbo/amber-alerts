@@ -19,7 +19,9 @@ export default function HomeComponent() {
         <div className={styles.cardRight}>
           <div className={styles.info}>
             <span className={styles.title}>New Alert</span>
-            <div className={styles.description}>pgjdfhjfgdhjfglhjgflhfl</div>
+            <div className={styles.description}>
+              Broadcast alert to nearby users
+            </div>
           </div>
           <MdKeyboardArrowRight fontSize={35} />
         </div>
@@ -33,7 +35,9 @@ export default function HomeComponent() {
         <div className={styles.cardRight}>
           <div className={styles.info}>
             <span className={styles.title}>Missing Persons</span>
-            <div className={styles.description}>pgjdfhjfgdhjfglhjgflhfl</div>
+            <div className={styles.description}>
+              View list of missing persons
+            </div>
           </div>
           <MdKeyboardArrowRight fontSize={35} />
         </div>
@@ -43,7 +47,9 @@ export default function HomeComponent() {
         <div className={styles.cardRight}>
           <div className={styles.info}>
             <span className={styles.title}>Missing Vehicles</span>
-            <div className={styles.description}>pgjdfhjfgdhjfglhjgflhfl</div>
+            <div className={styles.description}>
+              View list of missing vehicles
+            </div>
           </div>
           <MdKeyboardArrowRight fontSize={35} />
         </div>
@@ -57,7 +63,7 @@ export default function HomeComponent() {
         <div className={styles.cardRight}>
           <div className={styles.info}>
             <span className={styles.title}>Missing Bikes</span>
-            <div className={styles.description}>pgjdfhjfgdhjfglhjgflhfl</div>
+            <div className={styles.description}>View list of missing bikes</div>
           </div>
           <MdKeyboardArrowRight fontSize={35} />
         </div>
@@ -67,7 +73,7 @@ export default function HomeComponent() {
         <div className={styles.cardRight}>
           <div className={styles.info}>
             <span className={styles.title}>About</span>
-            <div className={styles.description}>pgjdfhjfgdhjfglhjgflhfl</div>
+            <div className={styles.description}>More on MissingLink</div>
           </div>
           <MdKeyboardArrowRight fontSize={35} />
         </div>

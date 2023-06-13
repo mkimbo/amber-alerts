@@ -10,30 +10,29 @@ export default function About() {
         {/* @ts-expect-error https://github.com/vercel/next.js/issues/43537 */}
         <ServerAuthProvider>
           <div className={styles.text}>
-            In critical situations, time is of the essence. Traditional methods
-            of search and rescue often face limitations in reaching the highest
-            number of relevant people promptly.
+            In critical situations, time is of the essence and traditional
+            methods of search and rescue often face limitations in reaching the
+            highest number of relevant people Asap.
           </div>
           <div className={styles.text}>
-            The project is aimed at supplementing and extending current methods
-            by leveraging technologies like PUSH Notifications and Geolocation
-            to enhance public safety, not only for children but also for adults
-            and property like vehicles and motorbikes.
+            This service aims to supplement and extend current methods using
+            modern technologies to enhance public safety, not only for children
+            but also for adults and property like vehicles and motorbikes.
           </div>
           <h2 className={styles.title}>Alerts</h2>
           <div className={styles.text}>
-            By leveraging PUSH notification technology, we ensure that you
-            receive real-time updates directly on your preferred devices. Stay
+            By leveraging PUSH notification technology, a user will be able to
+            receive real-time updates directly on their preferred devices. Stay
             informed about missing persons, stolen vehicles, severe weather
-            warnings, and other critical events affecting your community.
+            warnings, and other critical events affecting the community.
           </div>
           <h2 className={styles.title}>Geolocation</h2>
           <div className={styles.text}>
-            Geo-location technology plays a vital role in our platform. It
-            allows us to deliver targeted alerts based on your current location.
-            You will receive alerts relevant to your neighborhood, enabling you
-            to take prompt action and contribute to the safety of your
-            community.
+            Geo-location technology plays a vital role in the platform. It
+            allows delivery of targeted alerts based on the location of the
+            receiver. You will receive alerts relevant to your neighborhood,
+            enabling you to take prompt action and contribute to the safety of
+            your community.
           </div>
           <h2 className={styles.title}>Preferences</h2>
           <div className={styles.text}>
@@ -49,12 +48,12 @@ export default function About() {
           </div>
           <h2 className={styles.title}>More</h2>
           <div className={styles.text}>
-            We are also committed to providing comprehensive resources to the
-            public. Our platform will feature a wealth of information, including
-            emergency contacts, safety guidelines, and community-driven
-            initiatives. By fostering community engagement, we empower
-            individuals to take an active role in public safety and make a
-            difference.
+            MissingLink is also committed to providing comprehensive resources
+            to the public. The platform will feature a wealth of information,
+            including emergency contacts, safety guidelines, and
+            community-driven initiatives. By fostering community engagement, we
+            empower individuals to take an active role in public safety and make
+            a difference.
           </div>
         </ServerAuthProvider>
       </div>

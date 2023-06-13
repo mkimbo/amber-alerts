@@ -3,7 +3,6 @@ import { Navbar } from "./Components/Navbar";
 import ToastProvider from "./Components/ToastProvider";
 import "./globals.scss";
 import styles from "./layout.module.scss";
-import { Suspense } from "react";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://amber-alerts.vercel.app"),
@@ -21,7 +20,7 @@ export const metadata: Metadata = {
     siteName: "Missing Link",
     images: [
       {
-        url: "https://leerob.io/og.jpg", // Replace this with your own image
+        url: "https://amber-alerts.vercel.app/og.jpg", // Replace this with your own image
         width: 1920,
         height: 1080,
       },

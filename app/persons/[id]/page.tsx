@@ -55,7 +55,7 @@ export async function generateMetadata({
   const ogImage = images[0];
 
   return {
-    title: found ? fullname : fullname + " | Missing",
+    title: found ? fullname : fullname,
     description: lastSeenDescription,
     // metadataBase: new URL("https://amber-alerts.vercel.app"),
     alternates: {

@@ -45,7 +45,7 @@ export async function generateMetadata({
   const ogImage = images[0];
 
   return {
-    title: found ? make + " " + model : make + " " + model + " | Missing",
+    title: found ? make + " " + model : make + " " + model,
     description: lastSeenDescription,
     alternates: {
       canonical: `https://amber-alerts.vercel.app/bikes/${params.id}`,
