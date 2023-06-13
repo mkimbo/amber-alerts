@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     siteName: "Missing Link",
     images: [
       {
-        url: "https://amber-alerts.vercel.app/og.jpg", // Replace this with your own image
+        url: "https://amber-alerts.vercel.app/og.png", // Replace this with your own image
         width: 1920,
         height: 1080,
       },
@@ -28,24 +28,24 @@ export const metadata: Metadata = {
     locale: "en-US",
     type: "website",
   },
-  // robots: {
-  //   index: true,
-  //   follow: true,
-  //   googleBot: {
-  //     index: true,
-  //     follow: true,
-  //     "max-video-preview": -1,
-  //     "max-image-preview": "large",
-  //     "max-snippet": -1,
-  //   },
-  // },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   twitter: {
     title: "Missing Link",
     card: "summary_large_image",
   },
-  // icons: {
-  //   shortcut: "/favicon.ico",
-  // },
+  icons: {
+    shortcut: "/favicon.ico",
+  },
   verification: {
     google: "VaD1qjKK95G1B1wsA3ZydoAdSg2r3aCm6D7ZJw2bw",
   },

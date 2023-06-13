@@ -27,7 +27,7 @@ async function getMissingBikesList(): Promise<TMotor[]> {
 
 export const metadata: Metadata = {
   title: "Missing Bikes",
-  description: "Missing Bikes List ",
+  description: "Missing Bikes List",
 };
 
 export default async function MissingBikessList() {
