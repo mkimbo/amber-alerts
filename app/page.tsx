@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import styles from "./page.module.scss";
-import { VscBroadcast } from "react-icons/vsc";
 import { ServerAuthProvider } from "@/auth/server-auth-provider";
 import HomeComponent from "./Components/HomeComponent";
 // export async function generateStaticParams() {

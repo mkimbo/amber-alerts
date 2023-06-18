@@ -6,6 +6,7 @@ import { MdKeyboardArrowRight, MdPersonSearch } from "react-icons/md";
 import { AiFillCar } from "react-icons/ai";
 import { RiMotorbikeFill } from "react-icons/ri";
 import { BsInfoCircle } from "react-icons/bs";
+import { GrResources } from "react-icons/gr";
 import Link from "next/link";
 
 // import { useLoadingCallback } from "react-loading-hook";
@@ -64,6 +65,16 @@ export default function HomeComponent() {
           <div className={styles.info}>
             <span className={styles.title}>Missing Bikes</span>
             <div className={styles.description}>View list of missing bikes</div>
+          </div>
+          <MdKeyboardArrowRight fontSize={35} />
+        </div>
+      </Link>
+      <Link href="/resources" className={styles.card}>
+        <GrResources className={styles.icon} color={"#ff4400"} fontSize={40} />
+        <div className={styles.cardRight}>
+          <div className={styles.info}>
+            <span className={styles.title}>Resources</span>
+            <div className={styles.description}>Public Safety Information</div>
           </div>
           <MdKeyboardArrowRight fontSize={35} />
         </div>

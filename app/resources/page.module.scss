@@ -1,0 +1,43 @@
+@import "../../styles/variables.module.scss";
+@import "../../styles/_mixins.scss";
+.container {
+  width: 100%;
+  padding: 1.5rem;
+  text-align: center;
+  overflow-y: auto;
+
+  .card {
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+    width: 100;
+    border: 1px solid $primaryColor;
+    border-radius: 10px;
+    margin: 10px 0;
+    .cardRight {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      .info {
+        margin-left: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        .description {
+          font-size: smaller;
+          color: $grey;
+        }
+      }
+    }
+  }
+  &::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+  }
+  @include lg {
+    width: 30%;
+    margin: 0 auto;
+  }
+}
