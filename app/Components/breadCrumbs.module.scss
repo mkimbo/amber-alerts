@@ -1,0 +1,32 @@
+@import "../../styles/variables.module.scss";
+@import "../../styles/_mixins.scss";
+
+.breadcrumbs {
+  margin-bottom: 5px;
+  display: inline-flex;
+  width: 100%;
+}
+
+.breadcrumbs span {
+  text-decoration: none;
+  color: $white; /* Change color as desired */
+}
+
+.breadcrumbs span:hover {
+  text-decoration: underline;
+}
+
+.breadcrumbs .current {
+  color: $white; /* Change color as desired */
+  font-weight: bold;
+}
+
+.breadcrumbs .normal {
+  color: $grey; /* Change color as desired */
+  // font-weight: bold;
+}
+
+.breadcrumbs .separator {
+  margin: 0 5px;
+  color: $white; /* Change color as desired */
+}
