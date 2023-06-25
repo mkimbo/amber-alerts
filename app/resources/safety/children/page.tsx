@@ -5,7 +5,7 @@ import Breadcrumbs from "@/app/Components/BreadCrumbs";
 export const metadata: Metadata = {
   title: "Child Safety",
   description:
-    "It's important to educate children about potential risks, establish clear guidelines, and maintain open lines of communication.",
+    "Its important to educate children about potential risks, establish clear guidelines, and maintain open lines of communication.",
 };
 export default function ChildSafety() {
   const getProgressBar = (progressBar: string) => {
@@ -22,8 +22,9 @@ export default function ChildSafety() {
         <div className={styles.resourceWrapper}>
           <div className={styles.title}>Child Safety</div>
           <div className={styles.resourceHeader}>
-            It's important to educate children about potential risks, establish
-            clear guidelines, and maintain open lines of communication.
+            It&#39;s important to educate children about potential risks,
+            establish clear guidelines, and maintain open lines of
+            communication.
           </div>
           {getProgressBar(`100%`)}
           <div className={styles.resourceBody}>

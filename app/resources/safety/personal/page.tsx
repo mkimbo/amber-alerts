@@ -97,7 +97,7 @@ export default function PersonalHealth() {
                 <strong>Stay Connected: </strong>
                 Keep your phone charged and easily accessible. Inform a trusted
                 person about your whereabouts or travel plans, especially if
-                you're in an unfamiliar location.
+                you&#39;re in an unfamiliar location.
               </div>
             </div>
             <div className={styles.paragraph}>

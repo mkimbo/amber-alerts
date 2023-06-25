@@ -77,8 +77,8 @@ export default function OnlineHealth() {
                 <strong>Report and Block Cyberbullies: </strong>
                 If you encounter online bullying or harassment, report the
                 abusive behavior to the platform administrators and consider
-                blocking the person involved. Don't engage or retaliate, as it
-                can escalate the situation.
+                blocking the person involved. Don&#39;t engage or retaliate, as
+                it can escalate the situation.
               </div>
             </div>
             <div className={styles.paragraph}>
