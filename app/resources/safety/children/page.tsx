@@ -49,7 +49,7 @@ export default function ChildSafety() {
               <div className={styles.content}>
                 <strong>Personal Boundaries: </strong>
                 Teach children about personal boundaries and the importance of
-                saying "no" when someone makes them uncomfortable.
+                saying &#34;No&#34; when someone makes them uncomfortable.
               </div>
             </div>
             <div className={styles.paragraph}>
