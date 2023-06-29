@@ -4,6 +4,9 @@ import Link from "next/link";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { GiPoliceBadge } from "react-icons/gi";
 import Breadcrumbs from "@/app/Components/BreadCrumbs";
+import { BsPeopleFill, BsPersonFillCheck } from "react-icons/bs";
+import { TbWorldWww } from "react-icons/tb";
+import { FaChild, FaFireExtinguisher } from "react-icons/fa";
 //import HomeComponent from "./Components/HomeComponent";
 // export async function generateStaticParams() {
 //   return [{}];
@@ -18,7 +21,7 @@ export default function SafetyResources() {
       <Breadcrumbs />
       <div className={styles.cardWrapper}>
         <Link href="/resources/safety/personal" className={styles.card}>
-          <GiPoliceBadge
+          <BsPersonFillCheck
             className={styles.icon}
             color={"#ff4400"}
             fontSize={40}
@@ -32,11 +35,7 @@ export default function SafetyResources() {
           </div>
         </Link>
         <Link href="/resources/safety/online" className={styles.card}>
-          <GiPoliceBadge
-            className={styles.icon}
-            color={"#ff4400"}
-            fontSize={40}
-          />
+          <TbWorldWww className={styles.icon} color={"#ff4400"} fontSize={40} />
           <div className={styles.cardRight}>
             <div className={styles.info}>
               <span className={styles.title}>Online Safety</span>
@@ -48,11 +47,7 @@ export default function SafetyResources() {
           </div>
         </Link>
         <Link href="/resources/safety/children" className={styles.card}>
-          <GiPoliceBadge
-            className={styles.icon}
-            color={"#ff4400"}
-            fontSize={40}
-          />
+          <FaChild className={styles.icon} color={"#ff4400"} fontSize={40} />
           <div className={styles.cardRight}>
             <div className={styles.info}>
               <span className={styles.title}>Child Safety</span>
@@ -64,7 +59,7 @@ export default function SafetyResources() {
           </div>
         </Link>
         <Link href="/resources/safety/sexual" className={styles.card}>
-          <GiPoliceBadge
+          <BsPeopleFill
             className={styles.icon}
             color={"#ff4400"}
             fontSize={40}
@@ -78,7 +73,7 @@ export default function SafetyResources() {
           </div>
         </Link>
         <Link href="/resources/safety/fire" className={styles.card}>
-          <GiPoliceBadge
+          <FaFireExtinguisher
             className={styles.icon}
             color={"#ff4400"}
             fontSize={40}

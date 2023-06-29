@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation";
 import NotificationsHandler from "./NotificationsHandler";
 import { useAuth } from "@/auth/hooks";
 import { AuthProvider } from "@/auth/client-auth-provider";
+import { GiExplosiveMaterials } from "react-icons/gi";
 
 export function Navbar() {
   const [navActive, setNavActive] = useState(false);
@@ -56,6 +57,11 @@ export function Navbar() {
       text: "Bikes",
       href: "/bikes",
       icon: <RiMotorbikeFill color={"#ff4400"} fontSize={26} />,
+    },
+    {
+      text: "Resources",
+      href: "/resources",
+      icon: <GiExplosiveMaterials color={"#ff4400"} fontSize={26} />,
     },
     {
       text: "Profile",

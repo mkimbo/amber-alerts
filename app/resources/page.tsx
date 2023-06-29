@@ -2,8 +2,13 @@ import { Metadata } from "next";
 import styles from "./page.module.scss";
 import { ServerAuthProvider } from "@/auth/server-auth-provider";
 import Link from "next/link";
-import { MdKeyboardArrowRight } from "react-icons/md";
+import {
+  MdEmergency,
+  MdHealthAndSafety,
+  MdKeyboardArrowRight,
+} from "react-icons/md";
 import { GiPoliceBadge } from "react-icons/gi";
+import { AiFillSafetyCertificate, AiOutlineSafety } from "react-icons/ai";
 //import HomeComponent from "./Components/HomeComponent";
 // export async function generateStaticParams() {
 //   return [{}];
@@ -32,7 +37,7 @@ export default function Resources() {
           </div>
         </Link>
         <Link href="/resources/emergency" className={styles.card}>
-          <GiPoliceBadge
+          <MdEmergency
             className={styles.icon}
             color={"#ff4400"}
             fontSize={40}
@@ -46,7 +51,7 @@ export default function Resources() {
           </div>
         </Link>
         <Link href="/resources/health" className={styles.card}>
-          <GiPoliceBadge
+          <MdHealthAndSafety
             className={styles.icon}
             color={"#ff4400"}
             fontSize={40}
@@ -60,7 +65,7 @@ export default function Resources() {
           </div>
         </Link>
         <Link href="/resources/safety" className={styles.card}>
-          <GiPoliceBadge
+          <AiFillSafetyCertificate
             className={styles.icon}
             color={"#ff4400"}
             fontSize={40}

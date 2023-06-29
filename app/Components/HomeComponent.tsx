@@ -8,6 +8,7 @@ import { RiMotorbikeFill } from "react-icons/ri";
 import { BsInfoCircle } from "react-icons/bs";
 import { GrResources } from "react-icons/gr";
 import Link from "next/link";
+import { GiExplosiveMaterials } from "react-icons/gi";
 
 // import { useLoadingCallback } from "react-loading-hook";
 // import { Button } from "@/ui/button";
@@ -70,7 +71,11 @@ export default function HomeComponent() {
         </div>
       </Link>
       <Link href="/resources" className={styles.card}>
-        <GrResources className={styles.icon} color={"#ff4400"} fontSize={40} />
+        <GiExplosiveMaterials
+          className={styles.icon}
+          color={"#ff4400"}
+          fontSize={40}
+        />
         <div className={styles.cardRight}>
           <div className={styles.info}>
             <span className={styles.title}>Resources</span>
