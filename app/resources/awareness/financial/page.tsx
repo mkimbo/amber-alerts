@@ -115,8 +115,8 @@ export default function CSE() {
               <div className={styles.content}>
                 <strong>Emergency Fund: </strong>
                 Establish an emergency fund to cover unexpected expenses. Aim to
-                save three to six months' worth of living expenses in case of
-                emergencies.
+                save three to six months&apos; worth of living expenses in case
+                of emergencies.
               </div>
             </div>
             <div className={styles.paragraph}>
