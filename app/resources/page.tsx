@@ -36,7 +36,7 @@ export default function Resources() {
             <MdKeyboardArrowRight fontSize={35} />
           </div>
         </Link>
-        <Link href="/resources/emergency" className={styles.card}>
+        {/* <Link href="/resources/emergency" className={styles.card}>
           <MdEmergency
             className={styles.icon}
             color={"#ff4400"}
@@ -49,7 +49,7 @@ export default function Resources() {
             </div>
             <MdKeyboardArrowRight fontSize={35} />
           </div>
-        </Link>
+        </Link> */}
         <Link href="/resources/health" className={styles.card}>
           <MdHealthAndSafety
             className={styles.icon}

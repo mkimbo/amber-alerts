@@ -60,7 +60,7 @@ export function NewPersonAlert() {
   useEffect(() => {
     if (data?.success) {
       toast.success(`Alert was sent to ${data?.numUsersNotified} nearby users`);
-      router.push(`/share/${data.id}?type=person`);
+      router.push(`/persons/${data.id}`);
     }
   }, [data]);
 

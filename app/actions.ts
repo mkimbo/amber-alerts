@@ -168,7 +168,10 @@ export const saveMotorSighting = zact(saveSightingSchema)(async (input) => {
 
 export const saveAlert = zact(savePersonAlertSchema)(async (data) => {
   const docID = nanoid();
-  await serverDB.collection("reported_missing").doc(docID).set(data);
+  await serverDB
+    .collection(process.env.FIREBASE_FIRESTORE_MISSING_PERSONS!)
+    .doc(docID)
+    .set(data);
   revalidatePath("/persons");
   const center = [Number(data.geoloc.lat), Number(data.geoloc.lng)];
   const notification = {
