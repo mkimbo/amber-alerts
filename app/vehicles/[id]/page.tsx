@@ -18,7 +18,7 @@ async function getMissingVehicleById(
   vehicleId: string
 ): Promise<TMotor | null> {
   const missingVehicle = await serverDB
-    .collection("missing_motors")
+    .collection(process.env.FIREBASE_FIRESTORE_MISSING_MOTORS!)
     .doc(vehicleId)
     .get();
   if (!missingVehicle.exists) {

@@ -16,7 +16,7 @@ import MarkAsFoundButton from "@/app/Components/MarkAsFoundButton";
 
 async function getMissingBikeById(bikeId: string): Promise<TMotor | null> {
   const missingBike = await serverDB
-    .collection("missing_motors")
+    .collection(process.env.FIREBASE_FIRESTORE_MISSING_MOTORS!)
     .doc(bikeId)
     .get();
   if (!missingBike.exists) {

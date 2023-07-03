@@ -24,7 +24,10 @@ export default async function handler(
 
     const userID = req.query.id as string;
     console.log("got logged in user", userID);
-    const user = await serverDB.collection("users").doc(userID).get();
+    const user = await serverDB
+      .collection(process.env.FIREBASE_FIRESTORE_USER_COLLECTION!)
+      .doc(userID)
+      .get();
     if (!user.exists) return res.status(404).json({ error: "User not found" });
     return res.status(200).json(user.data());
   } catch (error) {

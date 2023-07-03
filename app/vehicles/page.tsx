@@ -8,7 +8,9 @@ import { Metadata } from "next";
 
 async function getMissingVehicleList(): Promise<TMotor[]> {
   const data: any[] = [];
-  const docs = await serverDB.collection("missing_motors").get();
+  const docs = await serverDB
+    .collection(process.env.FIREBASE_FIRESTORE_MISSING_MOTORS!)
+    .get();
   if (docs.empty) {
     return [];
   }

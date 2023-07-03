@@ -10,7 +10,10 @@ export default async function handler(
   try {
     const docID = nanoid();
     const data = req.body;
-    await serverDB.collection("reported_missing").doc(docID).set(data);
+    await serverDB
+      .collection(process.env.FIREBASE_FIRESTORE_MISSING_PERSONS!)
+      .doc(docID)
+      .set(data);
     return res.status(200).json({ id: docID });
     //Send notification
   } catch (error) {

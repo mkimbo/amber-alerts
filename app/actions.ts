@@ -43,7 +43,9 @@ const markAsFound = z.object({
 });
 
 export const markPersonFound = zact(markAsFound)(async (input) => {
-  const docRef = serverDB.collection("reported_missing").doc(input.itemId);
+  const docRef = serverDB
+    .collection(process.env.FIREBASE_FIRESTORE_MISSING_PERSONS!)
+    .doc(input.itemId);
 
   await docRef.update({
     found: true,
@@ -56,7 +58,9 @@ export const markPersonFound = zact(markAsFound)(async (input) => {
 });
 
 export const markMotorFound = zact(markAsFound)(async (input) => {
-  const docRef = serverDB.collection("missing_motors").doc(input.itemId);
+  const docRef = serverDB
+    .collection(process.env.FIREBASE_FIRESTORE_MISSING_MOTORS!)
+    .doc(input.itemId);
 
   await docRef.update({
     found: true,
@@ -73,7 +77,9 @@ export const markMotorFound = zact(markAsFound)(async (input) => {
 });
 
 export const savePersonSighting = zact(saveSightingSchema)(async (input) => {
-  const docRef = serverDB.collection("reported_missing").doc(input.itemId);
+  const docRef = serverDB
+    .collection(process.env.FIREBASE_FIRESTORE_MISSING_PERSONS!)
+    .doc(input.itemId);
   const doc = await docRef.get();
   const caseOwnerId = doc.data()?.createdBy;
 
@@ -83,7 +89,10 @@ export const savePersonSighting = zact(saveSightingSchema)(async (input) => {
   const url = `/persons/${input.itemId}`;
   revalidatePath(url);
   //notify case owner
-  const caseOwner = await serverDB.collection("users").doc(caseOwnerId).get();
+  const caseOwner = await serverDB
+    .collection(process.env.FIREBASE_FIRESTORE_USER_COLLECTION!)
+    .doc(caseOwnerId)
+    .get();
   const notification = {
     title: doc.data()?.fullname,
     body: `has been sighted around ${input?.sightingLocation?.toLowerCase()}`,
@@ -113,7 +122,9 @@ export const savePersonSighting = zact(saveSightingSchema)(async (input) => {
 });
 
 export const saveMotorSighting = zact(saveSightingSchema)(async (input) => {
-  const docRef = serverDB.collection("missing_motors").doc(input.itemId);
+  const docRef = serverDB
+    .collection(process.env.FIREBASE_FIRESTORE_MISSING_MOTORS!)
+    .doc(input.itemId);
   const doc = await docRef.get();
   const caseOwnerId = doc.data()?.createdBy;
 
@@ -123,7 +134,10 @@ export const saveMotorSighting = zact(saveSightingSchema)(async (input) => {
   const url = `/vehicles/${input.itemId}`;
   revalidatePath(url);
   //notify case owner
-  const caseOwner = await serverDB.collection("users").doc(caseOwnerId).get();
+  const caseOwner = await serverDB
+    .collection(process.env.FIREBASE_FIRESTORE_USER_COLLECTION!)
+    .doc(caseOwnerId)
+    .get();
   const notification = {
     title: doc.data()?.licencePlate,
     body: `has been sighted around ${input?.sightingLocation?.toLowerCase()}`,
@@ -202,7 +216,10 @@ export const saveAlert = zact(savePersonAlertSchema)(async (data) => {
 
 export const saveMotorAlert = zact(saveMotorAlertSchema)(async (data) => {
   const docID = nanoid();
-  await serverDB.collection("missing_motors").doc(docID).set(data);
+  await serverDB
+    .collection(process.env.FIREBASE_FIRESTORE_MISSING_MOTORS!)
+    .doc(docID)
+    .set(data);
   let action = "";
   if (data.motorType === "vehicle") {
     revalidatePath("/vehicles");
@@ -258,7 +275,7 @@ export const saveMotorAlert = zact(saveMotorAlertSchema)(async (data) => {
 
 export const updateUser = zact(updateUserSchema)(async (data) => {
   await serverDB
-    .collection("users")
+    .collection(process.env.FIREBASE_FIRESTORE_USER_COLLECTION!)
     .doc(data.id)
     .set(JSON.parse(JSON.stringify(data)), { merge: true });
   revalidatePath("/profile");
@@ -329,7 +346,7 @@ const getUsersWithinRadiusOfCase = async (
   const promises = [];
   for (const b of bounds) {
     const q = serverDB
-      .collection("users")
+      .collection(process.env.FIREBASE_FIRESTORE_USER_COLLECTION!)
       .orderBy("geohash")
       .startAt(b[0])
       .endAt(b[1]);
@@ -393,10 +410,13 @@ const sendAlertToUserDevices = async (
   });
   failedTokens.forEach((id) => {
     tokensToRemove.push(
-      serverDB.collection("users").doc(id).update({
-        notificationToken: null,
-        // enabledNotifications: false,
-      })
+      serverDB
+        .collection(process.env.FIREBASE_FIRESTORE_USER_COLLECTION!)
+        .doc(id)
+        .update({
+          notificationToken: null,
+          // enabledNotifications: false,
+        })
     );
   });
 

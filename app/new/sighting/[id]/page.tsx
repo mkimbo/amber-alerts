@@ -6,7 +6,7 @@ import { serverDB } from "@/utils/firebase";
 import { TMotor } from "@/models/misssing_motor.model";
 async function getMissingPersonData(personId: string): Promise<TPerson | null> {
   const missingPerson = await serverDB
-    .collection("reported_missing")
+    .collection(process.env.FIREBASE_FIRESTORE_MISSING_PERSONS!)
     .doc(personId)
     .get();
   if (!missingPerson.exists) {
@@ -19,7 +19,7 @@ async function getMissingPersonData(personId: string): Promise<TPerson | null> {
 
 async function getMissingMotorData(motorId: string): Promise<TMotor | null> {
   const missingMotor = await serverDB
-    .collection("missing_motors")
+    .collection(process.env.FIREBASE_FIRESTORE_MISSING_MOTORS!)
     .doc(motorId)
     .get();
   if (!missingMotor.exists) {

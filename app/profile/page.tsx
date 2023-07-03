@@ -15,7 +15,10 @@ async function getProfileData() {
     throw new Error("Please login to access this page");
   }
   const userID = tenant?.id;
-  const user = await serverDB.collection("users").doc(userID).get();
+  const user = await serverDB
+    .collection(process.env.FIREBASE_FIRESTORE_USER_COLLECTION!)
+    .doc(userID)
+    .get();
   if (!user.exists) {
     return {
       id: userID,

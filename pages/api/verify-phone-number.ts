@@ -32,7 +32,7 @@ export default async function handler(
       };
       const docID = id;
       await serverDB
-        .collection("users")
+        .collection(process.env.FIREBASE_FIRESTORE_USER_COLLECTION!)
         .doc(docID)
         .set(JSON.parse(JSON.stringify(data)), { merge: true });
       return res.status(200).json({ success: true });

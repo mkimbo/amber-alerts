@@ -12,7 +12,9 @@ export const metadata: Metadata = {
 
 async function getMissingPersonList(): Promise<TPerson[]> {
   const data: any[] = [];
-  const docs = await serverDB.collection("reported_missing").get();
+  const docs = await serverDB
+    .collection(process.env.FIREBASE_FIRESTORE_MISSING_PERSONS!)
+    .get();
   if (docs.empty) {
     return [];
   }

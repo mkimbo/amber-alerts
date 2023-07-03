@@ -27,7 +27,7 @@ export const revalidate = 0;
 
 async function getMissingPersonById(personId: string): Promise<TPerson | null> {
   const missingPerson = await serverDB
-    .collection("reported_missing")
+    .collection(process.env.FIREBASE_FIRESTORE_MISSING_PERSONS!)
     .doc(personId)
     .get();
   if (!missingPerson.exists) {
