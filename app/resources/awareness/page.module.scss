@@ -1,0 +1,50 @@
+@import "../../../styles/variables.module.scss";
+@import "../../../styles/_mixins.scss";
+.container {
+  width: 100%;
+  padding: 1.5rem;
+  text-align: center;
+  overflow-y: auto;
+  .cardWrapper {
+    border: 1px solid $primaryColor;
+    border-radius: 10px;
+    width: 100%;
+    padding: 10px;
+  }
+  .card {
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+    width: 100;
+    margin: 10px 0;
+    &:hover {
+      background-color: $lightGrey;
+      cursor: pointer;
+    }
+    .cardRight {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      .info {
+        margin-left: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        .description {
+          font-size: smaller;
+          color: $grey;
+        }
+      }
+    }
+  }
+  &::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+  }
+  @include lg {
+    width: 30%;
+    margin: 0 auto;
+  }
+}

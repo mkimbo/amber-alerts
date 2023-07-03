@@ -58,20 +58,7 @@ export default function SafetyResources() {
             <MdKeyboardArrowRight fontSize={35} />
           </div>
         </Link>
-        <Link href="/resources/safety/sexual" className={styles.card}>
-          <BsPeopleFill
-            className={styles.icon}
-            color={"#ff4400"}
-            fontSize={40}
-          />
-          <div className={styles.cardRight}>
-            <div className={styles.info}>
-              <span className={styles.title}>Sexual harrassment and GBV</span>
-              <div className={styles.description}>Awareness and prevention</div>
-            </div>
-            <MdKeyboardArrowRight fontSize={35} />
-          </div>
-        </Link>
+
         <Link href="/resources/safety/fire" className={styles.card}>
           <FaFireExtinguisher
             className={styles.icon}

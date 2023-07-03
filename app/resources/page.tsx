@@ -72,7 +72,21 @@ export default function Resources() {
           />
           <div className={styles.cardRight}>
             <div className={styles.info}>
-              <span className={styles.title}>Safety & Awareness Tips</span>
+              <span className={styles.title}>Safety Tips</span>
+              <div className={styles.description}>Proactive over reactive</div>
+            </div>
+            <MdKeyboardArrowRight fontSize={35} />
+          </div>
+        </Link>
+        <Link href="/resources/awareness" className={styles.card}>
+          <AiFillSafetyCertificate
+            className={styles.icon}
+            color={"#ff4400"}
+            fontSize={40}
+          />
+          <div className={styles.cardRight}>
+            <div className={styles.info}>
+              <span className={styles.title}>Awareness Info</span>
               <div className={styles.description}>Proactive over reactive</div>
             </div>
             <MdKeyboardArrowRight fontSize={35} />
