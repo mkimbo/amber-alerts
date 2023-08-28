@@ -79,7 +79,7 @@ export default function HomeComponent() {
         <div className={styles.cardRight}>
           <div className={styles.info}>
             <span className={styles.title}>Resources</span>
-            <div className={styles.description}>Public Safety Information</div>
+            <div className={styles.description}>Public Information</div>
           </div>
           <MdKeyboardArrowRight fontSize={35} />
         </div>

@@ -73,7 +73,10 @@ export function VerifyForm() {
     <FormProvider {...methods}>
       <form>
         {/* <h3>Confirm</h3> */}
-        <p>Enter the verification code sent to your phone number.</p>
+        <p>
+          Enter the verification code sent to the mobile phone number you
+          provided.
+        </p>
         <div>
           <div className={styles.inputField}>
             <Controller

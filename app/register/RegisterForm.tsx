@@ -70,11 +70,13 @@ export function RegisterForm() {
   }
   return (
     <FormProvider {...methods}>
-      <h3>Please add your phone number</h3>
+      {/* <h3>Phone Number</h3> */}
       <p>
-        We need it for all new missing person alerts/sighting reports in case
-        you need to be contacted urgently. It will not be shared with any third
-        parties.
+        To ensure timely responses and facilitate urgent communication when
+        required, we kindly request you to provide your phone number for mobile
+        number verification purposes. Please rest assured that your phone number
+        will be treated with the utmost confidentiality and will not be shared
+        with any third parties.
       </p>
       <div>
         <div className={styles.inputField}>
