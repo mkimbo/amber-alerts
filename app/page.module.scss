@@ -10,7 +10,7 @@
     background: transparent; /* make scrollbar transparent */
   }
   @include lg {
-    width: 30%;
+    width: 55%;
     margin: 0 auto;
   }
 }
@@ -72,9 +72,9 @@
   transition: color 0.15s ease, border-color 0.15s ease;
   max-width: 420px;
   text-align: center;
-  .icon {
-    margin: auto;
-  }
+  // .icon {
+  //   margin: auto;
+  // }
 }
 
 .card h2 {

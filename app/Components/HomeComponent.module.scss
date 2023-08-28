@@ -1,28 +1,54 @@
 @import "../../styles/variables.module.scss";
 @import "../../styles/_mixins.scss";
-
-.card {
+.mainLinks {
   display: flex;
   flex-direction: row;
-  padding: 5px;
-  width: 100;
-  border: 1px solid $primaryColor;
-  border-radius: 10px;
-  margin: 10px 0;
-  .cardRight {
+  flex-wrap: wrap;
+  @include lg {
+    justify-content: space-between;
+  }
+  .card {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    padding: 5px;
     width: 100%;
-    .info {
-      margin-left: 10px;
-      display: flex;
+    border: 1px solid $primaryColor;
+    border-radius: 10px;
+    margin: 10px 0;
+
+    @include lg {
       flex-direction: column;
-      align-items: flex-start;
-      .description {
-        font-size: smaller;
-        color: $grey;
+      align-items: center;
+      width: 300px;
+      padding-top: 20px;
+    }
+    .cardRight {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      @include lg {
+        flex-direction: column;
+      }
+      .arrow {
+        @include lg {
+          display: none;
+        }
+      }
+      .info {
+        margin-left: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        @include lg {
+          align-items: center;
+          margin-bottom: 20px;
+        }
+        .description {
+          font-size: smaller;
+          color: $grey;
+        }
       }
     }
   }
