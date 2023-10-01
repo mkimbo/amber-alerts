@@ -47,6 +47,7 @@ export default function NotificationList() {
         //get all notifications that match the tenant id
         notification.notifiedUsers.forEach((user) => {
           if (user.userId === tenant?.id) {
+            console.log("notification", notification);
             notificationsArray = [...notificationsArray, notification];
           }
         });
