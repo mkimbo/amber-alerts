@@ -1,29 +1,29 @@
 // Create Next js 13 route handler for cases
-import { NextResponse } from "next/server";
-import { serverDB } from "@/utils/firebase";
+// import { NextResponse } from "next/server";
+// import { serverDB } from "@/utils/firebase";
 
-export async function GET() {
-  try {
-    const data: any[] = [];
-    const docs = await serverDB
-      .collection(process.env.FIREBASE_FIRESTORE_MISSING_PERSONS!)
-      .get();
-    if (docs.empty) {
-      return [];
-    }
-    docs.forEach((doc) => {
-      const dataObj = doc.data();
-      data.push({
-        id: doc.id,
-        ...dataObj,
-      });
-    });
-    return NextResponse.json({ data }, { status: 200 });
-  } catch (error) {
-    console.log(error);
-    return NextResponse.json({ error }, { status: 500 });
-  }
-}
+// export async function GET() {
+//   try {
+//     const data: any[] = [];
+//     const docs = await serverDB
+//       .collection(process.env.FIREBASE_FIRESTORE_MISSING_PERSONS!)
+//       .get();
+//     if (docs.empty) {
+//       return [];
+//     }
+//     docs.forEach((doc) => {
+//       const dataObj = doc.data();
+//       data.push({
+//         id: doc.id,
+//         ...dataObj,
+//       });
+//     });
+//     return NextResponse.json({ data }, { status: 200 });
+//   } catch (error) {
+//     console.log(error);
+//     return NextResponse.json({ error }, { status: 500 });
+//   }
+// }
 // Create Next js 13 route handler for cases by id
 
 // import { NextResponse } from 'next/server';
